@@ -1,4 +1,4 @@
-# This workflow builds the /docs directory and pushes the created html documents to GitHub Pages source path.
+# This workflow builds the /docs directory with tox and pushes the created html documents to GitHub Pages source path.
 # For this workflow the gh-pages branch is considered as the main source for the GitHub Page.
 
 # This workflow uses actions that are not certified by GitHub.
