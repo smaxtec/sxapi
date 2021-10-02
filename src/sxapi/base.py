@@ -8,26 +8,23 @@ INTEGRATION_API_V2 = "https://api.smaxtec.com/integration/v2"
 
 
 class BaseAPI(object):
-    def __init__(self, base_url, email=None, password=None, api_key=None):
+    def __init__(self, base_url, email=None, password=None, api_token=None):
         """Initialize a new base low level API client instance.
         """
         self.api_base_url = base_url.rstrip("/")
         self.email = email
         self.password = password
-        self.api_key = api_key
-        self._session_key = None
+        self.api_token = api_token
         self._session = None
 
     @property
     def session(self):
         """
-            Geneate a new HTTP session on the fly and login.
+            Geneates a new HTTP session on the fly and logs in if no session exists.
         """
-        if not self._session:
+        if self._session is None:
             self._session = requests.Session()
-        # check login
-        if not self._login():
-            raise ValueError("invalid login information")
+        self._login()
         return self._session
 
     def to_url(self, path):
@@ -37,21 +34,15 @@ class BaseAPI(object):
         """
             Login to the api with api key or the given credentials.
         """
-        if self.api_key:
-            self._session_key = self.api_key
+        if self.api_token is not None:
             self._session.headers.update(
-                {"Authorization": "Bearer {}".format(self._session_key)})
-            return True
-        # login with credentials
-        if self.email is None or self.password is None:
-            raise ValueError("user and password are needed for API access")
-        params = {"user": self.email, "password": self.password}
-
-        response = self._session.post(self.to_url("/users/credentials"), params=params)
-        self._session_key = response.json()["api_token"]
-        self._session.headers.update(
-            {"Authorization": "Bearer {}".format(self._session_key)})
-        return True
+                {"Authorization": f"Bearer {self.api_token}"})
+        else:
+            params = {"user": self.email, "password": self.password}
+            response = self._session.post(self.to_url("/users/credentials"), params=params)
+            self.api_token = response.json()['api_token']
+            self._session.headers.update(
+                {"Authorization": f"Bearer {self.api_token}"})
 
     def get(self, path, *args, **kwargs):
         url = self.to_url(path)
