@@ -63,3 +63,21 @@ class BaseAPI(object):
         url = self.to_url(path)
         r = self.session.delete(url, *args, **kwargs)
         return r.json()
+
+
+class PublicAPIV2(BaseAPI):
+    def __init__(self, base_url=None, email=None, password=None, api_token=None):
+        """Initialize a new public api client instance.
+        """
+        base_url = base_url or PUBLIC_API_V2
+        super(PublicAPIV2, self).__init__(base_url, email=email,
+                                                password=password, api_token=api_token)
+
+
+class IngtegrationAPIV2(BaseAPI):
+    def __init__(self, base_url=None, email=None, password=None, api_token=None):
+        """Initialize a new integration client instance.
+        """
+        base_url = base_url or INTEGRATION_API_V2
+        super(PublicAPIV2, self).__init__(base_url, email=email,
+                                                password=password, api_token=api_token)
