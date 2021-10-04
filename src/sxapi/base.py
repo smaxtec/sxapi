@@ -9,8 +9,7 @@ INTEGRATION_API_V2 = "https://api.smaxtec.com/integration/v2"
 
 class BaseAPI(object):
     def __init__(self, base_url, email=None, password=None, api_token=None):
-        """Initialize a new base low level API client instance.
-        """
+        """Initialize a new base low level API client instance."""
         self.api_base_url = base_url.rstrip("/")
         self.email = email
         self.password = password
@@ -20,7 +19,7 @@ class BaseAPI(object):
     @property
     def session(self):
         """
-            Geneates a new HTTP session on the fly and logs in if no session exists.
+        Geneates a new HTTP session on the fly and logs in if no session exists.
         """
         if self._session is None:
             self._session = requests.Session()
@@ -32,17 +31,17 @@ class BaseAPI(object):
 
     def _login(self):
         """
-            Login to the api with api key or the given credentials.
+        Login to the api with api key or the given credentials.
         """
         if self.api_token is not None:
-            self._session.headers.update(
-                {"Authorization": f"Bearer {self.api_token}"})
+            self._session.headers.update({"Authorization": f"Bearer {self.api_token}"})
         else:
             params = {"user": self.email, "password": self.password}
-            response = self._session.post(self.to_url("/users/credentials"), params=params)
-            self.api_token = response.json()['api_token']
-            self._session.headers.update(
-                {"Authorization": f"Bearer {self.api_token}"})
+            response = self._session.post(
+                self.to_url("/users/credentials"), params=params
+            )
+            self.api_token = response.json()["api_token"]
+            self._session.headers.update({"Authorization": f"Bearer {self.api_token}"})
 
     def get(self, path, *args, **kwargs):
         url = self.to_url(path)
@@ -67,17 +66,13 @@ class BaseAPI(object):
 
 class PublicAPIV2(BaseAPI):
     def __init__(self, base_url=None, email=None, password=None, api_token=None):
-        """Initialize a new public api client instance.
-        """
+        """Initialize a new public api client instance."""
         base_url = base_url or PUBLIC_API_V2
-        super(PublicAPIV2, self).__init__(base_url, email=email,
-                                                password=password, api_token=api_token)
+        super().__init__(base_url, email=email, password=password, api_token=api_token)
 
 
-class IngtegrationAPIV2(BaseAPI):
+class IntegrationAPIV2(BaseAPI):
     def __init__(self, base_url=None, email=None, password=None, api_token=None):
-        """Initialize a new integration client instance.
-        """
+        """Initialize a new integration api client instance."""
         base_url = base_url or INTEGRATION_API_V2
-        super(PublicAPIV2, self).__init__(base_url, email=email,
-                                                password=password, api_token=api_token)
+        super().__init__(base_url, email=email, password=password, api_token=api_token)
