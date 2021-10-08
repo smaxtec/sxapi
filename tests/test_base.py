@@ -1,6 +1,10 @@
 import mock
 
-from sxapi.base import BaseAPI, IntegrationAPIV2, PublicAPIV2
+from sxapi.base import (
+    BaseAPI,
+    IntegrationAPIV2,
+    PublicAPIV2,
+)
 
 
 @mock.patch("requests.Session.delete")

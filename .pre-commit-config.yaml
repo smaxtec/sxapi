@@ -1,3 +1,5 @@
+# find all other possible hooks at https://pre-commit.com/hooks.html
+
 default_stages: [commit]
 fail_fast: true
 
@@ -19,7 +21,6 @@ repos:
     hooks:
       - id: isort
         name: isort (python)
-        args: ["--profile", "black"]
 
   - repo: https://github.com/myint/autoflake
     rev: v1.4
