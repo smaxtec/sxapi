@@ -1,6 +1,7 @@
 import argparse
-from setuptools import setup
 import sys
+
+from setuptools import setup
 
 
 class cli:
@@ -18,7 +19,10 @@ class cli:
     def parse_args(args):
         """Parse arguments from the CLI."""
         parser = argparse.ArgumentParser(
-            description="""Issue calls to the smaXtec system API to import and export data."""
+            description=(
+                """Issue calls to the smaXtec system API
+            to import and export data."""
+            )
         )
         parser.add_argument(
             "--version",
