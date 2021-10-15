@@ -20,8 +20,7 @@ class cli:
         """Parse arguments from the CLI."""
         parser = argparse.ArgumentParser(
             description=(
-                """Issue calls to the smaXtec system API
-            to import and export data."""
+                "Issue calls to the smaXtec system API to import and export data."
             )
         )
         parser.add_argument(
