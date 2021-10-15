@@ -1,10 +1,16 @@
-from sxapi.base import BaseAPI, PublicAPIV2, IntegrationAPIV2
 import mock
 
-@mock.patch('requests.Session.delete')
-@mock.patch('requests.Session.put')
-@mock.patch('requests.Session.get')
-@mock.patch('requests.Session.post')
+from sxapi.base import (
+    BaseAPI,
+    IntegrationAPIV2,
+    PublicAPIV2,
+)
+
+
+@mock.patch("requests.Session.delete")
+@mock.patch("requests.Session.put")
+@mock.patch("requests.Session.get")
+@mock.patch("requests.Session.post")
 def test_base(mock_post, mock_get, mock_put, mock_delete):
     api = BaseAPI("https://api.smaxtec.com/api/v2", "test_user", "test_password")
     assert api.api_base_url == "https://api.smaxtec.com/api/v2"
