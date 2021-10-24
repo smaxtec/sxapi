@@ -1,13 +1,13 @@
 # Summary - *The What* #
-**DO** - I've added a feature to the foobar pipeline which is responsible for filtering the signal of activity_raw. It includes data preparation and signal processing as well as tests. For more background, see details ticket #JIRA-123.
+**DO** - I've added a feature to the foobar pipeline which is responsible for filtering the signal of activity_raw. It includes data preparation and signal processing as well as tests. For more background, see details ticket or issue #api-123
 
-**DONT** - Support for #JIRA-123
+**DONT** - Support for Tickets or Issues #api-123
 
 
 # Purpose - *The Why* #
-**DO** - These changes will reduce error and enable subsequent statistical model training. Without them, noise is to big to process the signal further
+**DO** - These changes will reduce error and enable subsequent statistical model training. Without them, noise is to big to process the signal further.
 
-**DONT** - Obviously necessary. See #JIRA-123
+**DONT** - Obviously necessary.
 
 
 # Magic - *The How* (Optional)
@@ -23,13 +23,8 @@
 **DONT**
 There might be some additional changes necessary.
 
-# Reviewers - *The Who* #
-
-* Review Owners (Watch in detail - Approval mendatory): @<smaxies> (see [wiki](https://wiki.smaxtec.com/pages/viewpage.action?pageId=73302356))
-* Review Members (Watch briefly - Approval is optional): @<smaxies>. Focus: [link to focus files]
-* Review Guests (Informative - Approval is optional): @<smaxies>
-
 # Links #
 * wiki
 * JIRA
+* Docs
 * ...
