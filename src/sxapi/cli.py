@@ -1,8 +1,5 @@
 import argparse
 import sys
-import os
-
-from keyring.core import delete_password, get_keyring
 
 from .base import PublicAPIV2, IntegrationAPIV2
 from .credentials import UserCredentials
@@ -82,8 +79,14 @@ class cli:
         if args.token:
             self.credentials.set(token=args.token)
 
+        elif bool(args.user) != bool(args.password):
+            print("Please use -u and -p together!")
+            return 0
+
         elif args.user and args.password:
             self.credentials.set(username=args.user, password=args.password)
+            api = PublicAPIV2(email=args.user, password=args.password)
+            self.credentials.set(token=api.get_token)
 
         if args.clean:
             self.credentials.clean()
