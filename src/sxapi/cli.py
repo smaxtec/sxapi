@@ -1,7 +1,10 @@
 import argparse
+import json
 import sys
 
 from setuptools import setup
+
+from sxapi.publicV2.sensordata import get_sensor_data_for_animal
 
 
 class cli:
@@ -27,8 +30,37 @@ class cli:
             "--version",
             action="store_true",
             default=False,
-            help="""print version info and exit.""",
+            help="print version info and exit.",
         )
+
+        # gsd_parser
+        subparsers = parser.add_subparsers(help="sub-command help")
+        gsd_parser = subparsers.add_parser(
+            "get_sensor_data",
+            aliases=["gsd"],
+            help="get sensor data from animal(by its ID)",
+        )
+        gsd_parser.set_defaults(func=gsd_sub_function)
+
+        gsd_parser.add_argument("animal_id", help="animal you want get data from")
+        gsd_parser.add_argument(
+            "--metrics",
+            "-m",
+            nargs="*",
+            default=["temp", "act"],
+            help="metrics for sensordata",
+        )
+        gsd_parser.add_argument(
+            "--from_date",
+            "-fd",
+            default=None,
+            nargs=1,
+            help="from_date format: YYYY-MM-DD",
+        )
+        gsd_parser.add_argument(
+            "--to_date", "-td", default=None, nargs=1, help="to_date format: YYYY-MM-DD"
+        )
+
         if not args:
             parser.print_help()
             return
@@ -42,6 +74,30 @@ class cli:
 
         if args.version:
             self.version_info()
+        else:
+            args.func(args)
+
+
+def gsd_sub_function(args):
+    id = args.animal_id
+    metrics = args.metrics
+    from_date = args.from_date
+    to_date = args.to_date
+    resp = get_sensor_data_for_animal(
+        id, metrics=metrics, from_date=from_date, to_date=to_date
+    )
+    if resp is not None:
+        pretty = json.dumps(resp, indent=1)
+        pretty = pretty.replace("[", "")
+        pretty = pretty.replace("]", "")
+        pretty = pretty.replace(",\n", ",")
+        pretty = pretty.replace(" ", "")
+        pretty = pretty.replace('\n"', '"')
+        pretty = pretty.replace(',"', '"')
+        pretty = pretty.replace("{", "{\n")
+        pretty = pretty.replace("},", "},\n")
+        pretty = pretty.replace('""', '"\n"')
+        print(pretty)
 
 
 def cli_run():
