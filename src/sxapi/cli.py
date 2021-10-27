@@ -47,7 +47,7 @@ class cli:
             "--metrics",
             "-m",
             nargs="*",
-            default=["temp", "act"],
+            default=None,
             help="metrics for sensordata",
         )
         gsd_parser.add_argument(
@@ -79,6 +79,10 @@ class cli:
 
 
 def gsd_sub_function(args):
+    """
+    function which gets call if the arguments were parsed
+    with get_sensor_data sub-parser
+    """
     id = args.animal_id
     metrics = args.metrics
     from_date = args.from_date
@@ -87,17 +91,7 @@ def gsd_sub_function(args):
         id, metrics=metrics, from_date=from_date, to_date=to_date
     )
     if resp is not None:
-        pretty = json.dumps(resp, indent=1)
-        pretty = pretty.replace("[", "")
-        pretty = pretty.replace("]", "")
-        pretty = pretty.replace(",\n", ",")
-        pretty = pretty.replace(" ", "")
-        pretty = pretty.replace('\n"', '"')
-        pretty = pretty.replace(',"', '"')
-        pretty = pretty.replace("{", "{\n")
-        pretty = pretty.replace("},", "},\n")
-        pretty = pretty.replace('""', '"\n"')
-        print(pretty)
+        print(json.dumps(resp, indent=0))
 
 
 def cli_run():

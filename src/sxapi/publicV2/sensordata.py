@@ -12,7 +12,7 @@ def get_sensor_data_for_animal(animal_id, *args, **kwargs):
     Performs a get call to PUBLIC_API_V2, to get the sensordata from the given animal_id
     """
 
-    metrics = kwargs.get("metrics")
+    metrics = kwargs.get("metrics", ["temp, act"])
     from_date_string = kwargs.get("from_date")
     to_date_string = kwargs.get("to_date")
 
