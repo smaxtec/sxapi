@@ -3,7 +3,7 @@ import mock
 from sxapi.cli import cli
 
 
-@mock.patch("sxapi.cli.get_sensor_data_for_animal", return_value={})
+@mock.patch("sxapi.cli_sub_parser.get_sensor_data_for_animal", return_value={})
 @mock.patch("requests.Session.get")
 def test_get_sensor_data_parser(get_call_mock, get_data_mock):
     args_parser = cli.parse_args
