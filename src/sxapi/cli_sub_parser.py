@@ -4,6 +4,11 @@ from sxapi.publicV2.sensordata import get_sensor_data_for_animal
 
 
 def create_gsd_parser(subparsers):
+    """
+    sub-parser from for cli
+
+    used to parse arg for get_sensor_data call
+    """
     gsd_parser = subparsers.add_parser(
         "get_sensor_data",
         aliases=["gsd"],
@@ -33,8 +38,10 @@ def create_gsd_parser(subparsers):
 
 def gsd_sub_function(args):
     """
-    function which gets call if the arguments were parsed
+    function which get called if the arguments were parsed
     with get_sensor_data sub-parser
+
+    extract args and calls function which perform the api call
     """
     id = args.animal_id
     metrics = args.metrics
