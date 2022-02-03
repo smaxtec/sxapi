@@ -17,6 +17,12 @@ class BaseAPI(object):
         self._session = None
 
     @property
+    def get_token(self):
+        if self.api_token is None:
+            self.session
+        return self.api_token
+
+    @property
     def session(self):
         """
         Geneates a new HTTP session on the fly and logs in if no session exists.
@@ -40,7 +46,9 @@ class BaseAPI(object):
             response = self._session.post(
                 self.to_url("/users/credentials"), params=params
             )
-            self.api_token = response.json()["api_token"]
+            self.api_token = response.json().get("api_token", None)
+            if self.api_token is None:
+                raise requests.HTTPError(response.status_code, response.reason)
             self._session.headers.update({"Authorization": f"Bearer {self.api_token}"})
 
     def get(self, path, *args, **kwargs):
