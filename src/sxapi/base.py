@@ -16,6 +16,11 @@ class BaseAPI(object):
         self.api_token = api_token
         self._session = None
 
+    def get_token(self):
+        if self.api_token is None:
+            self.session
+        return self.api_token
+
     @property
     def session(self):
         """
@@ -40,7 +45,9 @@ class BaseAPI(object):
             response = self._session.post(
                 self.to_url("/users/credentials"), params=params
             )
-            self.api_token = response.json()["api_token"]
+            self.api_token = response.json().get("api_token", None)
+            if self.api_token is None:
+                raise requests.HTTPError(response.status_code, response.reason)
             self._session.headers.update({"Authorization": f"Bearer {self.api_token}"})
 
     def get(self, path, *args, **kwargs):
@@ -65,14 +72,16 @@ class BaseAPI(object):
 
 
 class PublicAPIV2(BaseAPI):
-    def __init__(self, base_url=None, email=None, password=None, api_token=None):
+    def __init__(self, email=None, password=None, api_token=None):
         """Initialize a new public api client instance."""
-        base_url = base_url or PUBLIC_API_V2
-        super().__init__(base_url, email=email, password=password, api_token=api_token)
+        super().__init__(
+            PUBLIC_API_V2, email=email, password=password, api_token=api_token
+        )
 
 
 class IntegrationAPIV2(BaseAPI):
-    def __init__(self, base_url=None, email=None, password=None, api_token=None):
+    def __init__(self, email=None, password=None, api_token=None):
         """Initialize a new integration api client instance."""
-        base_url = base_url or INTEGRATION_API_V2
-        super().__init__(base_url, email=email, password=password, api_token=api_token)
+        super().__init__(
+            INTEGRATION_API_V2, email=email, password=password, api_token=api_token
+        )

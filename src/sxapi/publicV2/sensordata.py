@@ -4,15 +4,21 @@ from datetime import (
 )
 from urllib.parse import urlencode
 
-import sxapi.publicV2 as publicV2
+from sxapi.base import PublicAPIV2
 
 
-def get_sensor_data_for_animal(animal_id, *args, **kwargs):
+def get_sensor_data_from_animal(api, animal_id, *args, **kwargs):
     """
     Performs a get call to PUBLIC_API_V2, to get the sensordata from the given animal_id
     """
 
-    metrics = kwargs.get("metrics", ["temp, act"])
+    if not isinstance(api, PublicAPIV2):
+        print("This function is only available to PublicAPIV2!")
+        return
+
+    metrics = kwargs.get("metrics", None)
+    if not metrics:
+        metrics = ["temp", "act"]
     from_date_string = kwargs.get("from_date")
     to_date_string = kwargs.get("to_date")
 
@@ -39,6 +45,6 @@ def get_sensor_data_for_animal(animal_id, *args, **kwargs):
         "from_date": from_date,
     }
     url_path = f"/data/animals/{animal_id}.json?{urlencode(param, True)}"
-    resp = publicV2.public_api.get(url_path, params=param)
+    resp = api.get(url_path, params=param)
 
     return resp

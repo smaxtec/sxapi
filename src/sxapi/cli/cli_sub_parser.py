@@ -1,11 +1,13 @@
 import json
 
-from sxapi.publicV2.sensordata import get_sensor_data_for_animal
+from ..base import PublicAPIV2
+from ..publicV2.sensordata import get_sensor_data_from_animal
+from . import user_credentials
 
 
 def create_gsd_parser(subparsers):
     """
-    sub-parser from for cli
+    sub-parser for cli
 
     used to parse arg for get_sensor_data call
     """
@@ -38,17 +40,23 @@ def create_gsd_parser(subparsers):
 
 def gsd_sub_function(args):
     """
-    function which get called if the arguments were parsed
-    with get_sensor_data sub-parser
+    function which gets called when get_sensor_data
+    sub-parser was used
 
-    extract args and calls function which perform the api call
+    parses arguments to perform desired api_call
     """
+    if not user_credentials.check_credentials_set():
+        print("No credentials set. Use --help to know how to set them.")
+        return
+
+    api = PublicAPIV2(api_token=user_credentials.token)
+
     id = args.animal_id
     metrics = args.metrics
     from_date = args.from_date
     to_date = args.to_date
-    resp = get_sensor_data_for_animal(
-        id, metrics=metrics, from_date=from_date, to_date=to_date
+    resp = get_sensor_data_from_animal(
+        api=api, animal_id=id, metrics=metrics, from_date=from_date, to_date=to_date
     )
     if resp is not None:
         print(json.dumps(resp, indent=0))
