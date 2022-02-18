@@ -11,7 +11,6 @@ def get_sensor_data_from_animal(api, animal_id, *args, **kwargs):
     """
     Performs a get call to PUBLIC_API_V2, to get the sensordata from the given animal_id
     """
-
     if not isinstance(api, PublicAPIV2):
         print("This function is only available to PublicAPIV2!")
         return
@@ -27,14 +26,14 @@ def get_sensor_data_from_animal(api, animal_id, *args, **kwargs):
 
     if to_date_string:
         try:
-            to_date = datetime.strptime(to_date_string, "%Y-%m-%d")
+            to_date = datetime.strptime(*to_date_string, "%Y-%m-%d")
         except ValueError:
             print("to_date has not the right format YYYY-MM-DD!")
             return None
 
     if from_date_string:
         try:
-            from_date = datetime.strptime(from_date_string, "%Y-%m-%d")
+            from_date = datetime.strptime(*from_date_string, "%Y-%m-%d")
         except ValueError:
             print("from_date has not the right format YYYY-MM-DD!")
             return None
