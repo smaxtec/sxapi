@@ -76,7 +76,7 @@ class Cli:
         if args.use_keyring:
             user_credentials.token = user_credentials.get_token_keyring()
         elif args.arg_token:
-            user_credentials.token = args.token
+            user_credentials.token = args.arg_token
 
         # run set_defaults for subparser
         if hasattr(args, "func"):

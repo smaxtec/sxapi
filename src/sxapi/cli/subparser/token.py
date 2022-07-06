@@ -1,3 +1,7 @@
+import getpass
+
+import requests
+
 from sxapi.base import PublicAPIV2
 from sxapi.cli import user_credentials
 
@@ -32,7 +36,8 @@ def create_token_parser(subparsers):
     token_parser.add_argument(
         "--print_token",
         "-p",
-        nargs=1,
+        nargs="?",
+        const="ek",
         help="Print the current token stored in keyring/environment to stdout. "
         "One argument required. Possible args 'e' environment | "
         "'k' keyring | ek for printing both.",
@@ -46,8 +51,9 @@ def create_token_parser(subparsers):
     token_parser.add_argument(
         "--new_token",
         "-n",
-        nargs=2,
-        help="Reqeust new token. Requires two arguments <username> and <password>",
+        nargs="+",
+        help="Reqeust new token. Requires one argument <username>, "
+        "second argument <password> is optional!",
     )
     token_parser.add_argument(
         "--clear_keyring",
@@ -102,23 +108,23 @@ def handle_print_token(args):
     keyring = str(user_credentials.get_token_keyring())
     env = str(user_credentials.get_token_environment())
 
-    if args.print_token[0] == "ek":
+    if args.print_token == "ek":
         print(f"\nKeyring: {keyring}\n\nEnvironment: {env}")
         return
-    elif len(args.print_token[0]) > 2:
+    elif len(args.print_token) > 2:
         print("Invalid number of arguments. Use --help for usage information.")
         return
 
-    if "e" != args.print_token[0] and "k" != args.print_token[0]:
+    if "e" != args.print_token and "k" != args.print_token:
         print(
             "Invalid arguments. Only use 'e' for environment, 'k' for keyring "
             "or 'ek' for both."
         )
         return
 
-    if "e" == args.print_token[0]:
+    if "e" == args.print_token:
         print(f"\nEnvironment Token: {env}\n")
-    elif "k" == args.print_token[0]:
+    elif "k" == args.print_token:
         print(f"\nKeyring Token: {keyring}\n")
 
 
@@ -150,8 +156,23 @@ def handle_new_token(args):
     Parses the args, creates an PublicAPIV2 instance to get new token and
     print the new token to stdout.
     """
-    username = args.new_token[0] if "@" in args.new_token[0] else args.new_token[1]
-    pwd = args.new_token[1] if "@" not in args.new_token[1] else args.new_token[0]
+    if len(args.new_token) == 2:
+        username = args.new_token[0] if "@" in args.new_token[0] else args.new_token[1]
+        pwd = args.new_token[1] if "@" not in args.new_token[1] else args.new_token[0]
 
-    token = str(PublicAPIV2(email=username, password=pwd).get_token())
-    print("SMAXTEC_TOKEN=" + token)
+    if len(args.new_token) == 1:
+        username = args.new_token[0]
+        pwd = getpass.getpass()
+
+    if "@" not in username:
+        print("Username must be a email!")
+        return
+
+    try:
+        token = str(PublicAPIV2(email=username, password=pwd).get_token())
+        print("SMAXTEC_TOKEN=" + token)
+    except requests.HTTPError as e:
+        if "401" in str(e) or "422" in str(e):
+            print("Username or Password is wrong!")
+    except Exception as e:
+        print(e)
