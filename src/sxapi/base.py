@@ -94,21 +94,6 @@ class InternAPIV2(BaseAPI):
         base_url = base_url or INTERN_API_V2
         super().__init__(base_url, api_token=api_token)
 
-    def create_device_update(self, name, update_type, update_content,
-                             information):
-        data = {
-            "name": name,
-            "update_type": update_type,
-            "update_content": update_content,
-            "information": information,
-            "create_ts": pendulum.now().isoformat()
-        }
-        return self.post("/devices/device_updates", json=data, timeout=25)
-
-    def schedule_device_update(self, device_id, device_update_id):
-        data = {"device_update_id": device_update_id}
-        return self.post(f"/devices/{device_id}/events/update_schedule", json=data, timeout=25)
-
     def create_device_event(self, device_id, event_type, event_ts, information=None):
         data = {
             "event_type": event_type,

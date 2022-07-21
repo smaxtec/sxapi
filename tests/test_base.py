@@ -1,5 +1,4 @@
 import mock
-from datetime import datetime
 
 from sxapi.base import (
     BaseAPI,
@@ -67,3 +66,6 @@ def test_intern_v2_create_device_event(mock_post):
     ts = "2022-07-21T12:00:00"
     internAPIv2.create_device_event(device_id="0900000001", event_type="faulty", event_ts=ts)
     assert mock_post.call_count == 1
+    assert mock_post._mock_call_args[0][0] == "https://api.smaxtec.com/internapi/v2/devices/0900000001/events"
+    assert mock_post._mock_call_args[1]["json"]["event_ts"] == "2022-07-21T12:00:00"
+    assert mock_post._mock_call_args[1]["json"]["event_type"] == "faulty"
