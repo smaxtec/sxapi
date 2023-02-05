@@ -44,6 +44,6 @@ def get_sensor_data_from_animal(api, animal_id, *args, **kwargs):
         "from_date": from_date,
     }
     url_path = f"/data/animals/{animal_id}.json?{urlencode(param, True)}"
-    resp = api.get(url_path, params=param)
+    resp = api.get(url_path)
 
     return resp

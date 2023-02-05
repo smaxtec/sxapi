@@ -44,7 +44,7 @@ def test_get_sensor_data(get_mock, print_mock):
         from_date=["2001-11-02"],
     )
 
-    assert get_mock.called_once_with(
+    get_mock.assert_called_once_with(
         "/data/animals/1233455.json?"
         "metrics=act&to_date=2001-12-02+00%3A00%3A00&from_date=2001-11-02+00%3A00%3A00"
     )
