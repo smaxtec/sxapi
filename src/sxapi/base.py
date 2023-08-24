@@ -16,7 +16,6 @@ class BaseAPI(object):
         self.api_token = api_token
         self._session = None
 
-    @property
     def get_token(self):
         if self.api_token is None:
             self.session
@@ -73,14 +72,16 @@ class BaseAPI(object):
 
 
 class PublicAPIV2(BaseAPI):
-    def __init__(self, base_url=None, email=None, password=None, api_token=None):
+    def __init__(self, email=None, password=None, api_token=None):
         """Initialize a new public api client instance."""
-        base_url = base_url or PUBLIC_API_V2
-        super().__init__(base_url, email=email, password=password, api_token=api_token)
+        super().__init__(
+            PUBLIC_API_V2, email=email, password=password, api_token=api_token
+        )
 
 
 class IntegrationAPIV2(BaseAPI):
-    def __init__(self, base_url=None, email=None, password=None, api_token=None):
+    def __init__(self, email=None, password=None, api_token=None):
         """Initialize a new integration api client instance."""
-        base_url = base_url or INTEGRATION_API_V2
-        super().__init__(base_url, email=email, password=password, api_token=api_token)
+        super().__init__(
+            INTEGRATION_API_V2, email=email, password=password, api_token=api_token
+        )

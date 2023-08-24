@@ -79,7 +79,7 @@ Code Contributions
 You can find the API documentation for the smaxtec system on the `API documentation page`_ and the `integration API documentation page`_.
 
 This API is only available with a smaxtec user account after logging in. All calls must use an access token.
-   .. todo:: fix contact info.
+.. todo:: fix contact info.
 If you need an account for the API you can contact smaXtec.
 
 Submit an issue

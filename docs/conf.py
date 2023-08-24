@@ -54,6 +54,29 @@ try:
 except Exception as e:
     print("Running `sphinx-apidoc` failed!\n{}".format(e))
 
+# This dummy-keyring must be set on order to
+# avoid keyring.errors.NoKeyringError during build process
+try:
+    from keyring import backend
+
+    # this class prevents the "keyring.errors.NoKeyringError"
+    class TestKeyring(backend.KeyringBackend):
+
+        priority = 1
+
+        def set_password(self, servicename, username, password):
+            return "None"
+
+        def get_password(self, servicename, username):
+            return "None"
+
+        def delete_password(self, servicename, username):
+            return "None"
+
+
+except Exception as e:
+    print(e)
+
 # -- General configuration ---------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
