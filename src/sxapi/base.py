@@ -31,6 +31,11 @@ class BaseAPI(object):
         self.api_type = api_type
         self._session = None
 
+    def get_token(self):
+        if self.api_token is None:
+            self.session
+        return self.api_token
+
     @property
     def session(self):
         """
@@ -52,17 +57,19 @@ class BaseAPI(object):
             self._session.headers.update({"Authorization": f"Bearer {self.api_token}"})
         else:
             params = {"user": self.email, "password": self.password}
+            response = requests.Response
             if self.api_type == ApiTypes.PUBLIC:
                 response = self._session.post(
                     self.to_url("/users/credentials"), params=params
                 )
-                self.api_token = response.json()["api_token"]
+                self.api_token = response.json().get("api_token", None)
             elif self.api_type == ApiTypes.INTEGRATION:
                 response = self._session.post(
                     self.to_url("/users/session_token"), params=params
                 )
-                self.api_token = response.json()["token"]
-
+                self.api_token = response.json().get("token", None)
+            if self.api_token is None:
+                raise requests.HTTPError(response.status_code, response.reason)
             self._session.headers.update({"Authorization": f"Bearer {self.api_token}"})
 
     def get(self, path, *args, **kwargs):
