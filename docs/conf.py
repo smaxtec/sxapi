@@ -73,7 +73,6 @@ try:
         def delete_password(self, servicename, username):
             return "None"
 
-
 except Exception as e:
     print(e)
 
