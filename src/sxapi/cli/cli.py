@@ -32,6 +32,10 @@ class Cli:
         password = os.environ.get("SMAXTEC_PASSWORD")
         api_token = os.environ.get("SMAXTEC_TOKEN")
 
+        if not api_token and not (password and email):
+            print("No credentials set. Use --help for more information.")
+            return
+
         public_api = PublicAPIV2(email=email, password=password, api_token=api_token)
         integration_api = IntegrationAPIV2(
             email=email, password=password, api_token=api_token
