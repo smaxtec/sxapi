@@ -11,7 +11,10 @@ cli = Cli()
 @mock.patch(
     "sxapi.cli.user_credentials.get_token_keyring", return_value="keyring-token"
 )
-def test_func(keyring_mock, print_mock, version_mock):
+@mock.patch(
+    "sxapi.base.PublicAPIV2.get_token", return_value="keyring-token"
+)
+def test_func(get_token_mock, keyring_mock, print_mock, version_mock):
     with mock.patch("sys.argv", ["sx_api", "--version"]):
         assert version_mock.call_count == 0
         cli.run()

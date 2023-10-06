@@ -1,0 +1,9 @@
+[SXAPI]
+
+USER = "smaxtec@user.com"
+PASSWORD = "smaxtec_user_pwd"
+ORGA = "smaxtec_organisation_id"
+
+API_PUBLIC_V2_PATH = "https://api.smaxtec.com/v2/public"
+API_INTEGRATION_V2_PATH = "https://api.smaxtec.com/v2/integration"
+

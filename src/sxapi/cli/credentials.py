@@ -21,9 +21,8 @@ class UserCredentials:
         self.token_env_names = "SMAXTEC_TOKEN"
         self.token = None
 
-        self._init_creds()
-
-    def get_token_environment(self):
+    @staticmethod
+    def get_token_environment():
         """
         Gets token named 'SMAXTEC_TOKEN' from the systems environment.
         """
@@ -37,13 +36,15 @@ class UserCredentials:
         keyring.set_password("sxapi", "SMAXTEC_TOKEN", token)
         self.token = token
 
-    def get_token_keyring(self):
+    @staticmethod
+    def get_token_keyring():
         """
         Gets the token stored in the keyring.
         """
         return keyring.get_password("sxapi", "SMAXTEC_TOKEN")
 
-    def clear_token_keyring(self):
+    @staticmethod
+    def clear_token_keyring():
         """
         Deletes the token from the keyring.
         """
@@ -57,21 +58,3 @@ class UserCredentials:
         if self.token is not None:
             return True
         return False
-
-    def _init_creds(self):
-        """
-        This function tries to get the token from the system environment and
-        stores it in self.token, on failure (no token found) it does the same
-        with the keyring.
-
-        If both sources fail self.token remains None.
-        """
-        env_token = self.get_token_environment()
-        if env_token is not None:
-            self.token = env_token
-            return
-
-        keyring_token = self.get_token_keyring()
-        if keyring_token is not None:
-            self.token = keyring_token
-            return
