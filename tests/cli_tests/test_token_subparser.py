@@ -70,7 +70,7 @@ def test_handle_print_token(api_mock, print_mock):
 
 
 @mock.patch("builtins.print")
-@mock.patch("sxapi.cli.user_credentials.set_token_keyring", return_value="api_token")
+@mock.patch("sxapi.cli.cli_user.set_token_keyring", return_value="api_token")
 def test_handle_set_token(cred_mock, print_mock):
     namespace = args_parser(["token", "-s", "api_token"])
     assert namespace.set_keyring == ["api_token"]
@@ -83,7 +83,7 @@ def test_handle_set_token(cred_mock, print_mock):
 
 
 @mock.patch("builtins.print")
-@mock.patch("sxapi.cli.user_credentials.clear_token_keyring", return_value="api_token")
+@mock.patch("sxapi.cli.cli_user.clear_token_keyring", return_value="api_token")
 def test_handle_clear_token(creds_mock, print_mock):
     namespace = args_parser(["token", "-c"])
     assert namespace.clear_keyring is True
@@ -96,7 +96,7 @@ def test_handle_clear_token(creds_mock, print_mock):
 
 @mock.patch("builtins.print")
 @mock.patch("sxapi.cli.subparser.token.getpass.getpass", return_value=None)
-@mock.patch("sxapi.cli.user_credentials")
+@mock.patch("sxapi.cli.cli_user")
 def test_handle_new_token(creds_mock, getpass_mock, print_mock):
     print_mock.reset_mock()
 
