@@ -69,7 +69,7 @@ def test_config(keyring_mock, version_mock):
             assert res["api_integration_v2_path"] == "test2_path_integration"
 
     # test override with env_vars
-    os.environ["SXAPI_USER"] = "testenv@user.com"
+    os.environ["SXAPI_USER"] = "testenv@example.com"
     with mock.patch(
         "sys.argv", ["sx_api", "--version", "-c", "./test-config_param.conf"]
     ):
