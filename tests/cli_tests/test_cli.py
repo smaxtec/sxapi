@@ -47,7 +47,7 @@ def test_config(keyring_mock, version_mock):
             cli.run()
             res = iu_mock.call_args_list[0][0][0]
 
-            assert res["user"] == "test@user.com"
+            assert res["user"] == "test@example.com"
             assert res["pwd"] == "smaxtec_test_user_pwd"
             assert res["orga"] == "smaxtec_test_organisation_id"
             assert res["api_public_v2_path"] == "test_path_test"
