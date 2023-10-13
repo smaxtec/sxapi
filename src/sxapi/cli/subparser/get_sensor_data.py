@@ -1,7 +1,6 @@
 import json
 
-from sxapi.base import PublicAPIV2
-from sxapi.cli import user_credentials
+from sxapi.cli import cli_user
 from sxapi.publicV2.sensordata import get_sensor_data_from_animal
 
 
@@ -67,11 +66,11 @@ def gsd_sub_function(args):
     Pares the given arguments and calls a function which
     performs the desired api call.
     """
-    if not user_credentials.check_credentials_set():
+    if not cli_user.check_credentials_set():
         print("No credentials set. Use --help for more information.")
         return
 
-    api = PublicAPIV2(api_token=user_credentials.token)
+    api = cli_user.public_v2_api
 
     id = args.animal_id
     metrics = args.metrics

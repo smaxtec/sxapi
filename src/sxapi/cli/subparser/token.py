@@ -3,7 +3,7 @@ import getpass
 import requests
 
 from sxapi.base import PublicAPIV2
-from sxapi.cli import user_credentials
+from sxapi.cli import cli_user
 
 
 def create_token_parser(subparsers):
@@ -29,7 +29,7 @@ def create_token_parser(subparsers):
     """
     token_parser = subparsers.add_parser(
         "token",
-        help="Get/Set credentials aka 'SMAXTEC_TOKEN' from/to specified "
+        help="Get/Set credentials aka 'SMAXTEC_API_ACCESS_TOKEN' from/to specified "
         "storage location or create new one",
     )
 
@@ -105,8 +105,8 @@ def handle_print_token(args):
 
     Prints the token from the desired source (environment or keyring) to stdout.
     """
-    keyring = str(user_credentials.get_token_keyring())
-    env = str(user_credentials.get_token_environment())
+    keyring = str(cli_user.get_token_keyring())
+    env = str(cli_user.get_token_environment())
 
     if args.print_token == "ek":
         print(f"\nKeyring: {keyring}\n\nEnvironment: {env}")
@@ -135,7 +135,7 @@ def handle_set_token(args):
     Parses the args and stores the token in the keyring.
     """
     token = args.set_keyring[0]
-    user_credentials.set_token_keyring(token=token)
+    cli_user.set_token_keyring(token=token)
     print("Token is stored in keyring!")
 
 
@@ -145,7 +145,7 @@ def handle_clear_token():
 
     Deletes the token from the keyring.
     """
-    user_credentials.clear_token_keyring()
+    cli_user.clear_token_keyring()
     print("Token was deleted from keyring!")
 
 
@@ -170,7 +170,7 @@ def handle_new_token(args):
 
     try:
         token = str(PublicAPIV2(email=username, password=pwd).get_token())
-        print("SMAXTEC_TOKEN=" + token)
+        print("SMAXTEC_API_ACCESS_TOKEN=" + token)
     except requests.HTTPError as e:
         if "401" in str(e) or "422" in str(e):
             print("Username or Password is wrong!")

@@ -9,7 +9,8 @@ args_parser = Cli.parse_args
 @mock.patch(
     "sxapi.cli.subparser.get_sensor_data.get_sensor_data_from_animal", return_value={}
 )
-@mock.patch("sxapi.cli.user_credentials.check_credentials_set", return_value=True)
+@mock.patch("sxapi.cli.cli_user.check_credentials_set", return_value=True)
+@mock.patch("sxapi.cli.cli_user.public_v2_api", PublicAPIV2())
 def test_get_sensor_data_parser(creds_mock, get_data_mock):
     namespace = args_parser(
         [
