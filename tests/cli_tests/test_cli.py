@@ -30,11 +30,11 @@ def test_func(get_token_mock, keyring_mock, print_mock, version_mock):
 
     with mock.patch("sys.argv", ["sx_api", "-k"]):
         cli.run()
-        assert cli_user.token == "keyring-token"
+        assert cli_user.api_access_token == "keyring-token"
 
     with mock.patch("sys.argv", ["sx_api", "-t", "args_token"]):
         cli.run()
-        assert cli_user.token == "args_token"
+        assert cli_user.api_access_token == "args_token"
 
 
 @mock.patch("sxapi.cli.cli.Cli.version_info")
@@ -93,7 +93,7 @@ def test_init_user(api_mock, k_mock, version_mock):
         ["sx_api", "--version", "-c", "test-config_param.conf", "-t", "atoken"],
     ):
         cli.run()
-        assert cli_user.token == "atoken"
+        assert cli_user.api_access_token == "atoken"
         assert cli_user.public_v2_api and cli_user.integration_v2_api
         cli_user.public_v2_api = cli_user.integration_v2_api = None
 
@@ -101,24 +101,24 @@ def test_init_user(api_mock, k_mock, version_mock):
         "sys.argv", ["sx_api", "--version", "-c", "test-config_param.conf", "-k"]
     ):
         cli.run()
-        assert cli_user.token == "keyring-token"
+        assert cli_user.api_access_token == "keyring-token"
         assert cli_user.public_v2_api and cli_user.integration_v2_api
         cli_user.public_v2_api = cli_user.integration_v2_api = None
 
     with mock.patch(
         "sys.argv", ["sx_api", "--version", "-c", "test-config_param.conf"]
     ):
-        os.environ["SMAXTEC_TOKEN"] = "env_token"
+        os.environ["SMAXTEC_API_ACCESS_TOKEN"] = "env_token"
         cli.run()
-        assert cli_user.token == "env_token"
+        assert cli_user.api_access_token == "env_token"
         assert cli_user.public_v2_api and cli_user.integration_v2_api
-        os.environ.pop("SMAXTEC_TOKEN")
+        os.environ.pop("SMAXTEC_API_ACCESS_TOKEN")
         cli_user.public_v2_api = cli_user.integration_v2_api = None
 
     with mock.patch(
         "sys.argv", ["sx_api", "--version", "-c", "test-config_param.conf"]
     ):
         cli.run()
-        assert cli_user.token == "api-token"
+        assert cli_user.api_access_token == "api-token"
         assert cli_user.public_v2_api and cli_user.integration_v2_api
         cli_user.public_v2_api = cli_user.integration_v2_api = None

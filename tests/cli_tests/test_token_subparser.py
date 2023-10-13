@@ -125,7 +125,7 @@ def test_handle_new_token(creds_mock, getpass_mock, print_mock):
         assert getpass_mock.call_count == 2
         call_args = print_mock.call_args_list[0]
         assert print_mock.call_count == 1
-        assert call_args.args[0] == "SMAXTEC_TOKEN=api_token"
+        assert call_args.args[0] == "SMAXTEC_API_ACCESS_TOKEN=api_token"
         print_mock.reset_mock()
 
 

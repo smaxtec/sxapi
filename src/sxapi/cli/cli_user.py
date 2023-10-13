@@ -24,46 +24,45 @@ class CliUser:
         calls self._init_creds() to set available credentials on startup.
         """
 
-        self.token_env_names = "SMAXTEC_TOKEN"
-        self.token = None
+        self.api_access_token = None
         self.public_v2_api = None
         self.integration_v2_api = None
 
     @staticmethod
     def get_token_environment():
         """
-        Gets token named 'SMAXTEC_TOKEN' from the systems' environment.
+        Gets token named 'SMAXTEC_API_ACCESS_TOKEN' from the systems' environment.
         """
 
-        return os.environ.get("SMAXTEC_TOKEN", None)
+        return os.environ.get("SMAXTEC_API_ACCESS_TOKEN", None)
 
     def set_token_keyring(self, token):
         """
         Store the given token in keyring.
         """
-        keyring.set_password("sxapi", "SMAXTEC_TOKEN", token)
-        self.token = token
+        keyring.set_password("sxapi", "SMAXTEC_API_ACCESS_TOKEN", token)
+        self.api_access_token = token
 
     @staticmethod
     def get_token_keyring():
         """
         Gets the token stored in the keyring.
         """
-        return keyring.get_password("sxapi", "SMAXTEC_TOKEN")
+        return keyring.get_password("sxapi", "SMAXTEC_API_ACCESS_TOKEN")
 
     @staticmethod
     def clear_token_keyring():
         """
         Deletes the token from the keyring.
         """
-        keyring.delete_password("sxapi", "SMAXTEC_TOKEN")
+        keyring.delete_password("sxapi", "SMAXTEC_API_ACCESS_TOKEN")
 
     # general functions
     def check_credentials_set(self):
         """
         Checks if token is already set.
         """
-        if self.token is not None:
+        if self.api_access_token is not None:
             return True
         return False
 
@@ -80,13 +79,13 @@ class CliUser:
         stored and not API clients are created.
         """
         if args_token:
-            self.token = args_token
+            self.api_access_token = args_token
         elif args_keyring:
-            self.token = self.get_token_keyring()
+            self.api_access_token = self.get_token_keyring()
         else:
-            self.token = self.get_token_environment()
+            self.api_access_token = self.get_token_environment()
 
-        if self.token is None and config_dict["user"] and config_dict["pwd"]:
+        if self.api_access_token is None and config_dict["user"] and config_dict["pwd"]:
             self.public_v2_api = PublicAPIV2(
                 base_url=config_dict["api_public_v2_path"],
                 email=config_dict["user"],
@@ -98,15 +97,15 @@ class CliUser:
                 password=config_dict["pwd"],
             )
 
-            self.token = self.public_v2_api.get_token()
+            self.api_access_token = self.public_v2_api.get_token()
 
-        elif self.token:
+        elif self.api_access_token:
             self.public_v2_api = PublicAPIV2(
                 base_url=config_dict["api_public_v2_path"],
-                api_token=self.token,
+                api_token=self.api_access_token,
             )
 
             self.integration_v2_api = IntegrationAPIV2(
                 base_url=config_dict["api_integration_v2_path"],
-                api_token=self.token,
+                api_token=self.api_access_token,
             )

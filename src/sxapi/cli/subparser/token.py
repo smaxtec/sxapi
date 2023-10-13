@@ -29,7 +29,7 @@ def create_token_parser(subparsers):
     """
     token_parser = subparsers.add_parser(
         "token",
-        help="Get/Set credentials aka 'SMAXTEC_TOKEN' from/to specified "
+        help="Get/Set credentials aka 'SMAXTEC_API_ACCESS_TOKEN' from/to specified "
         "storage location or create new one",
     )
 
@@ -170,7 +170,7 @@ def handle_new_token(args):
 
     try:
         token = str(PublicAPIV2(email=username, password=pwd).get_token())
-        print("SMAXTEC_TOKEN=" + token)
+        print("SMAXTEC_API_ACCESS_TOKEN=" + token)
     except requests.HTTPError as e:
         if "401" in str(e) or "422" in str(e):
             print("Username or Password is wrong!")
