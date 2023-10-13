@@ -81,6 +81,10 @@ class Cli:
         Print online status of api/v2 and integration/v2
         """
 
+        if not cli_user.api_access_token:
+            print("No credentials set. Use --help for more information.")
+            return
+
         pub_resp = cli_user.public_v2_api.get("/service/status")
         int_resp = cli_user.integration_v2_api.get("/service/status")
 
