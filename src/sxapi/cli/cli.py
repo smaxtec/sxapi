@@ -1,14 +1,15 @@
 import argparse
+import configparser
 import os
 import sys
+from os.path import (
+    abspath,
+    expanduser,
+)
 
 from setuptools import setup
 
-from sxapi.base import (
-    IntegrationAPIV2,
-    PublicAPIV2,
-)
-from sxapi.cli import user_credentials
+from sxapi.cli import cli_user
 from sxapi.cli.subparser.get_sensor_data import create_gsd_parser
 from sxapi.cli.subparser.token import create_token_parser
 
@@ -17,8 +18,62 @@ class Cli:
     """CLI class for handling arguments and calling the API."""
 
     def __init__(self):
-        self.public_api = None
-        self.integration_api = None
+        self.config_file_paths = ["/etc/sxapi.conf", "~/.config/sxapi.conf"]
+
+    @staticmethod
+    def update_config_with_env(config_dict):
+        config_dict["user"] = os.getenv("SXAPI_USER", config_dict["user"])
+        config_dict["pwd"] = os.getenv("SXAPI_PASSWORD", config_dict["pwd"])
+        config_dict["orga"] = os.getenv("SXAPI_ORGA", config_dict["orga"])
+        config_dict["api_public_v2_path"] = os.getenv(
+            "SXAPI_API_PUBLIC_V2_PATH", config_dict["api_public_v2_path"]
+        )
+        config_dict["api_integration_v2_path"] = os.getenv(
+            "SXAPI_API_INTEGRATION_V2_PATH", config_dict["api_integration_v2_path"]
+        )
+
+    def read_config_from_file(self, config_file_path):
+        config_dict = {
+            "user": None,
+            "pwd": None,
+            "orga": None,
+            "api_public_v2_path": None,
+            "api_integration_v2_path": None,
+        }
+
+        if config_file_path:
+            self.config_file_paths.append(config_file_path)
+
+        parsable_files = []
+        for config_file in self.config_file_paths:
+            config_file = expanduser(config_file)
+            config_file = abspath(config_file)
+            parsable_files.append(config_file)
+
+        try:
+            config = configparser.ConfigParser(interpolation=None)
+            config.read(parsable_files)
+
+            config_dict["user"] = config.get("SXAPI", "USER")
+            config_dict["pwd"] = config.get("SXAPI", "PASSWORD")
+            config_dict["orga"] = config.get("SXAPI", "ORGA")
+            config_dict["api_public_v2_path"] = config.get(
+                "SXAPI", "API_PUBLIC_V2_PATH"
+            )
+            config_dict["api_integration_v2_path"] = config.get(
+                "SXAPI", "API_INTEGRATION_V2_PATH"
+            )
+        except (
+            KeyError,
+            configparser.NoSectionError,
+            configparser.MissingSectionHeaderError,
+        ) as e:
+            if config_file_path:
+                print(f"Error while reading config file: {e}")
+                return
+                # we should raise custom exception here
+
+        return config_dict
 
     @staticmethod
     def api_status():
@@ -26,20 +81,8 @@ class Cli:
         Print online status of api/v2 and integration/v2
         """
 
-        # TODO: this part is just a hacky trick, this should be moved
-        #       when its finalized where to locate them!!!
-        email = os.environ.get("SMAXTEC_USER")
-        password = os.environ.get("SMAXTEC_PASSWORD")
-        api_token = os.environ.get("SMAXTEC_TOKEN")
-
-        public_api = PublicAPIV2(email=email, password=password, api_token=api_token)
-        integration_api = IntegrationAPIV2(
-            email=email, password=password, api_token=api_token
-        )
-        # hacky part end
-
-        pub_resp = public_api.get("/service/status")
-        int_resp = integration_api.get("/service/status")
+        pub_resp = cli_user.public_v2_api.get("/service/status")
+        int_resp = cli_user.integration_v2_api.get("/service/status")
 
         exit_code = 0
 
@@ -72,14 +115,12 @@ class Cli:
             default=False,
             help="print version info and exit.",
         )
-
         main_parser.add_argument(
             "--status",
             action="store_true",
             default=False,
             help="prints status of api/V2 and integration/v2",
         )
-
         main_parser.add_argument(
             "-t",
             "--arg_token",
@@ -91,6 +132,14 @@ class Cli:
             "--use_keyring",
             action="store_true",
             help="Use keyring as token source!",
+        )
+        main_parser.add_argument(
+            "-c", "--configfile", type=str, help="Path to config file"
+        )
+        main_parser.add_argument(
+            "--print-configfile",
+            action="store_true",
+            help="Print example config file and exits",
         )
 
         # gsd_parser
@@ -109,6 +158,17 @@ class Cli:
         if not args:
             return 0
 
+        if args.print_configfile:
+            with open("./src/sxapi/cli/example-config.conf", "r") as f:
+                print(f.read())
+            return
+
+        config_dict = self.read_config_from_file(args.configfile or None)
+
+        self.update_config_with_env(config_dict)
+
+        cli_user.init_user(config_dict, args.arg_token, args.use_keyring)
+
         if args.status:
             self.api_status()
 
@@ -118,11 +178,6 @@ class Cli:
         if args.use_keyring and args.arg_token:
             print("Choose either -k (keyring), -t (argument) or no flag (environment)!")
             return
-
-        if args.use_keyring:
-            user_credentials.token = user_credentials.get_token_keyring()
-        elif args.arg_token:
-            user_credentials.token = args.arg_token
 
         # run set_defaults for subparser
         if hasattr(args, "func"):

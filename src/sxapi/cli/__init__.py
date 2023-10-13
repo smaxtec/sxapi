@@ -1,3 +1,3 @@
-from .credentials import UserCredentials
+from .cli_user import CliUser
 
-user_credentials = UserCredentials()
+cli_user = CliUser()
