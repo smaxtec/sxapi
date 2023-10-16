@@ -7,7 +7,7 @@ from sxapi.publicV2 import PublicAPIV2
 def test_post_todos(post_mock):
     test_api = PublicAPIV2()
     test_api.todos.post_todos(
-        "test_todo_id", "test_orga_id", kwarg1="kwarg1", optional2="optional2"
+        "test_todo_type", "test_orga_id", kwarg1="kwarg1", optional2="optional2"
     )
 
     call_args = post_mock.call_args_list[0]
@@ -15,7 +15,7 @@ def test_post_todos(post_mock):
     assert post_mock.call_count == 1
     assert call_args.args[0] == "/todos"
     assert call_args.kwargs["json"] == {
-        "todo_id": "test_todo_id",
+        "todo_type": "test_todo_type",
         "organisation_id": "test_orga_id",
         "kwarg1": "kwarg1",
         "optional2": "optional2",

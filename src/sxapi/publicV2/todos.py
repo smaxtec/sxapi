@@ -1,10 +1,31 @@
 class Todos:
+    """
+    This Class represents the /todos endpoint of the PublicAPIV2.
+    https://api.smaxtec.com/api/v2/
+    """
+
     def __init__(self, api=None):
         self.api = api
         self.path_suffix = "/todos"
 
-    def post_todos(self, todo_id, organisation_id, **kwargs):
-        params = {"organisation_id": organisation_id, "todo_id": todo_id}
+    def post_todos(self, todo_type, organisation_id, **kwargs):
+        """
+
+        Args:
+            todo_type (str): Type of the todo to be created
+            organisation_id (str): Id of organisation the todo should be created for
+            **kwargs: Optional parameters of the API call.
+                Find supported parameters under
+                https://api.smaxtec.com/api/v2/
+
+        Returns:
+            dict: Response of API call. Created todo on success, error message else.
+
+        """
+        params = {
+            "todo_type": todo_type,
+            "organisation_id": organisation_id,
+        }
 
         for k, v in kwargs.items():
             params[k] = v
@@ -12,6 +33,18 @@ class Todos:
         self.api.post(self.path_suffix, json=params)
 
     def put_todos(self, todo_id, **kwargs):
+        """
+
+        Args:
+            todo_id (str): Id of the todo which should be updated.
+            **kwargs: Optional parameters of the API call.
+                Find supported parameters under
+                https://api.smaxtec.com/api/v2/
+
+        Returns:
+            dict: Response of API call. Updated todo on success, error message else.
+
+        """
         params = {}
         for k, v in kwargs.items():
             params[k] = v
@@ -20,9 +53,27 @@ class Todos:
         return self.api.put(url_suffix, json=params)
 
     def get_todos(self, todo_id):
+        """
+
+        Args:
+            todo_id (str): Id of the desired todo
+
+        Returns:
+            dict: Response of API call. Queried todo on success, error message else.
+
+        """
         return self.api.get(self.path_suffix + f"/{todo_id}")
 
     def post_todos_comment(self, todo_id, content):
+        """
+
+        Args:
+            todo_id (str): Id of the todo a comment is to be created.
+            content (str): Content of the comment
+
+        Returns:
+            dict: Response of API call. Updated todo on success, error message else.
+        """
         params = {
             "content": content,
         }
@@ -31,11 +82,30 @@ class Todos:
         return self.api.post(url_suffix, json=params)
 
     def delete_todos_comment(self, todo_id, comment_id):
+        """
+
+        Args:
+            todo_id (str): Id of the todo a comment is to be deleted.
+            comment_id (str): Id of the comment to delete.
+
+        Returns:
+            dict: Response of API call. Updated todo on success, error message else.
+        """
 
         url_suffix = self.path_suffix + f"/{todo_id}/comments/{comment_id}"
         return self.api.delete(url_suffix)
 
     def put_todos_comment(self, todo_id, comment_id, content):
+        """
+
+        Args:
+            todo_id (str): Id of the todo a comment is to be updated.
+            comment_id (str): Id of the comment to be updated.
+            content (str): Updated content of the Id.
+
+        Returns:
+            dict: Response of API call. Updated todo on success, error message else.
+        """
         params = {
             "content": content,
         }
