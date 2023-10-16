@@ -11,7 +11,7 @@ cli = Cli()
 @mock.patch("sxapi.cli.cli.Cli.version_info")
 @mock.patch("builtins.print")
 @mock.patch("sxapi.cli.cli_user.get_token_keyring", return_value="keyring-token")
-@mock.patch("sxapi.base.PublicAPIV2.get_token", return_value="keyring-token")
+@mock.patch("sxapi.publicV2.PublicAPIV2.get_token", return_value="keyring-token")
 def test_func(get_token_mock, keyring_mock, print_mock, version_mock):
     with mock.patch("sys.argv", ["sx_api", "--version"]):
         assert version_mock.call_count == 0
@@ -86,7 +86,7 @@ def test_config(keyring_mock, version_mock):
 
 @mock.patch("sxapi.cli.cli.Cli.version_info")
 @mock.patch("sxapi.cli.cli_user.get_token_keyring", return_value="keyring-token")
-@mock.patch("sxapi.base.PublicAPIV2.get_token", return_value="api-token")
+@mock.patch("sxapi.publicV2.PublicAPIV2.get_token", return_value="api-token")
 def test_init_user(api_mock, k_mock, version_mock):
     with mock.patch(
         "sys.argv",

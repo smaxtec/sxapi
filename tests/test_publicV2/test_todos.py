@@ -1,9 +1,9 @@
 import mock
 
-from sxapi.base import PublicAPIV2
+from sxapi.publicV2 import PublicAPIV2
 
 
-@mock.patch("sxapi.base.PublicAPIV2.post")
+@mock.patch("sxapi.publicV2.PublicAPIV2.post")
 def test_post_todos(post_mock):
     test_api = PublicAPIV2()
     test_api.todos.post_todos(
@@ -22,7 +22,7 @@ def test_post_todos(post_mock):
     }
 
 
-@mock.patch("sxapi.base.PublicAPIV2.post")
+@mock.patch("sxapi.publicV2.PublicAPIV2.post")
 def test_post_todo_comment(post_mock):
     test_api = PublicAPIV2()
     test_api.todos.post_todos_comment("test_todo_id", content="comment_content")
@@ -36,7 +36,7 @@ def test_post_todo_comment(post_mock):
     }
 
 
-@mock.patch("sxapi.base.PublicAPIV2.put")
+@mock.patch("sxapi.publicV2.PublicAPIV2.put")
 def test_put_todos(put_mock):
     test_api = PublicAPIV2()
     test_api.todos.put_todos("test_todo_id", kwarg1="1", kwarg2="2", kwarg3=3)
@@ -52,7 +52,7 @@ def test_put_todos(put_mock):
     }
 
 
-@mock.patch("sxapi.base.PublicAPIV2.put")
+@mock.patch("sxapi.publicV2.PublicAPIV2.put")
 def test_put_todo_comments(get_mock):
     test_api = PublicAPIV2()
     test_api.todos.put_todos_comment(
@@ -66,7 +66,7 @@ def test_put_todo_comments(get_mock):
     assert call_args.kwargs["json"] == {"content": "updated_content"}
 
 
-@mock.patch("sxapi.base.PublicAPIV2.get")
+@mock.patch("sxapi.publicV2.PublicAPIV2.get")
 def test_get_todos(get_mock):
     test_api = PublicAPIV2()
     test_api.todos.get_todos("test_todo_id")
@@ -78,7 +78,7 @@ def test_get_todos(get_mock):
     assert call_args.kwargs == {}
 
 
-@mock.patch("sxapi.base.PublicAPIV2.delete")
+@mock.patch("sxapi.publicV2.PublicAPIV2.delete")
 def test_delete_todo_comments(get_mock):
     test_api = PublicAPIV2()
     test_api.todos.delete_todos_comment("test_todo_id", "test_comment_id")

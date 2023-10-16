@@ -1,14 +1,12 @@
 import mock
 
-from sxapi.base import (
-    IntegrationAPIV2,
-    PublicAPIV2,
-)
+from sxapi.base import IntegrationAPIV2
+from sxapi.publicV2 import PublicAPIV2
 from sxapi.publicV2.sensordata import get_sensor_data_from_animal
 
 
 @mock.patch("builtins.print")
-@mock.patch("sxapi.base.PublicAPIV2.get")
+@mock.patch("sxapi.publicV2.PublicAPIV2.get")
 def test_get_sensor_data(get_mock, print_mock):
     get_sensor_data_from_animal(IntegrationAPIV2(), "animal_id")
     call_args = print_mock.call_args_list[0]

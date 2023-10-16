@@ -1,7 +1,7 @@
 import mock
 
-from sxapi.base import PublicAPIV2
 from sxapi.cli.cli import Cli
+from sxapi.publicV2 import PublicAPIV2
 
 args_parser = Cli.parse_args
 
