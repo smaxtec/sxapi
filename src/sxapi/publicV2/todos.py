@@ -9,7 +9,7 @@ class Todos:
         self.path_suffix = "/todos"
 
     def post_todos(self, todo_type, organisation_id, **kwargs):
-        """
+        """Creates a new todo.
 
         Args:
             todo_type (str): Type of the todo to be created
@@ -33,7 +33,7 @@ class Todos:
         self.api.post(self.path_suffix, json=params)
 
     def put_todos(self, todo_id, **kwargs):
-        """
+        """Updates an existing todo.
 
         Args:
             todo_id (str): Id of the todo which should be updated.
@@ -53,7 +53,7 @@ class Todos:
         return self.api.put(url_suffix, json=params)
 
     def get_todos(self, todo_id):
-        """
+        """Get one todo.
 
         Args:
             todo_id (str): Id of the desired todo
@@ -65,7 +65,7 @@ class Todos:
         return self.api.get(self.path_suffix + f"/{todo_id}")
 
     def post_todos_comment(self, todo_id, content):
-        """
+        """Create a comment for a todo.
 
         Args:
             todo_id (str): Id of the todo a comment is to be created.
@@ -82,7 +82,7 @@ class Todos:
         return self.api.post(url_suffix, json=params)
 
     def delete_todos_comment(self, todo_id, comment_id):
-        """
+        """Delete a comment from a todo.
 
         Args:
             todo_id (str): Id of the todo a comment is to be deleted.
@@ -96,7 +96,7 @@ class Todos:
         return self.api.delete(url_suffix)
 
     def put_todos_comment(self, todo_id, comment_id, content):
-        """
+        """Update a comment from a todo.
 
         Args:
             todo_id (str): Id of the todo a comment is to be updated.
