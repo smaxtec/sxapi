@@ -1,5 +1,5 @@
-# This workflow builds the /docs directory with tox and pushes the created html documents to GitHub Pages source path.
-# For this workflow the gh-pages branch is considered as the main source for the GitHub Page.
+# This workflow runs the project tests.
+# This workflow is only executed on PR's to the main branch.
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
