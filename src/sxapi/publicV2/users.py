@@ -53,7 +53,7 @@ class Users:
         return self.api.post(url_suffix, json=params)
 
     def get_credentials(self, **kwargs):
-        """Retrieve smaxtec api-access-token and an optional firestore-token.
+        """Retrieve smaxtec api-access-tokens with a JWT Token.
 
         Args:
             **kwargs: Optional parameters of the API call.
@@ -71,7 +71,7 @@ class Users:
             params[k] = v
 
         url_suffix = self.path_suffix + "/credentials"
-        return self.api.get(url_suffix, params=params)
+        return self.api.get(url_suffix, json=params)
 
     def post_reset_password(self, secret, new_password, **kwargs):
         """Reset password with secret.
@@ -114,7 +114,7 @@ class Users:
             params[k] = v
 
         url_suffix = self.path_suffix + "/reset_password_request"
-        return self.api.get(url_suffix, params=params)
+        return self.api.get(url_suffix, json=params)
 
     def get(self, user_id, **kwargs):
         """Get one user by id.
@@ -135,7 +135,7 @@ class Users:
             params[k] = v
 
         url_suffix = self.path_suffix + f"/{user_id}"
-        return self.api.get(url_suffix, params=params)
+        return self.api.get(url_suffix, json=params)
 
     def get_account(self, user_id, **kwargs):
         """Get a list of all Accounts of the given user
@@ -157,7 +157,7 @@ class Users:
             params[k] = v
 
         url_suffix = self.path_suffix + f"/{user_id}/account"
-        return self.api.get(url_suffix, params=params)
+        return self.api.get(url_suffix, json=params)
 
     def get_alarms(self, user_id, **kwargs):
         """Get a list of all Alarms of the given user
@@ -179,7 +179,7 @@ class Users:
             params[k] = v
 
         url_suffix = self.path_suffix + f"/{user_id}/alarms"
-        return self.api.get(url_suffix, params=params)
+        return self.api.get(url_suffix, json=params)
 
     def put_change_password(self, user_id, old_password, new_password, **kwargs):
         """Change password of a user with old password.
@@ -207,13 +207,13 @@ class Users:
         url_suffix = self.path_suffix + f"/{user_id}/change_password"
         return self.api.put(url_suffix, json=params)
 
-    def post_password_strength(self, user_id, password, email, **kwargs):
+    def post_password_strength(self, user_id, email, password, **kwargs):
         """Check password strength.
 
         Args:
             user_id (str): ID of the desired user
-            password (str): password to check
             email (str): email of the user
+            password (str): password to check
             **kwargs: Optional parameters of the API call.
                 Find supported parameters under
                 https://api.smaxtec.com/api/v2/
@@ -254,7 +254,7 @@ class Users:
             params[k] = v
 
         url_suffix = self.path_suffix + f"/{user_id}/shares"
-        return self.api.get(url_suffix, params=params)
+        return self.api.get(url_suffix, json=params)
 
     def post_test_email(self, user_id, **kwargs):
         """Send a test email to the user.
