@@ -1,0 +1,28 @@
+# This workflow runs the project tests.
+# This workflow is only executed on PR's to the main branch.
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Test
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install tox
+
+      - name: Run Tests
+        run : tox
