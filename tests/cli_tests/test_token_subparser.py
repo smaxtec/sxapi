@@ -12,7 +12,7 @@ args_parser = Cli.parse_args
 
 
 @mock.patch("builtins.print")
-@mock.patch("sxapi.base.PublicAPIV2.get_token", return_value="api_token")
+@mock.patch("sxapi.publicV2.PublicAPIV2.get_token", return_value="api_token")
 def test_handle_print_token(api_mock, print_mock):
     namespace = args_parser(["token", "-p"])
     assert namespace.print_token == "ek"
@@ -118,7 +118,7 @@ def test_handle_new_token(creds_mock, getpass_mock, print_mock):
     assert call_args.args[0] == "Username or Password is wrong!"
     print_mock.reset_mock()
 
-    with mock.patch("sxapi.base.PublicAPIV2.get_token", return_value="api_token"):
+    with mock.patch("sxapi.publicV2.PublicAPIV2.get_token", return_value="api_token"):
         namespace = args_parser(["token", "-n", "marco@test", "pwd"])
         assert namespace.new_token == ["marco@test", "pwd"]
         handle_new_token(namespace)

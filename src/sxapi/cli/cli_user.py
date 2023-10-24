@@ -2,10 +2,8 @@ import os
 
 import keyring
 
-from sxapi.base import (
-    IntegrationAPIV2,
-    PublicAPIV2,
-)
+from sxapi.base import IntegrationAPIV2
+from sxapi.publicV2 import PublicAPIV2
 
 
 class CliUser:

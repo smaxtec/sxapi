@@ -2,8 +2,8 @@ import getpass
 
 import requests
 
-from sxapi.base import PublicAPIV2
 from sxapi.cli import cli_user
+from sxapi.publicV2 import PublicAPIV2
 
 
 def create_token_parser(subparsers):

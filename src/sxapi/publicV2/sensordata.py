@@ -4,7 +4,7 @@ from datetime import (
 )
 from urllib.parse import urlencode
 
-from ..base import PublicAPIV2
+from sxapi.publicV2 import PublicAPIV2
 
 
 def get_sensor_data_from_animal(api, animal_id, *args, **kwargs):
