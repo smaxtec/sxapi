@@ -3,6 +3,7 @@ from sxapi.base import (
     BaseAPI,
 )
 from sxapi.publicV2.todos import Todos
+from sxapi.publicV2.users import Users
 
 PUBLIC_API_V2_BASE_URL = "https://api.smaxtec.com/api/v2"
 
@@ -14,6 +15,7 @@ class PublicAPIV2(BaseAPI):
         api_type = ApiTypes.PUBLIC
 
         self.todos = Todos(api=self)
+        self.users = Users(api=self)
 
         super().__init__(
             base_url,
