@@ -2,6 +2,7 @@ from sxapi.base import (
     ApiTypes,
     BaseAPI,
 )
+from sxapi.publicV2.alarms import Alarms
 from sxapi.publicV2.todos import Todos
 from sxapi.publicV2.users import Users
 
@@ -16,6 +17,7 @@ class PublicAPIV2(BaseAPI):
 
         self.todos = Todos(api=self)
         self.users = Users(api=self)
+        self.alarms = Alarms(api=self)
 
         super().__init__(
             base_url,
