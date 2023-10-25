@@ -3,6 +3,7 @@ from sxapi.base import (
     BaseAPI,
 )
 from sxapi.publicV2.alarms import Alarms
+from sxapi.publicV2.data import Data
 from sxapi.publicV2.todos import Todos
 from sxapi.publicV2.users import Users
 
@@ -18,6 +19,7 @@ class PublicAPIV2(BaseAPI):
         self.todos = Todos(api=self)
         self.users = Users(api=self)
         self.alarms = Alarms(api=self)
+        self.data = Data(api=self)
 
         super().__init__(
             base_url,
