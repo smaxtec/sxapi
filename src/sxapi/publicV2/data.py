@@ -30,9 +30,9 @@ class Data:
             params[k] = v
 
         url_suffix = self.path_suffix + f"/animals/{animal_id}.json"
-        self.api.get(url_suffix, json=params)
+        return self.api.get(url_suffix, json=params)
 
-    def get_metrics_animal(self, animal_id, **kwargs):
+    def get_metrics_animals(self, animal_id, **kwargs):
         """List available metrics for an animal.
 
         Args:
@@ -76,9 +76,9 @@ class Data:
             params[k] = v
 
         url_suffix = self.path_suffix + f"/devices/{device_id}.json"
-        self.api.get(url_suffix, json=params)
+        return self.api.get(url_suffix, json=params)
 
-    def get_metrics_device(self, device_id, **kwargs):
+    def get_metrics_devices(self, device_id, **kwargs):
         """List available metrics for a device.
 
         Args:
@@ -97,7 +97,7 @@ class Data:
             params[k] = v
 
         url_suffix = self.path_suffix + f"/devices/{device_id}/metrics"
-        self.api.get(url_suffix, json=params)
+        return self.api.get(url_suffix, json=params)
 
     def get_download_animal_data(
         self, animal_ids, metrics, from_date, to_date, **kwargs
@@ -129,7 +129,7 @@ class Data:
             params[k] = v
 
         url_suffix = self.path_suffix + "/download_animal_data"
-        self.api.get(url_suffix, json=params)
+        return self.api.get(url_suffix, json=params)
 
     def get_download_device_data(
         self, device_ids, metrics, from_date, to_date, **kwargs
@@ -161,7 +161,7 @@ class Data:
             params[k] = v
 
         url_suffix = self.path_suffix + "/download_device_data"
-        self.api.get(url_suffix, json=params)
+        return self.api.get(url_suffix, json=params)
 
     def get_download_group_data(self, group_ids, metrics, from_date, to_date, **kwargs):
         """Download sensordata for groups.
@@ -191,7 +191,7 @@ class Data:
             params[k] = v
 
         url_suffix = self.path_suffix + "/download_group_data"
-        self.api.get(url_suffix, json=params)
+        return self.api.get(url_suffix, json=params)
 
     def post_downloads_excel_report(self, from_date, to_date, **kwargs):
         """Generates an Excel report and sends an email
@@ -214,7 +214,7 @@ class Data:
             params[k] = v
 
         url_suffix = self.path_suffix + "/downloads/generate_excel_report"
-        self.api.post(url_suffix, json=params)
+        return self.api.post(url_suffix, json=params)
 
     def post_downloads_messages_excel_report(self, from_date, to_date, **kwargs):
         """Generates an Excel report and sends an email
@@ -237,7 +237,7 @@ class Data:
             params[k] = v
 
         url_suffix = self.path_suffix + "/downloads/generate_messages_excel_report"
-        self.api.post(url_suffix, json=params)
+        return self.api.post(url_suffix, json=params)
 
     def post_downloads_organisation_messages_excel_report(
         self, organisation_id, from_date, to_date, **kwargs
@@ -269,7 +269,7 @@ class Data:
         url_suffix = (
             self.path_suffix + "/downloads/generate_organisation_messages_excel_report"
         )
-        self.api.post(url_suffix, json=params)
+        return self.api.post(url_suffix, json=params)
 
     def get_downloads(self, download_id, **kwargs):
         """Download a generated Excel report.
@@ -288,7 +288,7 @@ class Data:
             params[k] = v
 
         url_suffix = self.path_suffix + f"/downloads/{download_id}"
-        self.api.get(url_suffix, json=params)
+        return self.api.get(url_suffix, json=params)
 
     def get_data_feedrations(
         self, feedration_id, metrics, from_date, to_date, **kwargs
@@ -315,7 +315,7 @@ class Data:
             params[k] = v
 
         url_suffix = self.path_suffix + f"/feedrations/{feedration_id}.json"
-        self.api.get(url_suffix, json=params)
+        return self.api.get(url_suffix, json=params)
 
     def get_data_groups(self, group_id, metrics, from_date, to_date, **kwargs):
         """Query group data.
@@ -338,7 +338,7 @@ class Data:
             params[k] = v
 
         url_suffix = self.path_suffix + f"/groups/{group_id}.json"
-        self.api.get(url_suffix, json=params)
+        return self.api.get(url_suffix, json=params)
 
     def get_metrics_groups(self, group_id, **kwargs):
         """List available metrics for a group.
@@ -357,4 +357,4 @@ class Data:
             params[k] = v
 
         url_suffix = self.path_suffix + f"/groups/{group_id}/metrics"
-        self.api.get(url_suffix, json=params)
+        return self.api.get(url_suffix, json=params)

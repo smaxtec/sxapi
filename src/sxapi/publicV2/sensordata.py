@@ -2,7 +2,6 @@ from datetime import (
     datetime,
     timedelta,
 )
-from urllib.parse import urlencode
 
 from sxapi.publicV2 import PublicAPIV2
 
@@ -38,12 +37,6 @@ def get_sensor_data_from_animal(api, animal_id, *args, **kwargs):
             print("from_date has not the right format YYYY-MM-DD!")
             return None
 
-    param = {
-        "metrics": metrics,
-        "to_date": to_date,
-        "from_date": from_date,
-    }
-    url_path = f"/data/animals/{animal_id}.json?{urlencode(param, True)}"
-    resp = api.get(url_path)
-
-    return resp
+    return api.data.get_data_animals(
+        animal_id, metrics, from_date.isoformat(), to_date.isoformat()
+    )
