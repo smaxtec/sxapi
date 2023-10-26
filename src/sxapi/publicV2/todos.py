@@ -1,7 +1,7 @@
 class Todos:
     """
     This Class represents the /todos endpoint of the PublicAPIV2.
-
+    https://api.smaxtec.com/api/v2/
     """
 
     def __init__(self, api=None):

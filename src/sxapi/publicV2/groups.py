@@ -62,7 +62,7 @@ class Groups:
                 https://api.smaxtec.com/api/v2/
 
         Returns:
-            dict: Response of API call. Updated group on success, error message else.
+            dict: Response of API call. Result on success, error message else.
         """
         params = {}
 
