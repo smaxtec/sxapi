@@ -3,7 +3,7 @@ class Data:
     This Class represents the /data endpoint fo the PublicAPIV2
     """
 
-    def __init__(self, api):
+    def __init__(self, api=None):
         self.api = api
         self.path_suffix = "/data"
 

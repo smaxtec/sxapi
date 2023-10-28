@@ -4,6 +4,8 @@ from sxapi.base import (
 )
 from sxapi.publicV2.alarms import Alarms
 from sxapi.publicV2.data import Data
+from sxapi.publicV2.feedrations import Feedrations
+from sxapi.publicV2.groups import Groups
 from sxapi.publicV2.todos import Todos
 from sxapi.publicV2.users import Users
 
@@ -20,6 +22,8 @@ class PublicAPIV2(BaseAPI):
         self.users = Users(api=self)
         self.alarms = Alarms(api=self)
         self.data = Data(api=self)
+        self.groups = Groups(api=self)
+        self.feedrations = Feedrations(api=self)
 
         super().__init__(
             base_url,
