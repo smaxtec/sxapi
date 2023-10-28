@@ -42,5 +42,5 @@ def test_get_categories(get_mock):
     assert get_mock.call_count == 1
     assert call_args.args[0] == "/events/categories"
     assert call_args.kwargs["json"] == {
-        "kwarg1": "kwarg1", 
+        "kwarg1": "kwarg1",
     }
