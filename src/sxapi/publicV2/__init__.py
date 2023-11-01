@@ -10,6 +10,8 @@ from sxapi.publicV2.todos import Todos
 from sxapi.publicV2.users import Users
 from sxapi.publicV2.events import Events
 from sxapi.publicV2.animalgroups import AnimalGroups
+from sxapi.publicV2.notes import Notes
+from sxapi.publicV2.shares import Shares
 
 PUBLIC_API_V2_BASE_URL = "https://api.smaxtec.com/api/v2"
 
@@ -28,6 +30,8 @@ class PublicAPIV2(BaseAPI):
         self.feedrations = Feedrations(api=self)
         self.events = Events(api=self)
         self.animalgroups = AnimalGroups(api=self)
+        self.notes = Notes(api=self)
+        self.shares = Shares(api=self)
 
         super().__init__(
             base_url,
