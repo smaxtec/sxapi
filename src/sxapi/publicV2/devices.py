@@ -21,6 +21,7 @@ class Devices:
 
         Returns:
             dict: Response of API call. Result on success, error message else.
+
         """
         params = {"activation_code": activation_code}
 
@@ -48,6 +49,7 @@ class Devices:
 
         Returns:
             dict: Response of API call. Device on success, error message else.
+
         """
         params = {
             "organisation_id": organisation_id,
@@ -74,6 +76,7 @@ class Devices:
 
         Returns:
             dict: Response of API call. Device on success, error message else.
+
         """
         params = {"name": name}
 
