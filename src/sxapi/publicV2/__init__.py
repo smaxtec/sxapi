@@ -3,15 +3,16 @@ from sxapi.base import (
     BaseAPI,
 )
 from sxapi.publicV2.alarms import Alarms
+from sxapi.publicV2.animalgroups import AnimalGroups
 from sxapi.publicV2.data import Data
+from sxapi.publicV2.events import Events
 from sxapi.publicV2.feedrations import Feedrations
 from sxapi.publicV2.groups import Groups
+from sxapi.publicV2.notes import Notes
+from sxapi.publicV2.observation_groups import ObservationGroups
+from sxapi.publicV2.shares import Shares
 from sxapi.publicV2.todos import Todos
 from sxapi.publicV2.users import Users
-from sxapi.publicV2.events import Events
-from sxapi.publicV2.animalgroups import AnimalGroups
-from sxapi.publicV2.notes import Notes
-from sxapi.publicV2.shares import Shares
 
 PUBLIC_API_V2_BASE_URL = "https://api.smaxtec.com/api/v2"
 
@@ -32,6 +33,7 @@ class PublicAPIV2(BaseAPI):
         self.animalgroups = AnimalGroups(api=self)
         self.notes = Notes(api=self)
         self.shares = Shares(api=self)
+        self.observation_groups = ObservationGroups(api=self)
 
         super().__init__(
             base_url,
