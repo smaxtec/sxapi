@@ -1,7 +1,7 @@
 class Devices:
     """
     This Class represents the /todos endpoint of the PublicAPIV2.
-
+    https://api.smaxtec.com/api/v2/
     """
 
     def __init__(self, api=None):
@@ -15,6 +15,9 @@ class Devices:
         Args:
             device_id (str): ID of the device check if activation is possible
             activation_code (str): Devices activation code
+            **kwargs: Optional parameters of the API call.
+                Find supported parameters under
+                https://api.smaxtec.com/api/v2/
 
         Returns:
             dict: Response of API call. Result on success, error message else.
