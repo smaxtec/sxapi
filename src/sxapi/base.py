@@ -5,8 +5,6 @@ from enum import Enum
 
 import requests
 
-INTEGRATION_API_V2_BASE_URL = "https://api.smaxtec.com/integration/v2"
-
 
 class ApiTypes(Enum):
     PUBLIC = 1
@@ -90,17 +88,3 @@ class BaseAPI(object):
         url = self.to_url(path)
         r = self.session.delete(url, *args, **kwargs)
         return r.json()
-
-
-class IntegrationAPIV2(BaseAPI):
-    def __init__(self, base_url=None, email=None, password=None, api_token=None):
-        """Initialize a new integration api client instance."""
-        base_url = base_url or INTEGRATION_API_V2_BASE_URL
-        api_type = ApiTypes.INTEGRATION
-        super().__init__(
-            base_url,
-            email=email,
-            password=password,
-            api_token=api_token,
-            api_type=api_type,
-        )

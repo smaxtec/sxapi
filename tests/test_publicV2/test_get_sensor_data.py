@@ -2,7 +2,7 @@ import datetime
 
 import mock
 
-from sxapi.base import IntegrationAPIV2
+from sxapi.integrationV2 import IntegrationAPIV2
 from sxapi.publicV2 import PublicAPIV2
 from sxapi.publicV2.sensordata import get_sensor_data_from_animal
 
