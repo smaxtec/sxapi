@@ -1,6 +1,6 @@
 import mock
 
-from sxapi.base import IntegrationAPIV2
+from sxapi.integrationV2 import IntegrationAPIV2
 from sxapi.publicV2 import PublicAPIV2
 
 
