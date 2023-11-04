@@ -3,6 +3,7 @@ from sxapi.base import (
     BaseAPI,
 )
 from sxapi.integrationV2.accounts import Accounts
+from sxapi.integrationV2.organisations import Organisations
 from sxapi.integrationV2.tranlations import Translations
 from sxapi.integrationV2.users import Users
 
@@ -18,6 +19,7 @@ class IntegrationAPIV2(BaseAPI):
         self.users = Users(api=self)
         self.translations = Translations(api=self)
         self.accounts = Accounts(api=self)
+        self.organisations = Organisations(api=self)
 
         super().__init__(
             base_url,
