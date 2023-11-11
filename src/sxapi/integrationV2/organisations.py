@@ -116,7 +116,7 @@ class Organisations:
                 https://api.smaxtec.com/integration/v2/
 
         Returns:
-            dict: Response of API call. List of animal ids on success,
+            list[dict]: Response of API call. List of animal ids on success,
                 error message else.
 
         """
@@ -140,7 +140,7 @@ class Organisations:
                 https://api.smaxtec.com/integration/v2/
 
         Returns:
-            dict: Response of API call. List of animals on success,
+            list[dict]: Response of API call. List of animals on success,
                 error message else.
 
         """
@@ -279,7 +279,7 @@ class Organisations:
                 https://api.smaxtec.com/integration/v2/
 
         Returns:
-            dict: Response of API call. List of animal events on success,
+            list[dict]: Response of API call. List of animal events on success,
                 error message else.
 
         """

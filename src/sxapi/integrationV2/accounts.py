@@ -19,7 +19,7 @@ class Accounts:
                 https://api.smaxtec.com/integration/v2/
 
         Returns:
-            dict: Response of API call. List of usages on success,
+            list[dict]: Response of API call. List of usages on success,
                 error message else.
 
         """

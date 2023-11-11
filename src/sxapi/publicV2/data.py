@@ -10,6 +10,8 @@ class Data:
     def get_data_animals(self, animal_id, metrics, from_date, to_date, **kwargs):
         """Query sensordata for an animal.
 
+        https://api.smaxtec.com/api/v2/data/animals/{animal_id}.json
+
         Args:
             animal_id (str): ID of the animal
             metrics (list(str)): List of metrics to query
@@ -35,6 +37,8 @@ class Data:
     def get_metrics_animals(self, animal_id, **kwargs):
         """List available metrics for an animal.
 
+        https://api.smaxtec.com/api/v2/data/animals/{animal_id}/metrics
+
         Args:
             animal_id (str): ID of the animal
             **kwargs: Optional parameters of the API call.
@@ -42,7 +46,7 @@ class Data:
                 https://api.smaxtec.com/api/v2/
 
         Returns:
-            dict: Response from the API.  List of available metrics on success,
+            list[dict]: Response from the API.  List of available metrics on success,
                 error message else.
 
         """
@@ -55,6 +59,8 @@ class Data:
 
     def get_data_devices(self, device_id, metrics, from_date, to_date, **kwargs):
         """Query sensordata for a device.
+
+        https://api.smaxtec.com/api/v2/data/devices/{device_id}.json
 
         Args:
             device_id (str): ID of the device
@@ -81,6 +87,8 @@ class Data:
     def get_metrics_devices(self, device_id, **kwargs):
         """List available metrics for a device.
 
+        https://api.smaxtec.com/api/v2/data/devices/{device_id}/metrics
+
         Args:
             device_id (str): ID of the device
             **kwargs: Optional parameters of the API call.
@@ -88,7 +96,7 @@ class Data:
                 https://api.smaxtec.com/api/v2/
 
         Returns:
-            dict: Response from the API.  List of available metrics on success,
+            list[dict]: Response from the API.  List of available metrics on success,
                 error message else.
 
         """
@@ -103,6 +111,8 @@ class Data:
         self, animal_ids, metrics, from_date, to_date, **kwargs
     ):
         """Download sensordata for animals.
+
+        https://api.smaxtec.com/api/v2/data/download_animal_data
 
         Args:
             animal_ids (list(str)): List of animal IDs
@@ -136,6 +146,8 @@ class Data:
     ):
         """Download sensordata for devices.
 
+        https://api.smaxtec.com/api/v2/data/download_device_data
+
         Args:
             device_ids (list(str)): List of device IDs
             metrics (list(str)): List of metrics to query
@@ -165,6 +177,8 @@ class Data:
 
     def get_download_group_data(self, group_ids, metrics, from_date, to_date, **kwargs):
         """Download sensordata for groups.
+
+        https://api.smaxtec.com/api/v2/data/download_group_data
 
         Args:
             group_ids (list(str)): List of group IDs
@@ -197,6 +211,8 @@ class Data:
         """Generates an Excel report and sends an email
         containing a download link for the Excel report to the user.
 
+        https://api.smaxtec.com/api/v2/data/downloads/generate_excel_report
+
         Args:
             from_date (str): Query from date
             to_date (str): Query end date
@@ -219,6 +235,8 @@ class Data:
     def post_downloads_messages_excel_report(self, from_date, to_date, **kwargs):
         """Generates an Excel report and sends an email
         containing a download link for the Excel report to the user.
+
+        https://api.smaxtec.com/api/v2/data/downloads/generate_messages_excel_report
 
         Args:
             from_date (str): Query from date
@@ -244,6 +262,8 @@ class Data:
     ):
         """Generates an Excel report and sends an email
         containing a download link for the Excel report to the user.
+
+        https://api.smaxtec.com/api/v2/data/downloads/generate_organisation_messages_excel_report
 
         Args:
             organisation_id (str): ID of organisation the report should be created for
@@ -274,6 +294,8 @@ class Data:
     def get_downloads(self, download_id, **kwargs):
         """Download a generated Excel report.
 
+        https://api.smaxtec.com/api/v2/data/downloads/{download_id}
+
         Args:
             download_id (str): ID of the download
             **kwargs: Optional parameters of the API call.
@@ -294,6 +316,8 @@ class Data:
         self, feedration_id, metrics, from_date, to_date, **kwargs
     ):
         """Query feedration data.
+
+        https://api.smaxtec.com/api/v2/data/feedrations/{feedration_id}.json
 
         Args:
             feedration_id (str): ID of the feedration group
@@ -320,6 +344,8 @@ class Data:
     def get_data_groups(self, group_id, metrics, from_date, to_date, **kwargs):
         """Query group data.
 
+        https://api.smaxtec.com/api/v2/data/groups/{group_id}.json
+
         Args:
             group_id (str): ID of the group
             metrics (list(str)): List of metrics to query
@@ -343,13 +369,15 @@ class Data:
     def get_metrics_groups(self, group_id, **kwargs):
         """List available metrics for a group.
 
+        https://api.smaxtec.com/api/v2/data/groups/{group_id}/metrics
+
         Args:
             group_id (str): ID of the group
             **kwargs: Optional parameters of the API call.
                 Find supported parameters under
                 https://api.smaxtec.com/api/v2/
         Returns:
-            dict: Response from the API.  List of available metrics on success,
+            list[dict]: Response from the API.  List of available metrics on success,
                 error message else.
         """
         params = {}

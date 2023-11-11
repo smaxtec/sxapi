@@ -9,8 +9,9 @@ class Groups:
         self.path_suffix = "/groups"
 
     def put_actions(self, group_id, **kwargs):
-        """
-        Add an action to a group.
+        """Add an action to a group.
+
+        https://api.smaxtec.com/api/v2/groups/{group_id}/actions
 
         Args:
             group_id (str): ID of the group which should be updated.
@@ -30,8 +31,9 @@ class Groups:
         self.api.put(url_suffix, json=params)
 
     def get_actions(self, group_id, **kwargs):
-        """
-        Get all actions of a group.
+        """Get all actions of a group.
+
+         https://api.smaxtec.com/api/v2/groups/{group_id}/actions
 
         Args:
             group_id (str): ID of the group which should be updated.
@@ -51,8 +53,9 @@ class Groups:
         return self.api.get(url_suffix, json=params)
 
     def delete_actions(self, group_id, action_id, **kwargs):
-        """
-        Delete an action from a group.
+        """Delete an action from a group.
+
+         https://api.smaxtec.com/api/v2/groups/{group_id}/actions/{action_id}
 
         Args:
             group_id (str): ID of the group which should be updated.

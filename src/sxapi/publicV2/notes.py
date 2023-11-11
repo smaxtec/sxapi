@@ -8,8 +8,12 @@ class Notes:
         self.api = api
         self.path_suffix = "/notes"
 
-    def post(self, source, reference_type, reference_id, category, note_event, **kwargs):
+    def post(
+        self, source, reference_type, reference_id, category, note_event, **kwargs
+    ):
         """Create a new note.
+
+         https://api.smaxtec.com/api/v2/notes
 
         Args:
             source (str): Source of the note
@@ -42,6 +46,8 @@ class Notes:
     def get(self, note_id, **kwargs):
         """Get one note.
 
+        https://api.smaxtec.com/api/v2/notes/{note_id}
+
         Args:
             note_id (str): ID of the desired note
             **kwargs: Optional parameters of the API call.
@@ -61,8 +67,19 @@ class Notes:
         url_suffix = self.path_suffix + f"/{note_id}"
         return self.api.get(url_suffix, json=kwargs)
 
-    def put(self, note_id, source, reference_type, reference_id, category, note_event, **kwargs):
+    def put(
+        self,
+        note_id,
+        source,
+        reference_type,
+        reference_id,
+        category,
+        note_event,
+        **kwargs,
+    ):
         """Update an existing note.
+
+        https://api.smaxtec.com/api/v2/notes/{note_id}
 
         Args:
             note_id (str): ID of the note to be updated

@@ -5,10 +5,22 @@ from datetime import (
 
 from sxapi.publicV2 import PublicAPIV2
 
+# TODO: This function is located inside the CLI class.
+
 
 def get_sensor_data_from_animal(api, animal_id, *args, **kwargs):
-    """
-    Performs a get call to PUBLIC_API_V2, to get the sensordata from the given animal_id
+    """Performs a get call to PUBLIC_API_V2, to get the sensordata from the given animal_id
+
+    Args:
+        api (PublicAPIV2): Api object to perform the call
+        animal_id (str): ID of the animal to get the sensordata from
+        *args: Optional parameters of the API call.
+        **kwargs: Optional parameters of the API call.
+
+    Returns:
+        dict: Response from the API. Requested Metric values on success,
+                error message else.
+
     """
     if not isinstance(api, PublicAPIV2):
         print("This function is only available to PublicAPIV2!")

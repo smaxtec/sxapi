@@ -11,6 +11,8 @@ class Events:
     def get(self, organisation_id, **kwargs):
         """Get all events of an organisation.
 
+        https://api.smaxtec.com/api/v2/events
+
         Args:
             organisation_id (str): ID of the organisation the events
                 should be retrieved for
@@ -34,6 +36,8 @@ class Events:
 
     def get_by_id(self, event_id, **kwargs):
         """Get one event by ID.
+
+        https://api.smaxtec.com/api/v2/events/by_id
 
         Args:
             event_id (str): ID of the desired event
@@ -59,13 +63,15 @@ class Events:
             If no user id or organisation id in the parameter
             a Bad Request Error will be returned!
 
+         https://api.smaxtec.com/api/v2/events/categories
+
         Args:
             **kwargs: Optional parameters of the API call.
                 Find supported parameters under
                 https://api.smaxtec.com/api/v2/
 
         Returns:
-            dict: Response of API call. List of event categories on success,
+            list[dict]: Response of API call. List of event categories on success,
                 error message else.
 
         """
