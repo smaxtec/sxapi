@@ -11,6 +11,8 @@ class AnimalGroups:
     def post(self, name, location, organisation_id, **kwargs):
         """Create a new animal group.
 
+        https://api.smaxtec.com/api/v2/animalgroups
+
         Args:
             name (str): Name of the animal group
             location (str): Location of the animal group
@@ -38,6 +40,8 @@ class AnimalGroups:
 
     def put(self, group_id, name, location, organisation_id, **kwargs):
         """Update an animal group.
+
+        https://api.smaxtec.com/api/v2/animalgroups/{group_id}
 
         Args:
             group_id (str): ID of the animal group
@@ -69,6 +73,8 @@ class AnimalGroups:
     def get(self, group_id, **kwargs):
         """Get one animal group by ID.
 
+        https://api.smaxtec.com/api/v2/animalgroups/{group_id}
+
         Args:
             group_id (str): ID of the desired animal group
             **kwargs: Optional parameters of the API call.
@@ -89,6 +95,8 @@ class AnimalGroups:
 
     def delete(self, group_id, **kwargs):
         """Delete an animal group.
+
+        https://api.smaxtec.com/api/v2/animalgroups/{group_id}
 
         Args:
             group_id (str): ID of the animal group

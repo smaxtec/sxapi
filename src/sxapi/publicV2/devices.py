@@ -9,8 +9,9 @@ class Devices:
         self.path_suffix = "/devices"
 
     def get_check_activatable(self, device_id, activation_code, **kwargs):
-        """
-        Check if a device can be activated with the given activation code.
+        """Check if a device can be activated with the given activation code.
+
+        https://api.smaxtec.com/api/v2/devices/{device_id}/check_activatable
 
         Args:
             device_id (str): ID of the device check if activation is possible
@@ -34,8 +35,9 @@ class Devices:
     def put_move(
         self, device_id, organisation_id, target_organisation_id, archive, **kwargs
     ):
-        """
-        Move a device to another organisation.
+        """Move a device to another organisation.
+
+        https://api.smaxtec.com/api/v2/data/{device_id}/move
 
         Args:
             device_id (str): ID of the device to be moved
@@ -64,8 +66,9 @@ class Devices:
         return self.api.put(url_suffix, json=params)
 
     def put_update_name(self, device_id, name, **kwargs):
-        """
-        Update the name of a device.
+        """Update the name of a device.
+
+        https://api.smaxtec.com/api/v2/data/{device_id}/update_name
 
         Args:
             device_id (str): ID of the device to be moved

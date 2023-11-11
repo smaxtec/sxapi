@@ -11,6 +11,8 @@ class Users:
     def get(self, **kwargs):
         """Grant access to demo farm
 
+        https://api.smaxtec.com/integration/v2/users
+
         Args:
             **kwargs: Optional parameters of the API call.
                 Find supported parameters under
@@ -30,6 +32,8 @@ class Users:
 
     def post_session_token(self, user, password, **kwargs):
         """Creates a new session token.
+
+        https://api.smaxtec.com/integration/v2/users/session_token
 
         Args:
             user (str): Email of the user to be logged in

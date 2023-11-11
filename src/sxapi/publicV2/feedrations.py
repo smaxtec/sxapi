@@ -11,6 +11,8 @@ class Feedrations:
     def post(self, name, organisation_id, **kwargs):
         """Creates a new feedration.
 
+         https://api.smaxtec.com/api/v2/feedrations
+
         Args:
             name (str): Name of the feedration to be created
             organisation_id (str): ID of the organisation the feedration
@@ -36,6 +38,8 @@ class Feedrations:
 
     def put(self, feedration_id, name, organisation_id, **kwargs):
         """Updates an existing feedration.
+
+        https://api.smaxtec.com/api/v2/feedrations/{feedration_id}
 
         Args:
             feedration_id (str): ID of the feedration which should be updated.
@@ -64,6 +68,8 @@ class Feedrations:
     def get(self, feedration_id, **kwargs):
         """Get one feedration.
 
+        https://api.smaxtec.com/api/v2/feedrations/{feedration_id}
+
         Args:
             feedration_id (str): ID of the desired feedration
             **kwargs: Optional parameters of the API call.
@@ -84,6 +90,8 @@ class Feedrations:
 
     def delete(self, feedration_id, **kwargs):
         """Deletes a feedration.
+
+        https://api.smaxtec.com/api/v2/feedrations/{feedration_id}
 
         Args:
             feedration_id (str): ID of the feedration which should be deleted.

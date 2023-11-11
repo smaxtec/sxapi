@@ -11,6 +11,8 @@ class ObservationGroups:
     def post(self, name, group_type, start_date, organisation_id, **kwargs):
         """Create a new observation group.
 
+        https://api.smaxtec.com/api/v2/organisation_groups
+
         Args:
             name (str): Name of the observation group.
             group_type (str): Type of the observation group.
@@ -41,6 +43,8 @@ class ObservationGroups:
     def get_dim_series_line(self, reference_type, reference_id, **kwargs):
         """Get aggregated DIM line chart data for an organisation.
 
+         https://api.smaxtec.com/api/v2/organisation_groups/dim_series_line.json
+
         Args:
             reference_type (str): Observation group reference type.
             reference_id (str): ID of Observation group.
@@ -67,6 +71,8 @@ class ObservationGroups:
     def put(self, group_id, **kwargs):
         """Update an observation group.
 
+         https://api.smaxtec.com/api/v2/organisation_groups/{group_id}
+
         Args:
             group_id (str): ID of the observation group
             **kwargs: Optional parameters of the API call.
@@ -88,6 +94,8 @@ class ObservationGroups:
 
     def get(self, group_id, **kwargs):
         """Get one observation group by ID.
+
+         https://api.smaxtec.com/api/v2/organisation_groups/{group_id}
 
         Args:
             group_id (str): ID of the observation group
@@ -111,6 +119,8 @@ class ObservationGroups:
     def delete(self, group_id, **kwargs):
         """Delete an observation group.
 
+         https://api.smaxtec.com/api/v2/organisation_groups/{group_id}
+
         Args:
             group_id (str): ID of the observation group
             **kwargs: Optional parameters of the API call.
@@ -132,6 +142,8 @@ class ObservationGroups:
 
     def put_add_animals(self, group_id, animal_ids, **kwargs):
         """Add animals to an observation group.
+
+         https://api.smaxtec.com/api/v2/organisation_groups/{group_id}/add_animals
 
         Args:
             group_id (str): ID of the observation group
@@ -157,6 +169,8 @@ class ObservationGroups:
     def put_remove_animals(self, group_id, animal_ids, **kwargs):
         """Remove animals from an observation group.
 
+         https://api.smaxtec.com/api/v2/organisation_groups/{group_id}/remove_animals
+
         Args:
             group_id (str): ID of the observation group
             animal_ids (:obj:`list` of :obj:`str`): List of animal IDs
@@ -181,6 +195,8 @@ class ObservationGroups:
     def get_observ_dim_series_bar(self, observation_group_id, **kwargs):
         """Get aggregated DIM bar char data for an observation group.
 
+         https://api.smaxtec.com/api/v2/organisation_groups/{observation_group_id}/observ_dim_series_bar.json
+
         Args:
             observation_group_id (str): ID of the observation group
             **kwargs: Optional parameters of the API call.
@@ -204,6 +220,8 @@ class ObservationGroups:
 
     def get_orga_dim_series_bar(self, organisation_id, **kwargs):
         """Get aggregated DIM bar char data for an organisation.
+
+         https://api.smaxtec.com/api/v2/organisation_groups/{organisation_id}/orga_dim_series_bar.json
 
         Args:
             organisation_id (str): ID of the organisation

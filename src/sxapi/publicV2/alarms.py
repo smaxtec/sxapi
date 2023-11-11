@@ -11,6 +11,8 @@ class Alarms:
     def post(self, organisation_id, title, **kwargs):
         """Creates a new alarm.
 
+        https://api.smaxtec.com/api/v2/alarms
+
         Args:
             organisation_id (str): ID of organisation the alarm should be created for
             title (str): Title of the alarm
@@ -37,13 +39,16 @@ class Alarms:
         If no user or organisation is given, this
         function return a BadRequestError
 
+        https://api.smaxtec.com/api/v2/alarms/categories
+
         Args:
             **kwargs: Optional parameters of the API call.
                 Find supported parameters under
                 https://api.smaxtec.com/api/v2/
 
         Returns:
-            dict: Response of API call. List of alarms on success, error message else.
+            list[dict]: Response of API call. List of alarms on success,
+             error message else.
 
         """
         params = {}
@@ -56,6 +61,8 @@ class Alarms:
 
     def put(self, alarm_id, organisation_id, **kwargs):
         """Updates an existing alarm.
+
+        https://api.smaxtec.com/api/v2/alarms/{alarm_id}
 
         Args:
             alarm_id (str): ID of the alarm which should be updated.
@@ -80,6 +87,8 @@ class Alarms:
     def get(self, alarm_id, **kwargs):
         """Get one alarm.
 
+        https://api.smaxtec.com/api/v2/alarms/{alarm_id}
+
         Args:
             alarm_id (str): ID of the desired alarm
             **kwargs: Optional parameters of the API call.
@@ -100,6 +109,8 @@ class Alarms:
 
     def delete(self, alarm_id, **kwargs):
         """Delete one alarm.
+
+        https://api.smaxtec.com/api/v2/alarms/{alarm_id}
 
         Args:
             alarm_id (str): ID of the alarm to delete

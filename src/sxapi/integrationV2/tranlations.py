@@ -11,6 +11,8 @@ class Translations:
     def get_events(self, language, **kwargs):
         """Get translations for events.
 
+        https://api.smaxtec.com/integration/v2/translations/{language}/events
+
         Args:
             language (str): Language of the events to be returned
             **kwargs: Optional parameters of the API call.
@@ -32,6 +34,8 @@ class Translations:
 
     def get_event_types(self, language, event_type, **kwargs):
         """Get translations for event types.
+
+        https://api.smaxtec.com/integration/v2/translations/{language}/events/{event_type}
 
         Args:
             language (str): Language of the event types to be returned

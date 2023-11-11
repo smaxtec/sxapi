@@ -11,13 +11,15 @@ class Accounts:
     def get_usages(self, **kwargs):
         """Get usages of provided account numbers.
 
+        https://api.smaxtec.com/integration/v2/accounts/usages
+
         Args:
             **kwargs: Optional parameters of the API call.
                 Find supported parameters under
                 https://api.smaxtec.com/integration/v2/
 
         Returns:
-            dict: Response of API call. List of usages on success,
+            list[dict]: Response of API call. List of usages on success,
                 error message else.
 
         """
@@ -40,6 +42,8 @@ class Accounts:
         **kwargs,
     ):
         """Update an account.
+
+        https://api.smaxtec.com/integration/v2/accounts/{account_nr}
 
         Args:
             account_nr (str): Account number of the account
@@ -73,6 +77,8 @@ class Accounts:
 
     def put_organisation(self, account_nr, organisation_id, **kwargs):
         """Add an account to an organisation.
+
+        https://api.smaxtec.com/integration/v2/accounts/{account_nr}/organisation/{organisation_id}
 
         Args:
             account_nr (str): Account number of the account

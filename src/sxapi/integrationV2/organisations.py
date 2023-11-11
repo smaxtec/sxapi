@@ -11,6 +11,8 @@ class Organisations:
     def post(self, name, timezone, **kwargs):
         """Create an organisation.
 
+        https://api.smaxtec.com/integration/v2/organisations
+
         Args:
             name (str): Name of the organisation
             timezone (str): Timezone of the organisation
@@ -33,6 +35,8 @@ class Organisations:
     def get(self, **kwargs):
         """Get all organisation the user has access to.
 
+        https://api.smaxtec.com/integration/v2/organisations
+
         Args:
             **kwargs: Optional parameters of the API call.
                 Find supported parameters under
@@ -53,6 +57,8 @@ class Organisations:
 
     def get_odoo_organisations(self, **kwargs):
         """Get all odoo organisations the user has access to.
+
+        https://api.smaxtec.com/integration/v2/organisations/odoo_organisations
 
         Args:
             **kwargs: Optional parameters of the API call.
@@ -76,6 +82,8 @@ class Organisations:
     def get_animal_ids(self, organisation_id, **kwargs):
         """Get all animal official_ids of an organisation.
 
+        https://api.smaxtec.com/integration/v2/organisations/{organisation_id}/animal_ids
+
         Args:
             organisation_id (str): Organisation ID of the organisation
             **kwargs: Optional parameters of the API call.
@@ -98,6 +106,8 @@ class Organisations:
     def put_animals(self, organisation_id, body, **kwargs):
         """Create/Update animals of an organisation.
 
+        https://api.smaxtec.com/integration/v2/organisations/{organisation_id}/animals
+
         Args:
             organisation_id (str): Organisation ID of the organisation
             body (:obj:`list` of :obj:`dict`): List of animals to create/update
@@ -106,7 +116,7 @@ class Organisations:
                 https://api.smaxtec.com/integration/v2/
 
         Returns:
-            dict: Response of API call. List of animal ids on success,
+            list[dict]: Response of API call. List of animal ids on success,
                 error message else.
 
         """
@@ -121,6 +131,8 @@ class Organisations:
     def get_animals(self, organisation_id, **kwargs):
         """Get all animals of an organisation.
 
+        https://api.smaxtec.com/integration/v2/organisations/{organisation_id}/animals
+
         Args:
             organisation_id (str): Organisation ID of the organisation
             **kwargs: Optional parameters of the API call.
@@ -128,7 +140,7 @@ class Organisations:
                 https://api.smaxtec.com/integration/v2/
 
         Returns:
-            dict: Response of API call. List of animals on success,
+            list[dict]: Response of API call. List of animals on success,
                 error message else.
 
         """
@@ -142,6 +154,8 @@ class Organisations:
 
     def put_animals_by_official_id(self, organisation_id, official_id, **kwargs):
         """Create/Update an animal of an organisation by official_id.
+
+        https://api.smaxtec.com/integration/v2/organisations/{organisation_id}/animals/{official_id}
 
         Args:
             organisation_id (str): Organisation ID of the organisation
@@ -164,6 +178,8 @@ class Organisations:
 
     def get_animals_by_official_id(self, organisation_id, official_id, **kwargs):
         """Get an animal of an organisation by official_id.
+
+        https://api.smaxtec.com/integration/v2/organisations/{organisation_id}/animals/{official_id}
 
         Args:
             organisation_id (str): Organisation ID of the organisation
@@ -189,6 +205,8 @@ class Organisations:
         self, organisation_id, official_id, metrics, from_date, to_date, **kwargs
     ):
         """Get sensordata of an animal by official_id.
+
+        https://api.smaxtec.com/integration/v2/organisations/{organisation_id}/animals/{official_id}/data.json
 
         Args:
             organisation_id (str): Organisation ID of the organisation
@@ -224,6 +242,8 @@ class Organisations:
     ):
         """Create/Update events of an animal by official_id.
 
+        https://api.smaxtec.com/integration/v2/organisations/{organisation_id}/animals/{official_id}/events
+
         Args:
             organisation_id (str): Organisation ID of the organisation
             official_id (str): Official ID of the animal
@@ -249,6 +269,8 @@ class Organisations:
     def get_animals_events_by_official_id(self, organisation_id, official_id, **kwargs):
         """Get events of an animal by official_id.
 
+        https://api.smaxtec.com/integration/v2/organisations/{organisation_id}/animals/{official_id}/events
+
         Args:
             organisation_id (str): Organisation ID of the organisation
             official_id (str): Official ID of the animal
@@ -257,7 +279,7 @@ class Organisations:
                 https://api.smaxtec.com/integration/v2/
 
         Returns:
-            dict: Response of API call. List of animal events on success,
+            list[dict]: Response of API call. List of animal events on success,
                 error message else.
 
         """
@@ -275,6 +297,8 @@ class Organisations:
         self, organisation_id, official_id, **kwargs
     ):
         """Get a list of metrics available for animal.
+
+        https://api.smaxtec.com/integration/v2/organisations/{organisation_id}/animals/{official_id}/metrics
 
         Args:
             organisation_id (str): Organisation ID of the organisation
@@ -300,6 +324,8 @@ class Organisations:
     def put_animals_events(self, organisation_id, events, **kwargs):
         """Create/Update events of an organisation.
 
+        https://api.smaxtec.com/integration/v2/organisations/{organisation_id}/animals_events
+
         Args:
             organisation_id (str): Organisation ID of the organisation
             events (:obj:`list` of :obj:`dict`): List of events to create/update
@@ -321,6 +347,8 @@ class Organisations:
 
     def get_devices(self, organisation_id, **kwargs):
         """Get all devices of an organisation.
+
+        https://api.smaxtec.com/integration/v2/organisations/{organisation_id}/devices
 
         Args:
             organisation_id (str): ID of the organisation
@@ -345,6 +373,8 @@ class Organisations:
         self, organisation_id, device_id, metrics, from_date, to_date, **kwargs
     ):
         """Get sensordata of a device.
+
+        https://api.smaxtec.com/integration/v2/organisations/{organisation_id}/devices/{device_id}/data.json
 
         Args:
             organisation_id (str): ID of the organisation
@@ -377,6 +407,8 @@ class Organisations:
     def get_devices_readouts_latest(self, organisation_id, device_id, **kwargs):
         """Get latest readout of a device.
 
+        https://api.smaxtec.com/integration/v2/organisations/{organisation_id}/devices/{device_id}/readouts/latest
+
         Args:
             organisation_id (str): ID of the organisation
             device_id (str): ID of the device
@@ -402,6 +434,8 @@ class Organisations:
     def get_events(self, organisation_id, **kwargs):
         """Get all events of an organisation.
 
+        https://api.smaxtec.com/integration/v2/organisations/{organisation_id}/events
+
         Args:
             organisation_id (str): ID of the organisation
             **kwargs: Optional parameters of the API call.
@@ -423,6 +457,8 @@ class Organisations:
 
     def get_simple_animals(self, organisation_id, **kwargs):
         """Get all animals of an organisation.
+
+        https://api.smaxtec.com/integration/v2/organisations/{organisation_id}/simple_animals
 
         Args:
             organisation_id (str): ID of the organisation

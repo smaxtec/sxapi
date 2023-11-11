@@ -11,6 +11,8 @@ class Shares:
     def post(self, email, organisation_id, **kwargs):
         """Create a new share.
 
+         https://api.smaxtec.com/api/v2/shares
+
         Args:
             email (str): Email of the user to share
             organisation_id (str): ID of the organisation to share
@@ -36,6 +38,8 @@ class Shares:
     def get(self, share_id, **kwargs):
         """Get one share.
 
+        https://api.smaxtec.com/api/v2/shares/{share_id}
+
         Args:
             share_id (str): ID of the desired share
             **kwargs: Optional parameters of the API call.
@@ -57,6 +61,8 @@ class Shares:
 
     def put(self, share_id, role, **kwargs):
         """Update one share.
+
+        https://api.smaxtec.com/api/v2/shares/{share_id}
 
         Args:
             share_id (str): ID of the desired share
@@ -82,6 +88,8 @@ class Shares:
 
     def delete(self, share_id, **kwargs):
         """Delete one share.
+
+        https://api.smaxtec.com/api/v2/shares/{share_id}
 
         Args:
             share_id (str): ID of the desired share

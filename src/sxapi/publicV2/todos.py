@@ -11,6 +11,8 @@ class Todos:
     def post(self, todo_type, organisation_id, **kwargs):
         """Creates a new todo.
 
+        https://api.smaxtec.com/api/v2/todos
+
         Args:
             todo_type (str): Type of the todo to be created
             organisation_id (str): Id of organisation the todo should be created for
@@ -35,6 +37,8 @@ class Todos:
     def put(self, todo_id, **kwargs):
         """Updates an existing todo.
 
+        https://api.smaxtec.com/api/v2/todos/{todo_id}
+
         Args:
             todo_id (str): Id of the todo which should be updated.
             **kwargs: Optional parameters of the API call.
@@ -55,6 +59,8 @@ class Todos:
     def get(self, todo_id):
         """Get one todo.
 
+        https://api.smaxtec.com/api/v2/todos/{todo_id}
+
         Args:
             todo_id (str): Id of the desired todo
 
@@ -66,6 +72,8 @@ class Todos:
 
     def post_comment(self, todo_id, content):
         """Create a comment for a todo.
+
+        https://api.smaxtec.com/api/v2/todos/{todo_id}/comments
 
         Args:
             todo_id (str): Id of the todo a comment is to be created.
@@ -84,6 +92,8 @@ class Todos:
     def delete_comment(self, todo_id, comment_id):
         """Delete a comment from a todo.
 
+        https://api.smaxtec.com/api/v2/todos/{todo_id}/comments/{comment_id}
+
         Args:
             todo_id (str): Id of the todo a comment is to be deleted.
             comment_id (str): Id of the comment to delete.
@@ -97,6 +107,8 @@ class Todos:
 
     def put_comment(self, todo_id, comment_id, content):
         """Update a comment from a todo.
+
+        https://api.smaxtec.com/api/v2/todos/{todo_id}/comments/{comment_id}
 
         Args:
             todo_id (str): Id of the todo a comment is to be updated.
