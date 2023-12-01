@@ -11,6 +11,7 @@ from sxapi.publicV2.feedrations import Feedrations
 from sxapi.publicV2.groups import Groups
 from sxapi.publicV2.notes import Notes
 from sxapi.publicV2.observation_groups import ObservationGroups
+from sxapi.publicV2.organisations import Organisations
 from sxapi.publicV2.shares import Shares
 from sxapi.publicV2.todos import Todos
 from sxapi.publicV2.users import Users
@@ -36,6 +37,7 @@ class PublicAPIV2(BaseAPI):
         self.shares = Shares(api=self)
         self.observation_groups = ObservationGroups(api=self)
         self.devices = Devices(api=self)
+        self.organisations = Organisations(api=self)
 
         super().__init__(
             base_url,
