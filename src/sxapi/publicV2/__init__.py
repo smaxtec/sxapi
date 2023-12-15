@@ -4,6 +4,7 @@ from sxapi.base import (
 )
 from sxapi.publicV2.alarms import Alarms
 from sxapi.publicV2.animalgroups import AnimalGroups
+from sxapi.publicV2.animals import Animals
 from sxapi.publicV2.data import Data
 from sxapi.publicV2.devices import Devices
 from sxapi.publicV2.events import Events
@@ -38,6 +39,7 @@ class PublicAPIV2(BaseAPI):
         self.observation_groups = ObservationGroups(api=self)
         self.devices = Devices(api=self)
         self.organisations = Organisations(api=self)
+        self.animals = Animals(api=self)
 
         super().__init__(
             base_url,
