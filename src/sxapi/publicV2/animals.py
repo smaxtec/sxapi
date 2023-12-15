@@ -590,7 +590,7 @@ class Animals:
         url_suffix = self.path_suffix + f"/{animal_id}/heats/{heat_id}"
         return self.api.delete(url_suffix, json=params)
 
-    def post_insemination(self, animal_id, event_ts, **kwargs):
+    def post_inseminations(self, animal_id, event_ts, **kwargs):
         """Create an insemination event for an animal.
 
         https://api.smaxtec.com/api/v2/animals/{animal_id}/insemination
@@ -614,10 +614,10 @@ class Animals:
         for k, v in kwargs.items():
             params[k] = v
 
-        url_suffix = self.path_suffix + f"/{animal_id}/insemination"
+        url_suffix = self.path_suffix + f"/{animal_id}/inseminations"
         return self.api.post(url_suffix, json=params)
 
-    def put_insemination(self, animal_id, insemination_id, **kwargs):
+    def put_inseminations(self, animal_id, insemination_id, **kwargs):
         """Update an insemination event for an animal.
 
         https://api.smaxtec.com/api/v2/animals/{animal_id}/insemination/{insemination_id}
@@ -639,10 +639,10 @@ class Animals:
         for k, v in kwargs.items():
             params[k] = v
 
-        url_suffix = self.path_suffix + f"/{animal_id}/insemination/{insemination_id}"
+        url_suffix = self.path_suffix + f"/{animal_id}/inseminations/{insemination_id}"
         return self.api.put(url_suffix, json=params)
 
-    def delete_insemination(self, animal_id, insemination_id, **kwargs):
+    def delete_inseminations(self, animal_id, insemination_id, **kwargs):
         """Delete an insemination event for an animal.
 
         https://api.smaxtec.com/api/v2/animals/{animal_id}/insemination/{insemination_id}
@@ -664,7 +664,90 @@ class Animals:
         for k, v in kwargs.items():
             params[k] = v
 
-        url_suffix = self.path_suffix + f"/{animal_id}/insemination/{insemination_id}"
+        url_suffix = self.path_suffix + f"/{animal_id}/inseminations/{insemination_id}"
+        return self.api.delete(url_suffix, json=params)
+
+    def post_no_inseminations(self, animal_id, event_ts, reason, **kwargs):
+        """Create a no_insemination event for an animal.
+
+        https://api.smaxtec.com/api/v2/animals/{animal_id}/no_insemination
+
+        Args:
+            animal_id (str): ID of the animal
+            event_ts (str): Timestamp of the no_insemination event
+            reason (str): Reason of the no_insemination event
+            **kwargs: Optional parameters of the API call.
+                Find supported parameters under
+                https://api.smaxtec.com/api/v2/
+
+        Returns:
+            dict: Response of API call. Animal on success,
+                error message else.
+
+        """
+        params = {
+            "event_ts": event_ts,
+            "reason": reason,
+        }
+
+        for k, v in kwargs.items():
+            params[k] = v
+
+        url_suffix = self.path_suffix + f"/{animal_id}/no_inseminations"
+        return self.api.post(url_suffix, json=params)
+
+    def put_no_inseminations(self, animal_id, no_insemination_id, **kwargs):
+        """Update a no_insemination event for an animal.
+
+        https://api.smaxtec.com/api/v2/animals/{animal_id}/no_insemination/{no_insemination_id}
+
+        Args:
+            animal_id (str): ID of the animal
+            no_insemination_id (str): ID of the no_insemination event to be updated
+            **kwargs: Optional parameters of the API call.
+                Find supported parameters under
+                https://api.smaxtec.com/api/v2/
+
+        Returns:
+            dict: Response of API call. Animal on success,
+                error message else.
+
+        """
+        params = {}
+
+        for k, v in kwargs.items():
+            params[k] = v
+
+        url_suffix = (
+            self.path_suffix + f"/{animal_id}/no_inseminations/{no_insemination_id}"
+        )
+        return self.api.put(url_suffix, json=params)
+
+    def delete_no_inseminations(self, animal_id, no_insemination_id, **kwargs):
+        """Delete a no_insemination event for an animal.
+
+        https://api.smaxtec.com/api/v2/animals/{animal_id}/no_insemination/{no_insemination_id}
+
+        Args:
+            animal_id (str): ID of the animal
+            no_insemination_id (str): ID of the no_insemination event to be deleted
+            **kwargs: Optional parameters of the API call.
+                Find supported parameters under
+                https://api.smaxtec.com/api/v2/
+
+        Returns:
+            dict: Response of API call. Animal on success,
+                error message else.
+
+        """
+        params = {}
+
+        for k, v in kwargs.items():
+            params[k] = v
+
+        url_suffix = (
+            self.path_suffix + f"/{animal_id}/no_inseminations/{no_insemination_id}"
+        )
         return self.api.delete(url_suffix, json=params)
 
     def post_pregnancy_results(self, animal_id, event_ts, pregnant, **kwargs):
@@ -821,10 +904,10 @@ class Animals:
                 error message else.
 
         """
-        params = {}
+        params = {"tag": tag}
 
         for k, v in kwargs.items():
             params[k] = v
 
-        url_suffix = self.path_suffix + f"/{animal_id}/tags/{tag}"
+        url_suffix = self.path_suffix + f"/{animal_id}/tags"
         return self.api.delete(url_suffix, json=params)
