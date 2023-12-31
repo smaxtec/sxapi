@@ -31,6 +31,7 @@ def create_token_parser(subparsers):
         "token",
         help="Get/Set credentials aka 'SMAXTEC_API_ACCESS_TOKEN' from/to specified "
         "storage location or create new one",
+        usage="sxapi [base_options] token [options]",
     )
 
     token_parser.add_argument(
@@ -41,19 +42,20 @@ def create_token_parser(subparsers):
         help="Print the current token stored in keyring/environment to stdout. "
         "One argument required. Possible args 'e' environment | "
         "'k' keyring | ek for printing both.",
+        metavar="SOURCE",
     )
     token_parser.add_argument(
         "--set_keyring",
         "-s",
         nargs=1,
-        help="Store the given token in keyring! Requires one argument <token>",
+        help="Store the given token in keyring! Requires one argument <token>.",
+        metavar="TOKEN",
     )
     token_parser.add_argument(
         "--new_token",
         "-n",
-        nargs="+",
-        help="Reqeust new token. Requires one argument <username>, "
-        "second argument <password> is optional!",
+        action="store_true",
+        help="Reqeust new token",
     )
     token_parser.add_argument(
         "--clear_keyring",
@@ -86,16 +88,16 @@ def token_sub_function(args):
             "Invalid Combination! Please use just one out of these parameters "
             "[--print_token, --set_keyring, --new_token, --clear_keyring]"
         )
-        return
+        return 1
 
     if args.print_token:
-        handle_print_token(args)
+        return handle_print_token(args)
     elif args.set_keyring:
-        handle_set_token(args)
+        return handle_set_token(args)
     elif args.clear_keyring:
-        handle_clear_token()
+        return handle_clear_token()
     elif args.new_token:
-        handle_new_token(args)
+        return handle_new_token(args)
 
 
 # Flag helper functions
@@ -110,22 +112,24 @@ def handle_print_token(args):
 
     if args.print_token == "ek":
         print(f"\nKeyring: {keyring}\n\nEnvironment: {env}")
-        return
+        return 0
     elif len(args.print_token) > 2:
         print("Invalid number of arguments. Use --help for usage information.")
-        return
+        return 0
 
     if "e" != args.print_token and "k" != args.print_token:
         print(
             "Invalid arguments. Only use 'e' for environment, 'k' for keyring "
             "or 'ek' for both."
         )
-        return
+        return 1
 
     if "e" == args.print_token:
         print(f"\nEnvironment Token: {env}\n")
+        return 0
     elif "k" == args.print_token:
         print(f"\nKeyring Token: {keyring}\n")
+        return 0
 
 
 def handle_set_token(args):
@@ -138,6 +142,8 @@ def handle_set_token(args):
     cli_user.set_token_keyring(token=token)
     print("Token is stored in keyring!")
 
+    return 0
+
 
 def handle_clear_token():
     """
@@ -148,6 +154,8 @@ def handle_clear_token():
     cli_user.clear_token_keyring()
     print("Token was deleted from keyring!")
 
+    return 0
+
 
 def handle_new_token(args):
     """
@@ -156,23 +164,20 @@ def handle_new_token(args):
     Parses the args, creates an PublicAPIV2 instance to get new token and
     print the new token to stdout.
     """
-    if len(args.new_token) == 2:
-        username = args.new_token[0] if "@" in args.new_token[0] else args.new_token[1]
-        pwd = args.new_token[1] if "@" not in args.new_token[1] else args.new_token[0]
 
-    if len(args.new_token) == 1:
-        username = args.new_token[0]
-        pwd = getpass.getpass()
+    username = input("Username: ")
 
     if "@" not in username:
         print("Username must be a email!")
-        return
+        return 1
+
+    pwd = getpass.getpass()
 
     try:
         token = str(PublicAPIV2(email=username, password=pwd).get_token())
         print("SMAXTEC_API_ACCESS_TOKEN=" + token)
+        return 0
     except requests.HTTPError as e:
         if "401" in str(e) or "422" in str(e):
             print("Username or Password is wrong!")
-    except Exception as e:
-        print(e)
+            return 1

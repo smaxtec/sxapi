@@ -10,7 +10,6 @@ from os.path import (
 from setuptools import setup
 
 from sxapi.cli import cli_user
-from sxapi.cli.subparser.get_sensor_data import create_gsd_parser
 from sxapi.cli.subparser.token import create_token_parser
 
 
@@ -111,7 +110,8 @@ class Cli:
         main_parser = argparse.ArgumentParser(
             description=(
                 "Issue calls to the smaXtec system API to import and export data."
-            )
+            ),
+            usage="%(prog)s [options] <sub_command> [sub_command_options] [<args>]",
         )
         main_parser.add_argument(
             "--version",
@@ -127,7 +127,7 @@ class Cli:
         )
         main_parser.add_argument(
             "-t",
-            "--arg_token",
+            "--access_token",
             type=str,
             help="Access Token",
         )
@@ -146,14 +146,20 @@ class Cli:
             help="Print example config file and exits",
         )
 
-        # gsd_parser
-        subparsers = main_parser.add_subparsers(help="sub-command help")
-        create_gsd_parser(subparsers)
+        subparsers = main_parser.add_subparsers(title="sub_commands")
+        # create_gsd_parser(subparsers)
         create_token_parser(subparsers)
 
         if not args:
             main_parser.print_help()
             return
+
+        # check if subparser is called with arguments
+        # otherwise print help for subparser
+        elif args[0] in subparsers.choices.keys() and len(args) == 1:
+            subparsers.choices[args[0]].print_help()
+            return
+
         return main_parser.parse_args(args)
 
     def run(self):
@@ -171,7 +177,7 @@ class Cli:
 
         self.update_config_with_env(config_dict)
 
-        cli_user.init_user(config_dict, args.arg_token, args.use_keyring)
+        cli_user.init_user(config_dict, args.access_token, args.use_keyring)
 
         if args.status:
             self.api_status()
@@ -179,7 +185,7 @@ class Cli:
         if args.version:
             self.version_info()
 
-        if args.use_keyring and args.arg_token:
+        if args.use_keyring and args.access_token:
             print("Choose either -k (keyring), -t (argument) or no flag (environment)!")
             return
 
