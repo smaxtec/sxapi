@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sxapi.publicV2.organisations &#8212; sxapi 0.0.post1.dev1+gc25c9a3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=233b9934" />
+    <script src="../../../_static/documentation_options.js?v=5925f290"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sxapi.publicV2.organisations</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="Organisations">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations">[docs]</a>
+<span></span><span class="k">class</span> <span class="nc">Organisations</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This Class represents the /todos endpoint of the PublicAPIV2.</span>
+<span class="sd">    https://api.smaxtec.com/api/v2/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api</span> <span class="o">=</span> <span class="n">api</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">=</span> <span class="s2">&quot;/organisations&quot;</span>
+
+<div class="viewcode-block" id="Organisations.post">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.post">[docs]</a>
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">timezone</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new organisation.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (str): Name of the new organisation</span>
+<span class="sd">            timezone (str): Timezone of the new organisation</span>
+<span class="sd">            account_id (str): Account ID of the new organisation</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Organisation on success, error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;timezone&quot;</span><span class="p">:</span> <span class="n">timezone</span><span class="p">,</span> <span class="s2">&quot;account_id&quot;</span><span class="p">:</span> <span class="n">account_id</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.get_settings_hints">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_settings_hints">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_settings_hints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get hints for changing the organisation settings.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/settings/hints</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Settings hints on success, error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="s2">&quot;/settings/hints&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.put">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.put">[docs]</a>
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update an organisation.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation to be updated</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Organisation on success, error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.get">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get">[docs]</a>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get an organisation.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation to be retrieved</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Organisation on success, error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.put_add_device">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.put_add_device">[docs]</a>
+    <span class="k">def</span> <span class="nf">put_add_device</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="n">device_id</span><span class="p">,</span> <span class="n">activation_code</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a device to an organisation.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/add_device</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation the device should be added to</span>
+<span class="sd">            device_id (str): ID of the device to be added</span>
+<span class="sd">            activation_code (str): Activation code of the device to be added</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Organisation on success, error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device_id&quot;</span><span class="p">:</span> <span class="n">device_id</span><span class="p">,</span> <span class="s2">&quot;activation_code&quot;</span><span class="p">:</span> <span class="n">activation_code</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/add_device&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.get_animal_ids">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_animal_ids">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_animal_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get all animal IDs of an organisation.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/animal_ids</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]: Response of API call. List of animal IDs on success,</span>
+<span class="sd">             error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/animal_ids&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.get_animals">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_animals">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_animals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get all animals of an organisation.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/animals</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]: Response of API call. List of animals on success,</span>
+<span class="sd">             error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/animals&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.post_import">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.post_import">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_import</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Import animals to an organisation.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/import</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            file (str): base64 encoded import file</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Nothing on success, error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="n">file</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/import&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.get_import">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_import">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_import</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="n">celery_task_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the result of an import.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/import/{celery_task_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            celery_task_id (str): ID of the import task</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             dict: Response of API call. Imported animals on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/import/</span><span class="si">{</span><span class="n">celery_task_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.get_integrations">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_integrations">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_integrations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get information about current and possible</span>
+<span class="sd">            integrations for the organisations</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/integrations</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             dict: Response of API call. List of integrations on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/integrations&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.delete_integrations_icbf">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.delete_integrations_icbf">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_integrations_icbf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete all data related to the ICBF integration</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/integrations/icbf</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             dict: Response of API call. List of integrations on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/integrations/icbf&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.delete_integrations_lic">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.delete_integrations_lic">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_integrations_lic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete all data related to the LIC integration</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/integrations/lic</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             dict: Response of API call. List of integrations on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/integrations/lic&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.delete_integrations_seges">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.delete_integrations_seges">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_integrations_seges</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete all data related to the SEGES integration</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/integrations/seges</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             dict: Response of API call. List of integrations on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/integrations/seges&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.put_integrations">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.put_integrations">[docs]</a>
+    <span class="k">def</span> <span class="nf">put_integrations</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="n">integration_id</span><span class="p">,</span> <span class="n">integration_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update an integration</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/integrations/{integration_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            integration_id (str): ID of the integration</span>
+<span class="sd">            integration_name (str): Name of the integration</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             dict: Response of API call. Nothing on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;integration_id&quot;</span><span class="p">:</span> <span class="n">integration_id</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/integrations/</span><span class="si">{</span><span class="n">integration_name</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.delete_integrations">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.delete_integrations">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_integrations</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="n">integration_id</span><span class="p">,</span> <span class="n">integration_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete an integration</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/integrations/{integration_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            integration_id (str): ID of the integration</span>
+<span class="sd">            integration_name (str): Name of the integration</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             dict: Response of API call. Nothing on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;integration_id&quot;</span><span class="p">:</span> <span class="n">integration_id</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/integrations/</span><span class="si">{</span><span class="n">integration_name</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.get_lists">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_lists">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_lists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get all animals lists of an organisation.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/lists</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             list[dict]: Response of API call. List of animal lists on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/lists&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.get_list_by_name">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_list_by_name">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_list_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="n">list_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get an animal list by name of an organisation.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/lists/{list_name}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            list_name (str): Name of the list to be retrieved</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             dict: Response of API call. Animal list on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/lists/</span><span class="si">{</span><span class="n">list_name</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.get_settings">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_settings">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the settings of an organisation.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/settings</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Settings on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/settings&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.put_settings">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.put_settings">[docs]</a>
+    <span class="k">def</span> <span class="nf">put_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="n">setting</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the settings of an organisation.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/settings</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            setting (dict): Settings to be updated</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Settings on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;setting&quot;</span><span class="p">:</span> <span class="n">setting</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/settings&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.post_settings">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.post_settings">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="n">setting</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Override the whole settings of an organisation.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/settings</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            setting (dict): Settings to be updated</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Settings on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;setting&quot;</span><span class="p">:</span> <span class="n">setting</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/settings&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.put_settings_key">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.put_settings_key">[docs]</a>
+    <span class="k">def</span> <span class="nf">put_settings_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the organisation setting at a given key, or</span>
+<span class="sd">            add if it does not exist yet.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/settings/{key}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            key (str): Key of the setting to be updated</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Settings on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/settings/</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.delete_settings_key">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.delete_settings_key">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_settings_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete the given key and its value from the organisation settings.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/settings/{key}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            key (str): Key of the setting to be deleted</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Settings on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/settings/</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.get_shares">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_shares">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_shares</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get all shares of an organisation.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/shares</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]: Response of API call. List of all shares on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/shares&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Organisations.get_todos">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_todos">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_todos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get all todos of an organisation.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/organisations/{organisation_id}/todos</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]: Response of API call. List of all todos on success,</span>
+<span class="sd">                error message else.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/todos&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sxapi</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributions &amp; Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/modules.html">Module Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../publicV2.html">sxapi.publicV2</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Florian Klien.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

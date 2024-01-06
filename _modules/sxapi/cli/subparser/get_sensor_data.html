@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sxapi.cli.subparser.get_sensor_data &#8212; sxapi 0.0.post1.dev1+gc25c9a3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css?v=233b9934" />
+    <script src="../../../../_static/documentation_options.js?v=5925f290"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sxapi.cli.subparser.get_sensor_data</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">from</span> <span class="nn">sxapi.cli</span> <span class="kn">import</span> <span class="n">cli_user</span>
+<span class="kn">from</span> <span class="nn">sxapi.publicV2.sensordata</span> <span class="kn">import</span> <span class="n">get_sensor_data_from_animal</span>
+
+
+<div class="viewcode-block" id="create_gsd_parser">
+<a class="viewcode-back" href="../../../../api/sxapi.cli.subparser.html#sxapi.cli.subparser.get_sensor_data.create_gsd_parser">[docs]</a>
+<span class="k">def</span> <span class="nf">create_gsd_parser</span><span class="p">(</span><span class="n">subparsers</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    get_sensor_data subparser for cli_tests.</span>
+<span class="sd">    Responsible for performing api-call to get the sensor data for a given animal.</span>
+
+<span class="sd">    The &#39;animals_id&#39; is mandatory argument &#39;animal_id&#39;.</span>
+<span class="sd">    It represents the animal you want to get data from.</span>
+
+<span class="sd">    The following flag are only optional.</span>
+<span class="sd">    The --metrics/-m Flag defines the metrics you want to get from the animal sensor.</span>
+<span class="sd">    It expects at most two arguments &#39;temp&#39;, &#39;act&#39; or both together. Where &#39;temp&#39; means</span>
+<span class="sd">    getting the temperature metric and &#39;act&#39; means the activity metric.</span>
+
+
+<span class="sd">    The --from_date Flag defines the start-date of window you want to get data from.</span>
+<span class="sd">    It expects exactly one argument, a datetime in the format &#39;YYYY-MM-DD&#39;</span>
+<span class="sd">    (e.g. 2022.01.12).</span>
+
+<span class="sd">    The --to_date Flag defines the end-date of window you want to get data from.</span>
+<span class="sd">    It expects exactly one argument, a datetime in the format &#39;YYYY-MM-DD&#39;</span>
+<span class="sd">    (e.g. 2022.01.12).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gsd_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
+        <span class="s2">&quot;get_sensor_data&quot;</span><span class="p">,</span>
+        <span class="n">aliases</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;gsd&quot;</span><span class="p">],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Get sensor data from animal(by its ID)&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">gsd_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;animal_id&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Animal you want get data from&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">gsd_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--metrics&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;-m&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;metrics for sensordata&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">gsd_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--from_date&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;from_date format: YYYY-MM-DD&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">gsd_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--to_date&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;to_date format: YYYY-MM-DD&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">gsd_parser</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="n">gsd_sub_function</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="gsd_sub_function">
+<a class="viewcode-back" href="../../../../api/sxapi.cli.subparser.html#sxapi.cli.subparser.get_sensor_data.gsd_sub_function">[docs]</a>
+<span class="k">def</span> <span class="nf">gsd_sub_function</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The get_sensor_data subparser default function.</span>
+<span class="sd">    This function gets called if you get_sensor_data subparser is used.</span>
+
+<span class="sd">    Pares the given arguments and calls a function which</span>
+<span class="sd">    performs the desired api call.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">cli_user</span><span class="o">.</span><span class="n">check_credentials_set</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No credentials set. Use --help for more information.&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">api</span> <span class="o">=</span> <span class="n">cli_user</span><span class="o">.</span><span class="n">public_v2_api</span>
+
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">animal_id</span>
+    <span class="n">metrics</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">metrics</span>
+    <span class="n">from_date</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">from_date</span>
+    <span class="n">to_date</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">to_date</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">get_sensor_data_from_animal</span><span class="p">(</span>
+        <span class="n">api</span><span class="o">=</span><span class="n">api</span><span class="p">,</span> <span class="n">animal_id</span><span class="o">=</span><span class="nb">id</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span> <span class="n">from_date</span><span class="o">=</span><span class="n">from_date</span><span class="p">,</span> <span class="n">to_date</span><span class="o">=</span><span class="n">to_date</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">resp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span></div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">sxapi</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributions &amp; Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/modules.html">Module Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Florian Klien.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,133 @@
+sxapi.publicV2 package
+======================
+
+Submodules
+----------
+
+sxapi.publicV2.alarms module
+----------------------------
+
+.. automodule:: sxapi.publicV2.alarms
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sxapi.publicV2.animalgroups module
+----------------------------------
+
+.. automodule:: sxapi.publicV2.animalgroups
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sxapi.publicV2.animals module
+-----------------------------
+
+.. automodule:: sxapi.publicV2.animals
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sxapi.publicV2.data module
+--------------------------
+
+.. automodule:: sxapi.publicV2.data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sxapi.publicV2.devices module
+-----------------------------
+
+.. automodule:: sxapi.publicV2.devices
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sxapi.publicV2.events module
+----------------------------
+
+.. automodule:: sxapi.publicV2.events
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sxapi.publicV2.feedrations module
+---------------------------------
+
+.. automodule:: sxapi.publicV2.feedrations
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sxapi.publicV2.groups module
+----------------------------
+
+.. automodule:: sxapi.publicV2.groups
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sxapi.publicV2.notes module
+---------------------------
+
+.. automodule:: sxapi.publicV2.notes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sxapi.publicV2.observation\_groups module
+-----------------------------------------
+
+.. automodule:: sxapi.publicV2.observation_groups
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sxapi.publicV2.organisations module
+-----------------------------------
+
+.. automodule:: sxapi.publicV2.organisations
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sxapi.publicV2.sensordata module
+--------------------------------
+
+.. automodule:: sxapi.publicV2.sensordata
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sxapi.publicV2.shares module
+----------------------------
+
+.. automodule:: sxapi.publicV2.shares
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sxapi.publicV2.todos module
+---------------------------
+
+.. automodule:: sxapi.publicV2.todos
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sxapi.publicV2.users module
+---------------------------
+
+.. automodule:: sxapi.publicV2.users
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: sxapi.publicV2
+   :members:
+   :undoc-members:
+   :show-inheritance:

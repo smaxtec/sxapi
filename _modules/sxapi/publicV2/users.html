@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sxapi.publicV2.users &#8212; sxapi 0.0.post1.dev1+gc25c9a3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=233b9934" />
+    <script src="../../../_static/documentation_options.js?v=5925f290"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sxapi.publicV2.users</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="Users">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users">[docs]</a>
+<span></span><span class="k">class</span> <span class="nc">Users</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This Class represents the /users endpoint fo the PublicAPIV2</span>
+<span class="sd">    https://api.smaxtec.com/api/v2/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api</span> <span class="o">=</span> <span class="n">api</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">=</span> <span class="s2">&quot;/users&quot;</span>
+
+<div class="viewcode-block" id="Users.post_activate">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users.post_activate">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_activate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_secret</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Active a user with secret.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/users/activate</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_secret (str): secrete received from registration email.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Activated User on success, error message else.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;secret&quot;</span><span class="p">:</span> <span class="n">user_secret</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="s2">&quot;/activate&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Users.post_credentials">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users.post_credentials">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_credentials</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create smaxtec api-access-token and an optional firestore-token.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/users/credentials</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user (str): Username/email</span>
+<span class="sd">            password (str): User password</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Requested tokens and additional user</span>
+<span class="sd">            information on success, error message else.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">user</span><span class="p">,</span>
+            <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="n">password</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="s2">&quot;/credentials&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Users.get_credentials">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users.get_credentials">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_credentials</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieve smaxtec api-access-tokens with a JWT Token.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/users/credentials</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Current tokens and additional user</span>
+<span class="sd">            information on success, error message else.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="s2">&quot;/credentials&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Users.post_reset_password">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users.post_reset_password">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_reset_password</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">secret</span><span class="p">,</span> <span class="n">new_password</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reset password with secret.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/users/reset_password</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            secret (str): secret received from email request.</span>
+<span class="sd">            new_password (str): new password for the user.</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Updated User on success, error message else.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;secret&quot;</span><span class="p">:</span> <span class="n">secret</span><span class="p">,</span> <span class="s2">&quot;new_password&quot;</span><span class="p">:</span> <span class="n">new_password</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="s2">&quot;/reset_password&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Users.get_reset_password_request">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users.get_reset_password_request">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_reset_password_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Request a password reset email.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/users/reset_password_request</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            email (str): email of the user.</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Request result on success, error message else.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="n">email</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="s2">&quot;/reset_password_request&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Users.get">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users.get">[docs]</a>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get one user by id.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/users/{user_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (str): ID of the desired user</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. User object on success, error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Users.get_account">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users.get_account">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_account</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a list of all Accounts of the given user</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/users/{user_id}/account</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (str): ID of the desired user</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]: Response of API call. List of Account objects on success,</span>
+<span class="sd">             error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">/account&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Users.get_alarms">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users.get_alarms">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_alarms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a list of all Alarms of the given user</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/users/{user_id}/alarms</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (str): ID of the desired user</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]: Response of API call. List of Alarm objects on success,</span>
+<span class="sd">             error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">/alarms&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Users.put_change_password">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users.put_change_password">[docs]</a>
+    <span class="k">def</span> <span class="nf">put_change_password</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">old_password</span><span class="p">,</span> <span class="n">new_password</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Change password of a user with old password.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/users/{user_id}/change_password</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (str): ID of the desired user</span>
+<span class="sd">            old_password (str): old password of the user</span>
+<span class="sd">            new_password (str): new password of the user</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Request result on success, error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;old_password&quot;</span><span class="p">:</span> <span class="n">old_password</span><span class="p">,</span>
+            <span class="s2">&quot;new_password&quot;</span><span class="p">:</span> <span class="n">new_password</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">/change_password&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Users.post_password_strength">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users.post_password_strength">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_password_strength</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check password strength.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/users/{user_id}/password_strength</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (str): ID of the desired user</span>
+<span class="sd">            email (str): email of the user</span>
+<span class="sd">            password (str): password to check</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Request result and password strength on success,</span>
+<span class="sd">             error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="n">password</span><span class="p">,</span>
+            <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="n">email</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">/password_strength&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Users.get_shares">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users.get_shares">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_shares</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a list of all Shares of the given user</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/users/{user_id}/shares</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (str): ID of the desired user</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]: Response of API call. List of Share objects on success,</span>
+<span class="sd">             error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">/shares&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Users.post_test_email">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users.post_test_email">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_test_email</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Send a test email to the user.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/users/{user_id}/test_email</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (str): ID of the desired user</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Empty dict on success, error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">/test_email&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Users.post_test_push">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users.post_test_push">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_test_push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Send a test push notification to the user.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/users/{user_id}/test_push</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (str): ID of the desired user</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Empty dict on success, error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">/test_push&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Users.put_tokens">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users.put_tokens">[docs]</a>
+    <span class="k">def</span> <span class="nf">put_tokens</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">platform</span><span class="p">,</span> <span class="n">token_type</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds the token if it does not exist, else updates the token.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (str): ID of the desired user</span>
+<span class="sd">            token (str): some kind of token</span>
+<span class="sd">            platform (str): platform of the token device</span>
+<span class="sd">            token_type (str): type of the token (add push_ if push token)</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Request result on success, error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="n">token</span><span class="p">,</span>
+            <span class="s2">&quot;platform&quot;</span><span class="p">:</span> <span class="n">platform</span><span class="p">,</span>
+            <span class="s2">&quot;token_type&quot;</span><span class="p">:</span> <span class="n">token_type</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">/tokens&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Users.post_tokens">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users.post_tokens">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_tokens</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">platform</span><span class="p">,</span> <span class="n">token_type</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds the token to the user.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/users/{user_id}/tokens</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (str): ID of the desired user</span>
+<span class="sd">            token (str): some kind of token</span>
+<span class="sd">            platform (str): platform of the token device</span>
+<span class="sd">            token_type (str): type of the token (add push_ if push token)</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Request result on success, error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="n">token</span><span class="p">,</span>
+            <span class="s2">&quot;platform&quot;</span><span class="p">:</span> <span class="n">platform</span><span class="p">,</span>
+            <span class="s2">&quot;token_type&quot;</span><span class="p">:</span> <span class="n">token_type</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">/tokens&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Users.delete_tokens">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users.delete_tokens">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_tokens</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Deletes the token from the user.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/users/{user_id}/tokens/{token}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (str): ID of the desired user</span>
+<span class="sd">            token (str): token to be deleted</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             dict: Response of API call. Request result on success, error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">/tokens/</span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Users.post_update_metadata">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.users.Users.post_update_metadata">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_update_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update metadata of a user.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/users/{user_id}/update_metadata</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (str): ID of the desired user</span>
+<span class="sd">            metadata (dict): updated metadata</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             dict: Response of API call. Updated user on success, error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">/update_metadata&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sxapi</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributions &amp; Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/modules.html">Module Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../publicV2.html">sxapi.publicV2</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Florian Klien.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

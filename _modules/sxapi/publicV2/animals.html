@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sxapi.publicV2.animals &#8212; sxapi 0.0.post1.dev1+gc25c9a3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=233b9934" />
+    <script src="../../../_static/documentation_options.js?v=5925f290"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sxapi.publicV2.animals</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="Animals">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals">[docs]</a>
+<span></span><span class="k">class</span> <span class="nc">Animals</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This Class represents the /animals endpoint of the PublicAPIV2.</span>
+<span class="sd">    https://api.smaxtec.com/api/v2/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api</span> <span class="o">=</span> <span class="n">api</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">=</span> <span class="s2">&quot;/animals&quot;</span>
+
+<div class="viewcode-block" id="Animals.post">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post">[docs]</a>
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of the organisation the animal</span>
+<span class="sd">                should be created for</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;organisation_id&quot;</span><span class="p">:</span> <span class="n">organisation_id</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.get_by_ids">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.get_by_ids">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_by_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get animals by IDs.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/by_ids</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_ids (list): List of animal IDs</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]: Response of API call. Animals on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;animal_ids&quot;</span><span class="p">:</span> <span class="n">animal_ids</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="s2">&quot;/by_ids&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.get_by_official_id">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.get_by_official_id">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_by_official_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="n">official_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get animal by official ID.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/by_official_id/{organisation_id}/{official_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): organisation ID of the animal</span>
+<span class="sd">            official_id (str): Official ID of the animal</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/by_official_id/</span><span class="si">{</span><span class="n">organisation_id</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">official_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.get">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.get">[docs]</a>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get animal by ID.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.put">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put">[docs]</a>
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal to be updated</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.post_aborts">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_aborts">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_aborts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">event_ts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an abortion event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/aborts</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal to be aborted</span>
+<span class="sd">            event_ts (str): Timestamp of the abortion event</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;event_ts&quot;</span><span class="p">:</span> <span class="n">event_ts</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/aborts&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.put_aborts">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put_aborts">[docs]</a>
+    <span class="k">def</span> <span class="nf">put_aborts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">event_ts</span><span class="p">,</span> <span class="n">abort_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update an abortion event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/aborts/{abort_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            event_ts (str): Timestamp of the abortion event</span>
+<span class="sd">            abort_id (str): ID of the abortion event to be updated</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;event_ts&quot;</span><span class="p">:</span> <span class="n">event_ts</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/aborts/</span><span class="si">{</span><span class="n">abort_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.delete_aborts">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_aborts">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_aborts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">abort_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete an abortion event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/aborts/{abort_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            abort_id (str): ID of the abortion event to be deleted</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/aborts/</span><span class="si">{</span><span class="n">abort_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.post_calving_confirmations">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_calving_confirmations">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_calving_confirmations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">event_ts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a calving confirmation event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/calving_confirmation</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            event_ts (str): Timestamp of the calving confirmation event</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;event_ts&quot;</span><span class="p">:</span> <span class="n">event_ts</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/calving_confirmations&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.put_calving_confirmations">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put_calving_confirmations">[docs]</a>
+    <span class="k">def</span> <span class="nf">put_calving_confirmations</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">calving_confirmation_id</span><span class="p">,</span> <span class="n">event_ts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update a calving confirmation event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/calving_confirmations/{calving_confirmation_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            calving_confirmation_id (str): ID of the calving confirmation</span>
+<span class="sd">             event to be updated</span>
+<span class="sd">            event_ts (str): Timestamp of the calving confirmation event</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;event_ts&quot;</span><span class="p">:</span> <span class="n">event_ts</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span>
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/calving_confirmations/</span><span class="si">{</span><span class="n">calving_confirmation_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.delete_calving_confirmations">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_calving_confirmations">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_calving_confirmations</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">calving_confirmation_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete a calving confirmation event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/calving_confirmations/{calving_confirmation_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            calving_confirmation_id (str): ID of the calving confirmation event</span>
+<span class="sd">             to be deleted</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span>
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/calving_confirmations/</span><span class="si">{</span><span class="n">calving_confirmation_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.get_diagnosis">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.get_diagnosis">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_diagnosis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get diagnosis of an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/diagnosis</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             list[dict]: Response of API call. List of diagnosis on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/diagnosis&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.post_diagnosis">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_diagnosis">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_diagnosis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">diagnosis_date</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a diagnosis for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/diagnosis</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            diagnosis_date (str): Date of the diagnosis</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Diagnosis on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;diagnosis_date&quot;</span><span class="p">:</span> <span class="n">diagnosis_date</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/diagnosis&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.put_diagnosis">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put_diagnosis">[docs]</a>
+    <span class="k">def</span> <span class="nf">put_diagnosis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">diagnosis_id</span><span class="p">,</span> <span class="n">diagnosis_date</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update a diagnosis for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/diagnosis/{diagnosis_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            diagnosis_id (str): ID of the diagnosis to be updated</span>
+<span class="sd">            diagnosis_date (str): Date of the diagnosis</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Diagnosis on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;diagnosis_date&quot;</span><span class="p">:</span> <span class="n">diagnosis_date</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/diagnosis/</span><span class="si">{</span><span class="n">diagnosis_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.delete_diagnosis">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_diagnosis">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_diagnosis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">diagnosis_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete a diagnosis for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/diagnosis/{diagnosis_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            diagnosis_id (str): ID of the diagnosis to be deleted</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Deleted diagnosis on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/diagnosis/</span><span class="si">{</span><span class="n">diagnosis_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.post_dry_offs">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_dry_offs">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_dry_offs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">event_ts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a dry off event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/dry_offs</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            event_ts (str): Timestamp of the dry off event</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;event_ts&quot;</span><span class="p">:</span> <span class="n">event_ts</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/dry_offs&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.put_dry_offs">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put_dry_offs">[docs]</a>
+    <span class="k">def</span> <span class="nf">put_dry_offs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">dry_off_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update a dry off event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/dry_offs/{dry_off_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            dry_off_id (str): ID of the dry off event to be updated</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/dry_offs/</span><span class="si">{</span><span class="n">dry_off_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.delete_dry_offs">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_dry_offs">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_dry_offs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">dry_off_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete a dry off event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/dry_offs/{dry_off_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            dry_off_id (str): ID of the dry off event to be deleted</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/dry_offs/</span><span class="si">{</span><span class="n">dry_off_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.post_events_false_positive">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_events_false_positive">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_events_false_positive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">event_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Mark an animal Event as false positive.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/events/{event_id}/false_positive</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            event_id (str): ID of the event to be marked as false positive</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/events/</span><span class="si">{</span><span class="n">event_id</span><span class="si">}</span><span class="s2">/false_positive&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.post_heats">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_heats">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_heats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">event_ts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a heat event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/heats</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            event_ts (str): Timestamp of the heat event</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;event_ts&quot;</span><span class="p">:</span> <span class="n">event_ts</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/heats&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.put_heats">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put_heats">[docs]</a>
+    <span class="k">def</span> <span class="nf">put_heats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">heat_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update a heat event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/heats/{heat_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            heat_id (str): ID of the heat event to be updated</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/heats/</span><span class="si">{</span><span class="n">heat_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.delete_heats">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_heats">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_heats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">heat_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete a heat event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/heats/{heat_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            heat_id (str): ID of the heat event to be deleted</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/heats/</span><span class="si">{</span><span class="n">heat_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.post_inseminations">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_inseminations">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_inseminations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">event_ts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an insemination event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/insemination</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            event_ts (str): Timestamp of the insemination event</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;event_ts&quot;</span><span class="p">:</span> <span class="n">event_ts</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/inseminations&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.put_inseminations">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put_inseminations">[docs]</a>
+    <span class="k">def</span> <span class="nf">put_inseminations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">insemination_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update an insemination event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/insemination/{insemination_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            insemination_id (str): ID of the insemination event to be updated</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/inseminations/</span><span class="si">{</span><span class="n">insemination_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.delete_inseminations">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_inseminations">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_inseminations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">insemination_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete an insemination event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/insemination/{insemination_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            insemination_id (str): ID of the insemination event to be deleted</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/inseminations/</span><span class="si">{</span><span class="n">insemination_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.post_no_inseminations">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_no_inseminations">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_no_inseminations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">event_ts</span><span class="p">,</span> <span class="n">reason</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a no_insemination event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/no_insemination</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            event_ts (str): Timestamp of the no_insemination event</span>
+<span class="sd">            reason (str): Reason of the no_insemination event</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;event_ts&quot;</span><span class="p">:</span> <span class="n">event_ts</span><span class="p">,</span>
+            <span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="n">reason</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/no_inseminations&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.put_no_inseminations">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put_no_inseminations">[docs]</a>
+    <span class="k">def</span> <span class="nf">put_no_inseminations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">no_insemination_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update a no_insemination event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/no_insemination/{no_insemination_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            no_insemination_id (str): ID of the no_insemination event to be updated</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/no_inseminations/</span><span class="si">{</span><span class="n">no_insemination_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.delete_no_inseminations">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_no_inseminations">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_no_inseminations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">no_insemination_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete a no_insemination event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/no_insemination/{no_insemination_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            no_insemination_id (str): ID of the no_insemination event to be deleted</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/no_inseminations/</span><span class="si">{</span><span class="n">no_insemination_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.post_pregnancy_results">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_pregnancy_results">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_pregnancy_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">event_ts</span><span class="p">,</span> <span class="n">pregnant</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a pregnancy result event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/pregnancy_results</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            event_ts (str): Timestamp of the pregnancy result event</span>
+<span class="sd">            pregnant (bool): Pregnancy result of the animal</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;event_ts&quot;</span><span class="p">:</span> <span class="n">event_ts</span><span class="p">,</span>
+            <span class="s2">&quot;pregnant&quot;</span><span class="p">:</span> <span class="n">pregnant</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/pregnancy_results&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.put_pregnancy_results">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put_pregnancy_results">[docs]</a>
+    <span class="k">def</span> <span class="nf">put_pregnancy_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">pregnancy_result_id</span><span class="p">,</span> <span class="n">pregnant</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update a pregnancy result event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/pregnancy_results/{pregnancy_result_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            pregnancy_result_id (str): ID of the pregnancy result event to be updated</span>
+<span class="sd">            pregnant (bool): Pregnancy result of the animal</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;pregnant&quot;</span><span class="p">:</span> <span class="n">pregnant</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/pregnancy_results/</span><span class="si">{</span><span class="n">pregnancy_result_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.delete_pregnancy_results">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_pregnancy_results">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_pregnancy_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">pregnancy_result_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete a pregnancy result event for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/pregnancy_results/{pregnancy_result_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            pregnancy_result_id (str): ID of the pregnancy result event to be deleted</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/pregnancy_results/</span><span class="si">{</span><span class="n">pregnancy_result_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.get_tags">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.get_tags">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get tags of an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/tags</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">            dict: Response of API call. List of tags on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/tags&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.post_tags">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_tags">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a tag to an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/tags</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            tag (str): Tag to be added</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="n">tag</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/tags&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Animals.delete_tags">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_tags">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete a tag for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/animals/{animal_id}/tags/{tag}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            tag (str): Tag to be deleted</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">            dict: Response of API call. Animal on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="n">tag</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/tags&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sxapi</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributions &amp; Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/modules.html">Module Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../publicV2.html">sxapi.publicV2</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Florian Klien.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

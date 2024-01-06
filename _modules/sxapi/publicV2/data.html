@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sxapi.publicV2.data &#8212; sxapi 0.0.post1.dev1+gc25c9a3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=233b9934" />
+    <script src="../../../_static/documentation_options.js?v=5925f290"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sxapi.publicV2.data</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="Data">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.data.Data">[docs]</a>
+<span></span><span class="k">class</span> <span class="nc">Data</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This Class represents the /data endpoint fo the PublicAPIV2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api</span> <span class="o">=</span> <span class="n">api</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">=</span> <span class="s2">&quot;/data&quot;</span>
+
+<div class="viewcode-block" id="Data.get_data_animals">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.data.Data.get_data_animals">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_data_animals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">from_date</span><span class="p">,</span> <span class="n">to_date</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query sensordata for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/data/animals/{animal_id}.json</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            metrics (list(str)): List of metrics to query</span>
+<span class="sd">            from_date (str): Query from date</span>
+<span class="sd">            to_date (str): Query end date</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response from the API. Requested Metric values on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;metrics&quot;</span><span class="p">:</span> <span class="n">metrics</span><span class="p">,</span> <span class="s2">&quot;from_date&quot;</span><span class="p">:</span> <span class="n">from_date</span><span class="p">,</span> <span class="s2">&quot;to_date&quot;</span><span class="p">:</span> <span class="n">to_date</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/animals/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">.json&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Data.get_metrics_animals">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.data.Data.get_metrics_animals">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_metrics_animals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animal_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;List available metrics for an animal.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/data/animals/{animal_id}/metrics</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_id (str): ID of the animal</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]: Response from the API.  List of available metrics on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/animals/</span><span class="si">{</span><span class="n">animal_id</span><span class="si">}</span><span class="s2">/metrics&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Data.get_data_devices">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.data.Data.get_data_devices">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_data_devices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_id</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">from_date</span><span class="p">,</span> <span class="n">to_date</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query sensordata for a device.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/data/devices/{device_id}.json</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            device_id (str): ID of the device</span>
+<span class="sd">            metrics (list(str)): List of metrics to query</span>
+<span class="sd">            from_date (str): Query from date</span>
+<span class="sd">            to_date (str): Query end date</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response from the API. Requested Metric values on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;metrics&quot;</span><span class="p">:</span> <span class="n">metrics</span><span class="p">,</span> <span class="s2">&quot;from_date&quot;</span><span class="p">:</span> <span class="n">from_date</span><span class="p">,</span> <span class="s2">&quot;to_date&quot;</span><span class="p">:</span> <span class="n">to_date</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/devices/</span><span class="si">{</span><span class="n">device_id</span><span class="si">}</span><span class="s2">.json&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Data.get_metrics_devices">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.data.Data.get_metrics_devices">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_metrics_devices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;List available metrics for a device.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/data/devices/{device_id}/metrics</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            device_id (str): ID of the device</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]: Response from the API.  List of available metrics on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/devices/</span><span class="si">{</span><span class="n">device_id</span><span class="si">}</span><span class="s2">/metrics&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Data.get_download_animal_data">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.data.Data.get_download_animal_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_download_animal_data</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">animal_ids</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">from_date</span><span class="p">,</span> <span class="n">to_date</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Download sensordata for animals.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/data/download_animal_data</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            animal_ids (list(str)): List of animal IDs</span>
+<span class="sd">            metrics (list(str)): List of metrics to query</span>
+<span class="sd">            from_date (str): Query from date</span>
+<span class="sd">            to_date (str): Query end date</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response from the API. Requested Metric values on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;animal_ids&quot;</span><span class="p">:</span> <span class="n">animal_ids</span><span class="p">,</span>
+            <span class="s2">&quot;metrics&quot;</span><span class="p">:</span> <span class="n">metrics</span><span class="p">,</span>
+            <span class="s2">&quot;from_date&quot;</span><span class="p">:</span> <span class="n">from_date</span><span class="p">,</span>
+            <span class="s2">&quot;to_date&quot;</span><span class="p">:</span> <span class="n">to_date</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="s2">&quot;/download_animal_data&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Data.get_download_device_data">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.data.Data.get_download_device_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_download_device_data</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">device_ids</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">from_date</span><span class="p">,</span> <span class="n">to_date</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Download sensordata for devices.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/data/download_device_data</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            device_ids (list(str)): List of device IDs</span>
+<span class="sd">            metrics (list(str)): List of metrics to query</span>
+<span class="sd">            from_date (str): Query from date</span>
+<span class="sd">            to_date (str): Query end date</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response from the API. Requested Metric values on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;device_ids&quot;</span><span class="p">:</span> <span class="n">device_ids</span><span class="p">,</span>
+            <span class="s2">&quot;metrics&quot;</span><span class="p">:</span> <span class="n">metrics</span><span class="p">,</span>
+            <span class="s2">&quot;from_date&quot;</span><span class="p">:</span> <span class="n">from_date</span><span class="p">,</span>
+            <span class="s2">&quot;to_date&quot;</span><span class="p">:</span> <span class="n">to_date</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="s2">&quot;/download_device_data&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Data.get_download_group_data">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.data.Data.get_download_group_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_download_group_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group_ids</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">from_date</span><span class="p">,</span> <span class="n">to_date</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Download sensordata for groups.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/data/download_group_data</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            group_ids (list(str)): List of group IDs</span>
+<span class="sd">            metrics (list(str)): List of metrics to query</span>
+<span class="sd">            from_date (str): Query from date</span>
+<span class="sd">            to_date (str): Query end date</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response from the API. Requested Metric values on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;group_ids&quot;</span><span class="p">:</span> <span class="n">group_ids</span><span class="p">,</span>
+            <span class="s2">&quot;metrics&quot;</span><span class="p">:</span> <span class="n">metrics</span><span class="p">,</span>
+            <span class="s2">&quot;from_date&quot;</span><span class="p">:</span> <span class="n">from_date</span><span class="p">,</span>
+            <span class="s2">&quot;to_date&quot;</span><span class="p">:</span> <span class="n">to_date</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="s2">&quot;/download_group_data&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Data.post_downloads_excel_report">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.data.Data.post_downloads_excel_report">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_downloads_excel_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_date</span><span class="p">,</span> <span class="n">to_date</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates an Excel report and sends an email</span>
+<span class="sd">        containing a download link for the Excel report to the user.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/data/downloads/generate_excel_report</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            from_date (str): Query from date</span>
+<span class="sd">            to_date (str): Query end date</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Empty dict on success, error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;from_date&quot;</span><span class="p">:</span> <span class="n">from_date</span><span class="p">,</span> <span class="s2">&quot;to_date&quot;</span><span class="p">:</span> <span class="n">to_date</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="s2">&quot;/downloads/generate_excel_report&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Data.post_downloads_messages_excel_report">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.data.Data.post_downloads_messages_excel_report">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_downloads_messages_excel_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_date</span><span class="p">,</span> <span class="n">to_date</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates an Excel report and sends an email</span>
+<span class="sd">        containing a download link for the Excel report to the user.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/data/downloads/generate_messages_excel_report</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            from_date (str): Query from date</span>
+<span class="sd">            to_date (str): Query end date</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Empty dict on success, error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;from_date&quot;</span><span class="p">:</span> <span class="n">from_date</span><span class="p">,</span> <span class="s2">&quot;to_date&quot;</span><span class="p">:</span> <span class="n">to_date</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="s2">&quot;/downloads/generate_messages_excel_report&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Data.post_downloads_organisation_messages_excel_report">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.data.Data.post_downloads_organisation_messages_excel_report">[docs]</a>
+    <span class="k">def</span> <span class="nf">post_downloads_organisation_messages_excel_report</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">organisation_id</span><span class="p">,</span> <span class="n">from_date</span><span class="p">,</span> <span class="n">to_date</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates an Excel report and sends an email</span>
+<span class="sd">        containing a download link for the Excel report to the user.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/data/downloads/generate_organisation_messages_excel_report</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            organisation_id (str): ID of organisation the report should be created for</span>
+<span class="sd">            from_date (str): Query from date</span>
+<span class="sd">            to_date (str): Query end date</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Empty dict on success, error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;organisation_id&quot;</span><span class="p">:</span> <span class="n">organisation_id</span><span class="p">,</span>
+            <span class="s2">&quot;from_date&quot;</span><span class="p">:</span> <span class="n">from_date</span><span class="p">,</span>
+            <span class="s2">&quot;to_date&quot;</span><span class="p">:</span> <span class="n">to_date</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="s2">&quot;/downloads/generate_organisation_messages_excel_report&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Data.get_downloads">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.data.Data.get_downloads">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_downloads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">download_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Download a generated Excel report.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/data/downloads/{download_id}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            download_id (str): ID of the download</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/downloads/</span><span class="si">{</span><span class="n">download_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Data.get_data_feedrations">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.data.Data.get_data_feedrations">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_data_feedrations</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">feedration_id</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">from_date</span><span class="p">,</span> <span class="n">to_date</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query feedration data.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/data/feedrations/{feedration_id}.json</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            feedration_id (str): ID of the feedration group</span>
+<span class="sd">            metrics (list(str)): List of metrics to query</span>
+<span class="sd">            from_date (str): Query from date</span>
+<span class="sd">            to_date (str): Query end date</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response from the API. Requested Metric values on success,</span>
+<span class="sd">                error message else.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;metrics&quot;</span><span class="p">:</span> <span class="n">metrics</span><span class="p">,</span> <span class="s2">&quot;from_date&quot;</span><span class="p">:</span> <span class="n">from_date</span><span class="p">,</span> <span class="s2">&quot;to_date&quot;</span><span class="p">:</span> <span class="n">to_date</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/feedrations/</span><span class="si">{</span><span class="n">feedration_id</span><span class="si">}</span><span class="s2">.json&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Data.get_data_groups">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.data.Data.get_data_groups">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_data_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group_id</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">from_date</span><span class="p">,</span> <span class="n">to_date</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query group data.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/data/groups/{group_id}.json</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            group_id (str): ID of the group</span>
+<span class="sd">            metrics (list(str)): List of metrics to query</span>
+<span class="sd">            from_date (str): Query from date</span>
+<span class="sd">            to_date (str): Query end date</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Response from the API. Requested Metric values on success,</span>
+<span class="sd">                error message else.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;metrics&quot;</span><span class="p">:</span> <span class="n">metrics</span><span class="p">,</span> <span class="s2">&quot;from_date&quot;</span><span class="p">:</span> <span class="n">from_date</span><span class="p">,</span> <span class="s2">&quot;to_date&quot;</span><span class="p">:</span> <span class="n">to_date</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/groups/</span><span class="si">{</span><span class="n">group_id</span><span class="si">}</span><span class="s2">.json&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Data.get_metrics_groups">
+<a class="viewcode-back" href="../../../api/sxapi.publicV2.html#sxapi.publicV2.data.Data.get_metrics_groups">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_metrics_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;List available metrics for a group.</span>
+
+<span class="sd">        https://api.smaxtec.com/api/v2/data/groups/{group_id}/metrics</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            group_id (str): ID of the group</span>
+<span class="sd">            **kwargs: Optional parameters of the API call.</span>
+<span class="sd">                Find supported parameters under</span>
+<span class="sd">                https://api.smaxtec.com/api/v2/</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]: Response from the API.  List of available metrics on success,</span>
+<span class="sd">                error message else.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">url_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_suffix</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/groups/</span><span class="si">{</span><span class="n">group_id</span><span class="si">}</span><span class="s2">/metrics&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_suffix</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sxapi</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributions &amp; Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/modules.html">Module Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  <li><a href="../publicV2.html">sxapi.publicV2</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Florian Klien.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

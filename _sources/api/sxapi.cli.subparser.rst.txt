@@ -1,0 +1,23 @@
+sxapi.cli.subparser namespace
+=============================
+
+.. py:module:: sxapi.cli.subparser
+
+Submodules
+----------
+
+sxapi.cli.subparser.get\_sensor\_data module
+--------------------------------------------
+
+.. automodule:: sxapi.cli.subparser.get_sensor_data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sxapi.cli.subparser.token module
+--------------------------------
+
+.. automodule:: sxapi.cli.subparser.token
+   :members:
+   :undoc-members:
+   :show-inheritance:

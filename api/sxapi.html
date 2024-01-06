@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>sxapi package &#8212; sxapi 0.0.post1.dev1+gc25c9a3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=233b9934" />
+    <script src="../_static/documentation_options.js?v=5925f290"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="sxapi.cli package" href="sxapi.cli.html" />
+    <link rel="prev" title="sxapi" href="modules.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="sxapi-package">
+<h1>sxapi package<a class="headerlink" href="#sxapi-package" title="Link to this heading">¶</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sxapi.cli.html">sxapi.cli package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.cli.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.cli.subparser.html">sxapi.cli.subparser namespace</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.cli.subparser.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.cli.subparser.html#module-sxapi.cli.subparser.get_sensor_data">sxapi.cli.subparser.get_sensor_data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.cli.subparser.html#module-sxapi.cli.subparser.token">sxapi.cli.subparser.token module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.cli.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.cli.html#module-sxapi.cli.cli">sxapi.cli.cli module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.cli.html#sxapi.cli.cli.Cli"><code class="docutils literal notranslate"><span class="pre">Cli</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.cli.html#sxapi.cli.cli.Cli.api_status"><code class="docutils literal notranslate"><span class="pre">Cli.api_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.cli.html#sxapi.cli.cli.Cli.parse_args"><code class="docutils literal notranslate"><span class="pre">Cli.parse_args()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.cli.html#sxapi.cli.cli.Cli.read_config_from_file"><code class="docutils literal notranslate"><span class="pre">Cli.read_config_from_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.cli.html#sxapi.cli.cli.Cli.run"><code class="docutils literal notranslate"><span class="pre">Cli.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.cli.html#sxapi.cli.cli.Cli.update_config_with_env"><code class="docutils literal notranslate"><span class="pre">Cli.update_config_with_env()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.cli.html#sxapi.cli.cli.Cli.version_info"><code class="docutils literal notranslate"><span class="pre">Cli.version_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.cli.html#sxapi.cli.cli.cli_run"><code class="docutils literal notranslate"><span class="pre">cli_run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.cli.html#module-sxapi.cli.cli_user">sxapi.cli.cli_user module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.cli.html#sxapi.cli.cli_user.CliUser"><code class="docutils literal notranslate"><span class="pre">CliUser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.cli.html#sxapi.cli.cli_user.CliUser.check_credentials_set"><code class="docutils literal notranslate"><span class="pre">CliUser.check_credentials_set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.cli.html#sxapi.cli.cli_user.CliUser.clear_token_keyring"><code class="docutils literal notranslate"><span class="pre">CliUser.clear_token_keyring()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.cli.html#sxapi.cli.cli_user.CliUser.get_token_environment"><code class="docutils literal notranslate"><span class="pre">CliUser.get_token_environment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.cli.html#sxapi.cli.cli_user.CliUser.get_token_keyring"><code class="docutils literal notranslate"><span class="pre">CliUser.get_token_keyring()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.cli.html#sxapi.cli.cli_user.CliUser.init_user"><code class="docutils literal notranslate"><span class="pre">CliUser.init_user()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.cli.html#sxapi.cli.cli_user.CliUser.set_token_keyring"><code class="docutils literal notranslate"><span class="pre">CliUser.set_token_keyring()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.cli.html#module-sxapi.cli">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sxapi.integrationV2.html">sxapi.integrationV2 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.integrationV2.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.integrationV2.html#module-sxapi.integrationV2.accounts">sxapi.integrationV2.accounts module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.accounts.Accounts"><code class="docutils literal notranslate"><span class="pre">Accounts</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.accounts.Accounts.get_usages"><code class="docutils literal notranslate"><span class="pre">Accounts.get_usages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.accounts.Accounts.put"><code class="docutils literal notranslate"><span class="pre">Accounts.put()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.accounts.Accounts.put_organisation"><code class="docutils literal notranslate"><span class="pre">Accounts.put_organisation()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.integrationV2.html#module-sxapi.integrationV2.organisations">sxapi.integrationV2.organisations module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations"><code class="docutils literal notranslate"><span class="pre">Organisations</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.get"><code class="docutils literal notranslate"><span class="pre">Organisations.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.get_animal_ids"><code class="docutils literal notranslate"><span class="pre">Organisations.get_animal_ids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.get_animals"><code class="docutils literal notranslate"><span class="pre">Organisations.get_animals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.get_animals_by_official_id"><code class="docutils literal notranslate"><span class="pre">Organisations.get_animals_by_official_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.get_animals_data_by_official_id"><code class="docutils literal notranslate"><span class="pre">Organisations.get_animals_data_by_official_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.get_animals_events_by_official_id"><code class="docutils literal notranslate"><span class="pre">Organisations.get_animals_events_by_official_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.get_animals_metrics_by_official_id"><code class="docutils literal notranslate"><span class="pre">Organisations.get_animals_metrics_by_official_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.get_devices"><code class="docutils literal notranslate"><span class="pre">Organisations.get_devices()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.get_devices_data"><code class="docutils literal notranslate"><span class="pre">Organisations.get_devices_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.get_devices_readouts_latest"><code class="docutils literal notranslate"><span class="pre">Organisations.get_devices_readouts_latest()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.get_events"><code class="docutils literal notranslate"><span class="pre">Organisations.get_events()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.get_odoo_organisations"><code class="docutils literal notranslate"><span class="pre">Organisations.get_odoo_organisations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.get_simple_animals"><code class="docutils literal notranslate"><span class="pre">Organisations.get_simple_animals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.post"><code class="docutils literal notranslate"><span class="pre">Organisations.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.put_animals"><code class="docutils literal notranslate"><span class="pre">Organisations.put_animals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.put_animals_by_official_id"><code class="docutils literal notranslate"><span class="pre">Organisations.put_animals_by_official_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.put_animals_events"><code class="docutils literal notranslate"><span class="pre">Organisations.put_animals_events()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.organisations.Organisations.put_animals_events_by_official_id"><code class="docutils literal notranslate"><span class="pre">Organisations.put_animals_events_by_official_id()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.integrationV2.html#module-sxapi.integrationV2.tranlations">sxapi.integrationV2.tranlations module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.tranlations.Translations"><code class="docutils literal notranslate"><span class="pre">Translations</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.tranlations.Translations.get_event_types"><code class="docutils literal notranslate"><span class="pre">Translations.get_event_types()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.tranlations.Translations.get_events"><code class="docutils literal notranslate"><span class="pre">Translations.get_events()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.integrationV2.html#module-sxapi.integrationV2.users">sxapi.integrationV2.users module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.users.Users"><code class="docutils literal notranslate"><span class="pre">Users</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.users.Users.get"><code class="docutils literal notranslate"><span class="pre">Users.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.users.Users.post_session_token"><code class="docutils literal notranslate"><span class="pre">Users.post_session_token()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.integrationV2.html#module-sxapi.integrationV2">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.integrationV2.html#sxapi.integrationV2.IntegrationAPIV2"><code class="docutils literal notranslate"><span class="pre">IntegrationAPIV2</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sxapi.publicV2.html">sxapi.publicV2 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.publicV2.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.publicV2.html#module-sxapi.publicV2.alarms">sxapi.publicV2.alarms module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.alarms.Alarms"><code class="docutils literal notranslate"><span class="pre">Alarms</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.alarms.Alarms.delete"><code class="docutils literal notranslate"><span class="pre">Alarms.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.alarms.Alarms.get"><code class="docutils literal notranslate"><span class="pre">Alarms.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.alarms.Alarms.get_categories"><code class="docutils literal notranslate"><span class="pre">Alarms.get_categories()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.alarms.Alarms.post"><code class="docutils literal notranslate"><span class="pre">Alarms.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.alarms.Alarms.put"><code class="docutils literal notranslate"><span class="pre">Alarms.put()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.publicV2.html#module-sxapi.publicV2.animalgroups">sxapi.publicV2.animalgroups module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animalgroups.AnimalGroups"><code class="docutils literal notranslate"><span class="pre">AnimalGroups</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animalgroups.AnimalGroups.delete"><code class="docutils literal notranslate"><span class="pre">AnimalGroups.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animalgroups.AnimalGroups.get"><code class="docutils literal notranslate"><span class="pre">AnimalGroups.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animalgroups.AnimalGroups.post"><code class="docutils literal notranslate"><span class="pre">AnimalGroups.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animalgroups.AnimalGroups.put"><code class="docutils literal notranslate"><span class="pre">AnimalGroups.put()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.publicV2.html#module-sxapi.publicV2.animals">sxapi.publicV2.animals module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals"><code class="docutils literal notranslate"><span class="pre">Animals</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_aborts"><code class="docutils literal notranslate"><span class="pre">Animals.delete_aborts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_calving_confirmations"><code class="docutils literal notranslate"><span class="pre">Animals.delete_calving_confirmations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_diagnosis"><code class="docutils literal notranslate"><span class="pre">Animals.delete_diagnosis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_dry_offs"><code class="docutils literal notranslate"><span class="pre">Animals.delete_dry_offs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_heats"><code class="docutils literal notranslate"><span class="pre">Animals.delete_heats()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_inseminations"><code class="docutils literal notranslate"><span class="pre">Animals.delete_inseminations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_no_inseminations"><code class="docutils literal notranslate"><span class="pre">Animals.delete_no_inseminations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_pregnancy_results"><code class="docutils literal notranslate"><span class="pre">Animals.delete_pregnancy_results()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.delete_tags"><code class="docutils literal notranslate"><span class="pre">Animals.delete_tags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.get"><code class="docutils literal notranslate"><span class="pre">Animals.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.get_by_ids"><code class="docutils literal notranslate"><span class="pre">Animals.get_by_ids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.get_by_official_id"><code class="docutils literal notranslate"><span class="pre">Animals.get_by_official_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.get_diagnosis"><code class="docutils literal notranslate"><span class="pre">Animals.get_diagnosis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.get_tags"><code class="docutils literal notranslate"><span class="pre">Animals.get_tags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post"><code class="docutils literal notranslate"><span class="pre">Animals.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_aborts"><code class="docutils literal notranslate"><span class="pre">Animals.post_aborts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_calving_confirmations"><code class="docutils literal notranslate"><span class="pre">Animals.post_calving_confirmations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_diagnosis"><code class="docutils literal notranslate"><span class="pre">Animals.post_diagnosis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_dry_offs"><code class="docutils literal notranslate"><span class="pre">Animals.post_dry_offs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_events_false_positive"><code class="docutils literal notranslate"><span class="pre">Animals.post_events_false_positive()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_heats"><code class="docutils literal notranslate"><span class="pre">Animals.post_heats()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_inseminations"><code class="docutils literal notranslate"><span class="pre">Animals.post_inseminations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_no_inseminations"><code class="docutils literal notranslate"><span class="pre">Animals.post_no_inseminations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_pregnancy_results"><code class="docutils literal notranslate"><span class="pre">Animals.post_pregnancy_results()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.post_tags"><code class="docutils literal notranslate"><span class="pre">Animals.post_tags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put"><code class="docutils literal notranslate"><span class="pre">Animals.put()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put_aborts"><code class="docutils literal notranslate"><span class="pre">Animals.put_aborts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put_calving_confirmations"><code class="docutils literal notranslate"><span class="pre">Animals.put_calving_confirmations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put_diagnosis"><code class="docutils literal notranslate"><span class="pre">Animals.put_diagnosis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put_dry_offs"><code class="docutils literal notranslate"><span class="pre">Animals.put_dry_offs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put_heats"><code class="docutils literal notranslate"><span class="pre">Animals.put_heats()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put_inseminations"><code class="docutils literal notranslate"><span class="pre">Animals.put_inseminations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put_no_inseminations"><code class="docutils literal notranslate"><span class="pre">Animals.put_no_inseminations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.animals.Animals.put_pregnancy_results"><code class="docutils literal notranslate"><span class="pre">Animals.put_pregnancy_results()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.publicV2.html#module-sxapi.publicV2.data">sxapi.publicV2.data module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.data.Data"><code class="docutils literal notranslate"><span class="pre">Data</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.data.Data.get_data_animals"><code class="docutils literal notranslate"><span class="pre">Data.get_data_animals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.data.Data.get_data_devices"><code class="docutils literal notranslate"><span class="pre">Data.get_data_devices()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.data.Data.get_data_feedrations"><code class="docutils literal notranslate"><span class="pre">Data.get_data_feedrations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.data.Data.get_data_groups"><code class="docutils literal notranslate"><span class="pre">Data.get_data_groups()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.data.Data.get_download_animal_data"><code class="docutils literal notranslate"><span class="pre">Data.get_download_animal_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.data.Data.get_download_device_data"><code class="docutils literal notranslate"><span class="pre">Data.get_download_device_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.data.Data.get_download_group_data"><code class="docutils literal notranslate"><span class="pre">Data.get_download_group_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.data.Data.get_downloads"><code class="docutils literal notranslate"><span class="pre">Data.get_downloads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.data.Data.get_metrics_animals"><code class="docutils literal notranslate"><span class="pre">Data.get_metrics_animals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.data.Data.get_metrics_devices"><code class="docutils literal notranslate"><span class="pre">Data.get_metrics_devices()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.data.Data.get_metrics_groups"><code class="docutils literal notranslate"><span class="pre">Data.get_metrics_groups()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.data.Data.post_downloads_excel_report"><code class="docutils literal notranslate"><span class="pre">Data.post_downloads_excel_report()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.data.Data.post_downloads_messages_excel_report"><code class="docutils literal notranslate"><span class="pre">Data.post_downloads_messages_excel_report()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.data.Data.post_downloads_organisation_messages_excel_report"><code class="docutils literal notranslate"><span class="pre">Data.post_downloads_organisation_messages_excel_report()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.publicV2.html#module-sxapi.publicV2.devices">sxapi.publicV2.devices module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.devices.Devices"><code class="docutils literal notranslate"><span class="pre">Devices</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.devices.Devices.get_check_activatable"><code class="docutils literal notranslate"><span class="pre">Devices.get_check_activatable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.devices.Devices.put_move"><code class="docutils literal notranslate"><span class="pre">Devices.put_move()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.devices.Devices.put_update_name"><code class="docutils literal notranslate"><span class="pre">Devices.put_update_name()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.publicV2.html#module-sxapi.publicV2.events">sxapi.publicV2.events module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.events.Events"><code class="docutils literal notranslate"><span class="pre">Events</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.events.Events.get"><code class="docutils literal notranslate"><span class="pre">Events.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.events.Events.get_by_id"><code class="docutils literal notranslate"><span class="pre">Events.get_by_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.events.Events.get_categories"><code class="docutils literal notranslate"><span class="pre">Events.get_categories()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.publicV2.html#module-sxapi.publicV2.feedrations">sxapi.publicV2.feedrations module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.feedrations.Feedrations"><code class="docutils literal notranslate"><span class="pre">Feedrations</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.feedrations.Feedrations.delete"><code class="docutils literal notranslate"><span class="pre">Feedrations.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.feedrations.Feedrations.get"><code class="docutils literal notranslate"><span class="pre">Feedrations.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.feedrations.Feedrations.post"><code class="docutils literal notranslate"><span class="pre">Feedrations.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.feedrations.Feedrations.put"><code class="docutils literal notranslate"><span class="pre">Feedrations.put()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.publicV2.html#module-sxapi.publicV2.groups">sxapi.publicV2.groups module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.groups.Groups"><code class="docutils literal notranslate"><span class="pre">Groups</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.groups.Groups.delete_actions"><code class="docutils literal notranslate"><span class="pre">Groups.delete_actions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.groups.Groups.get_actions"><code class="docutils literal notranslate"><span class="pre">Groups.get_actions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.groups.Groups.put_actions"><code class="docutils literal notranslate"><span class="pre">Groups.put_actions()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.publicV2.html#module-sxapi.publicV2.notes">sxapi.publicV2.notes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.notes.Notes"><code class="docutils literal notranslate"><span class="pre">Notes</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.notes.Notes.get"><code class="docutils literal notranslate"><span class="pre">Notes.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.notes.Notes.post"><code class="docutils literal notranslate"><span class="pre">Notes.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.notes.Notes.put"><code class="docutils literal notranslate"><span class="pre">Notes.put()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.publicV2.html#module-sxapi.publicV2.observation_groups">sxapi.publicV2.observation_groups module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.observation_groups.ObservationGroups"><code class="docutils literal notranslate"><span class="pre">ObservationGroups</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.observation_groups.ObservationGroups.delete"><code class="docutils literal notranslate"><span class="pre">ObservationGroups.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.observation_groups.ObservationGroups.get"><code class="docutils literal notranslate"><span class="pre">ObservationGroups.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.observation_groups.ObservationGroups.get_dim_series_line"><code class="docutils literal notranslate"><span class="pre">ObservationGroups.get_dim_series_line()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.observation_groups.ObservationGroups.get_observ_dim_series_bar"><code class="docutils literal notranslate"><span class="pre">ObservationGroups.get_observ_dim_series_bar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.observation_groups.ObservationGroups.get_orga_dim_series_bar"><code class="docutils literal notranslate"><span class="pre">ObservationGroups.get_orga_dim_series_bar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.observation_groups.ObservationGroups.post"><code class="docutils literal notranslate"><span class="pre">ObservationGroups.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.observation_groups.ObservationGroups.put"><code class="docutils literal notranslate"><span class="pre">ObservationGroups.put()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.observation_groups.ObservationGroups.put_add_animals"><code class="docutils literal notranslate"><span class="pre">ObservationGroups.put_add_animals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.observation_groups.ObservationGroups.put_remove_animals"><code class="docutils literal notranslate"><span class="pre">ObservationGroups.put_remove_animals()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.publicV2.html#module-sxapi.publicV2.organisations">sxapi.publicV2.organisations module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations"><code class="docutils literal notranslate"><span class="pre">Organisations</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.delete_integrations"><code class="docutils literal notranslate"><span class="pre">Organisations.delete_integrations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.delete_integrations_icbf"><code class="docutils literal notranslate"><span class="pre">Organisations.delete_integrations_icbf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.delete_integrations_lic"><code class="docutils literal notranslate"><span class="pre">Organisations.delete_integrations_lic()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.delete_integrations_seges"><code class="docutils literal notranslate"><span class="pre">Organisations.delete_integrations_seges()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.delete_settings_key"><code class="docutils literal notranslate"><span class="pre">Organisations.delete_settings_key()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get"><code class="docutils literal notranslate"><span class="pre">Organisations.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_animal_ids"><code class="docutils literal notranslate"><span class="pre">Organisations.get_animal_ids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_animals"><code class="docutils literal notranslate"><span class="pre">Organisations.get_animals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_import"><code class="docutils literal notranslate"><span class="pre">Organisations.get_import()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_integrations"><code class="docutils literal notranslate"><span class="pre">Organisations.get_integrations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_list_by_name"><code class="docutils literal notranslate"><span class="pre">Organisations.get_list_by_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_lists"><code class="docutils literal notranslate"><span class="pre">Organisations.get_lists()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_settings"><code class="docutils literal notranslate"><span class="pre">Organisations.get_settings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_settings_hints"><code class="docutils literal notranslate"><span class="pre">Organisations.get_settings_hints()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_shares"><code class="docutils literal notranslate"><span class="pre">Organisations.get_shares()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.get_todos"><code class="docutils literal notranslate"><span class="pre">Organisations.get_todos()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.post"><code class="docutils literal notranslate"><span class="pre">Organisations.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.post_import"><code class="docutils literal notranslate"><span class="pre">Organisations.post_import()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.post_settings"><code class="docutils literal notranslate"><span class="pre">Organisations.post_settings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.put"><code class="docutils literal notranslate"><span class="pre">Organisations.put()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.put_add_device"><code class="docutils literal notranslate"><span class="pre">Organisations.put_add_device()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.put_integrations"><code class="docutils literal notranslate"><span class="pre">Organisations.put_integrations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.put_settings"><code class="docutils literal notranslate"><span class="pre">Organisations.put_settings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.organisations.Organisations.put_settings_key"><code class="docutils literal notranslate"><span class="pre">Organisations.put_settings_key()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.publicV2.html#module-sxapi.publicV2.sensordata">sxapi.publicV2.sensordata module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.sensordata.get_sensor_data_from_animal"><code class="docutils literal notranslate"><span class="pre">get_sensor_data_from_animal()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.publicV2.html#module-sxapi.publicV2.shares">sxapi.publicV2.shares module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.shares.Shares"><code class="docutils literal notranslate"><span class="pre">Shares</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.shares.Shares.delete"><code class="docutils literal notranslate"><span class="pre">Shares.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.shares.Shares.get"><code class="docutils literal notranslate"><span class="pre">Shares.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.shares.Shares.post"><code class="docutils literal notranslate"><span class="pre">Shares.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.shares.Shares.put"><code class="docutils literal notranslate"><span class="pre">Shares.put()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.publicV2.html#module-sxapi.publicV2.todos">sxapi.publicV2.todos module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.todos.Todos"><code class="docutils literal notranslate"><span class="pre">Todos</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.todos.Todos.delete_comment"><code class="docutils literal notranslate"><span class="pre">Todos.delete_comment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.todos.Todos.get"><code class="docutils literal notranslate"><span class="pre">Todos.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.todos.Todos.post"><code class="docutils literal notranslate"><span class="pre">Todos.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.todos.Todos.post_comment"><code class="docutils literal notranslate"><span class="pre">Todos.post_comment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.todos.Todos.put"><code class="docutils literal notranslate"><span class="pre">Todos.put()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.todos.Todos.put_comment"><code class="docutils literal notranslate"><span class="pre">Todos.put_comment()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.publicV2.html#module-sxapi.publicV2.users">sxapi.publicV2.users module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users"><code class="docutils literal notranslate"><span class="pre">Users</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users.delete_tokens"><code class="docutils literal notranslate"><span class="pre">Users.delete_tokens()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users.get"><code class="docutils literal notranslate"><span class="pre">Users.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users.get_account"><code class="docutils literal notranslate"><span class="pre">Users.get_account()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users.get_alarms"><code class="docutils literal notranslate"><span class="pre">Users.get_alarms()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users.get_credentials"><code class="docutils literal notranslate"><span class="pre">Users.get_credentials()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users.get_reset_password_request"><code class="docutils literal notranslate"><span class="pre">Users.get_reset_password_request()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users.get_shares"><code class="docutils literal notranslate"><span class="pre">Users.get_shares()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users.post_activate"><code class="docutils literal notranslate"><span class="pre">Users.post_activate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users.post_credentials"><code class="docutils literal notranslate"><span class="pre">Users.post_credentials()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users.post_password_strength"><code class="docutils literal notranslate"><span class="pre">Users.post_password_strength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users.post_reset_password"><code class="docutils literal notranslate"><span class="pre">Users.post_reset_password()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users.post_test_email"><code class="docutils literal notranslate"><span class="pre">Users.post_test_email()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users.post_test_push"><code class="docutils literal notranslate"><span class="pre">Users.post_test_push()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users.post_tokens"><code class="docutils literal notranslate"><span class="pre">Users.post_tokens()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users.post_update_metadata"><code class="docutils literal notranslate"><span class="pre">Users.post_update_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users.put_change_password"><code class="docutils literal notranslate"><span class="pre">Users.put_change_password()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.users.Users.put_tokens"><code class="docutils literal notranslate"><span class="pre">Users.put_tokens()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxapi.publicV2.html#module-sxapi.publicV2">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sxapi.publicV2.html#sxapi.publicV2.PublicAPIV2"><code class="docutils literal notranslate"><span class="pre">PublicAPIV2</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-sxapi.base">
+<span id="sxapi-base-module"></span><h2>sxapi.base module<a class="headerlink" href="#module-sxapi.base" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="sxapi.base.ApiTypes">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sxapi.base.</span></span><span class="sig-name descname"><span class="pre">ApiTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sxapi/base.html#ApiTypes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sxapi.base.ApiTypes" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/enum.html#enum.Enum" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sxapi.base.ApiTypes.INTEGRATION">
+<span class="sig-name descname"><span class="pre">INTEGRATION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#sxapi.base.ApiTypes.INTEGRATION" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sxapi.base.ApiTypes.PUBLIC">
+<span class="sig-name descname"><span class="pre">PUBLIC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#sxapi.base.ApiTypes.PUBLIC" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sxapi.base.BaseAPI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sxapi.base.</span></span><span class="sig-name descname"><span class="pre">BaseAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sxapi/base.html#BaseAPI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sxapi.base.BaseAPI" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="sxapi.base.BaseAPI.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sxapi/base.html#BaseAPI.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sxapi.base.BaseAPI.delete" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sxapi.base.BaseAPI.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sxapi/base.html#BaseAPI.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sxapi.base.BaseAPI.get" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sxapi.base.BaseAPI.get_token">
+<span class="sig-name descname"><span class="pre">get_token</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sxapi/base.html#BaseAPI.get_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sxapi.base.BaseAPI.get_token" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sxapi.base.BaseAPI.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sxapi/base.html#BaseAPI.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sxapi.base.BaseAPI.post" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sxapi.base.BaseAPI.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sxapi/base.html#BaseAPI.put"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sxapi.base.BaseAPI.put" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sxapi.base.BaseAPI.session">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">session</span></span><a class="headerlink" href="#sxapi.base.BaseAPI.session" title="Link to this definition">¶</a></dt>
+<dd><p>Geneates a new HTTP session on the fly and logs in if no session exists.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sxapi.base.BaseAPI.to_url">
+<span class="sig-name descname"><span class="pre">to_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sxapi/base.html#BaseAPI.to_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sxapi.base.BaseAPI.to_url" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-sxapi">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-sxapi" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">sxapi</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributions &amp; Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Module Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">sxapi package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">sxapi</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">sxapi</a></li>
+      <li>Next: <a href="sxapi.cli.html" title="next chapter">sxapi.cli package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Florian Klien.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../_sources/api/sxapi.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

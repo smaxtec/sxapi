@@ -1,0 +1,31 @@
+sxapi package
+=============
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   sxapi.cli
+   sxapi.integrationV2
+   sxapi.publicV2
+
+Submodules
+----------
+
+sxapi.base module
+-----------------
+
+.. automodule:: sxapi.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: sxapi
+   :members:
+   :undoc-members:
+   :show-inheritance:

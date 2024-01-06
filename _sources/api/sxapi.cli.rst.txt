@@ -1,0 +1,37 @@
+sxapi.cli package
+=================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   sxapi.cli.subparser
+
+Submodules
+----------
+
+sxapi.cli.cli module
+--------------------
+
+.. automodule:: sxapi.cli.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sxapi.cli.cli\_user module
+--------------------------
+
+.. automodule:: sxapi.cli.cli_user
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: sxapi.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:

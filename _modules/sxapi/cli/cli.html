@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sxapi.cli.cli &#8212; sxapi 0.0.post1.dev1+gc25c9a3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=233b9934" />
+    <script src="../../../_static/documentation_options.js?v=5925f290"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sxapi.cli.cli</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">configparser</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">abspath</span><span class="p">,</span>
+    <span class="n">expanduser</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
+
+<span class="kn">from</span> <span class="nn">sxapi.cli</span> <span class="kn">import</span> <span class="n">cli_user</span>
+<span class="kn">from</span> <span class="nn">sxapi.cli.subparser.token</span> <span class="kn">import</span> <span class="n">create_token_parser</span>
+
+
+<div class="viewcode-block" id="Cli">
+<a class="viewcode-back" href="../../../api/sxapi.cli.html#sxapi.cli.cli.Cli">[docs]</a>
+<span class="k">class</span> <span class="nc">Cli</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;CLI class for handling arguments and calling the API.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_file_paths</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;/etc/sxapi.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;~/.config/sxapi.conf&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Cli.update_config_with_env">
+<a class="viewcode-back" href="../../../api/sxapi.cli.html#sxapi.cli.cli.Cli.update_config_with_env">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">update_config_with_env</span><span class="p">(</span><span class="n">config_dict</span><span class="p">):</span>
+        <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SXAPI_USER&quot;</span><span class="p">,</span> <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">])</span>
+        <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;pwd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SXAPI_PASSWORD&quot;</span><span class="p">,</span> <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;pwd&quot;</span><span class="p">])</span>
+        <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;orga&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SXAPI_ORGA&quot;</span><span class="p">,</span> <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;orga&quot;</span><span class="p">])</span>
+        <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;api_public_v2_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span>
+            <span class="s2">&quot;SXAPI_API_PUBLIC_V2_PATH&quot;</span><span class="p">,</span> <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;api_public_v2_path&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;api_integration_v2_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span>
+            <span class="s2">&quot;SXAPI_API_INTEGRATION_V2_PATH&quot;</span><span class="p">,</span> <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;api_integration_v2_path&quot;</span><span class="p">]</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Cli.read_config_from_file">
+<a class="viewcode-back" href="../../../api/sxapi.cli.html#sxapi.cli.cli.Cli.read_config_from_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">read_config_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_file_path</span><span class="p">):</span>
+        <span class="n">config_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;pwd&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;orga&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;api_public_v2_path&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;api_integration_v2_path&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="n">config_file_path</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config_file_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">config_file_path</span><span class="p">)</span>
+
+        <span class="n">parsable_files</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">config_file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_file_paths</span><span class="p">:</span>
+            <span class="n">config_file</span> <span class="o">=</span> <span class="n">expanduser</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+            <span class="n">config_file</span> <span class="o">=</span> <span class="n">abspath</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+            <span class="n">parsable_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">configparser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">(</span><span class="n">interpolation</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">parsable_files</span><span class="p">)</span>
+
+            <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SXAPI&quot;</span><span class="p">,</span> <span class="s2">&quot;USER&quot;</span><span class="p">)</span>
+            <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;pwd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SXAPI&quot;</span><span class="p">,</span> <span class="s2">&quot;PASSWORD&quot;</span><span class="p">)</span>
+            <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;orga&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SXAPI&quot;</span><span class="p">,</span> <span class="s2">&quot;ORGA&quot;</span><span class="p">)</span>
+            <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;api_public_v2_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="s2">&quot;SXAPI&quot;</span><span class="p">,</span> <span class="s2">&quot;API_PUBLIC_V2_PATH&quot;</span>
+            <span class="p">)</span>
+            <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;api_integration_v2_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="s2">&quot;SXAPI&quot;</span><span class="p">,</span> <span class="s2">&quot;API_INTEGRATION_V2_PATH&quot;</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span>
+            <span class="ne">KeyError</span><span class="p">,</span>
+            <span class="n">configparser</span><span class="o">.</span><span class="n">NoSectionError</span><span class="p">,</span>
+            <span class="n">configparser</span><span class="o">.</span><span class="n">MissingSectionHeaderError</span><span class="p">,</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">config_file_path</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error while reading config file: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+                <span class="c1"># we should raise custom exception here</span>
+
+        <span class="k">return</span> <span class="n">config_dict</span></div>
+
+
+<div class="viewcode-block" id="Cli.api_status">
+<a class="viewcode-back" href="../../../api/sxapi.cli.html#sxapi.cli.cli.Cli.api_status">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">api_status</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print online status of api/v2 and integration/v2</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">cli_user</span><span class="o">.</span><span class="n">api_access_token</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No credentials set. Use --help for more information.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">pub_resp</span> <span class="o">=</span> <span class="n">cli_user</span><span class="o">.</span><span class="n">public_v2_api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/service/status&quot;</span><span class="p">)</span>
+        <span class="n">int_resp</span> <span class="o">=</span> <span class="n">cli_user</span><span class="o">.</span><span class="n">integration_v2_api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/service/status&quot;</span><span class="p">)</span>
+
+        <span class="n">exit_code</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">pub_resp</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ok&quot;</span> <span class="ow">and</span> <span class="n">int_resp</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ok&quot;</span><span class="p">):</span>
+            <span class="n">exit_code</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;PublicV2 status: </span><span class="si">{</span><span class="n">pub_resp</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IntegrationV2 status: </span><span class="si">{</span><span class="n">int_resp</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">exit</span><span class="p">(</span><span class="n">exit_code</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Cli.version_info">
+<a class="viewcode-back" href="../../../api/sxapi.cli.html#sxapi.cli.cli.Cli.version_info">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">version_info</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Print version info.&quot;&quot;&quot;</span>
+        <span class="n">setup</span><span class="p">(</span><span class="n">use_scm_version</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;version_scheme&quot;</span><span class="p">:</span> <span class="s2">&quot;no-guess-dev&quot;</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="Cli.parse_args">
+<a class="viewcode-back" href="../../../api/sxapi.cli.html#sxapi.cli.cli.Cli.parse_args">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse arguments from the CLI and initializes subparsers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">main_parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+            <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Issue calls to the smaXtec system API to import and export data.&quot;</span>
+            <span class="p">),</span>
+            <span class="n">usage</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(prog)s</span><span class="s2"> [options] &lt;sub_command&gt; [sub_command_options] [&lt;args&gt;]&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">main_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;--version&quot;</span><span class="p">,</span>
+            <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+            <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;print version info and exit.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">main_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;--status&quot;</span><span class="p">,</span>
+            <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+            <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;prints status of api/V2 and integration/v2&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">main_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;-t&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;--access_token&quot;</span><span class="p">,</span>
+            <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Access Token&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">main_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;-k&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;--use_keyring&quot;</span><span class="p">,</span>
+            <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Use keyring as token source!&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">main_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="s2">&quot;--configfile&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to config file&quot;</span>
+        <span class="p">)</span>
+        <span class="n">main_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;--print-configfile&quot;</span><span class="p">,</span>
+            <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Print example config file and exits&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">subparsers</span> <span class="o">=</span> <span class="n">main_parser</span><span class="o">.</span><span class="n">add_subparsers</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;sub_commands&quot;</span><span class="p">)</span>
+        <span class="c1"># create_gsd_parser(subparsers)</span>
+        <span class="n">create_token_parser</span><span class="p">(</span><span class="n">subparsers</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
+            <span class="n">main_parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+            <span class="k">return</span>
+
+        <span class="c1"># check if subparser is called with arguments</span>
+        <span class="c1"># otherwise print help for subparser</span>
+        <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">choices</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">subparsers</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+            <span class="k">return</span>
+
+        <span class="k">return</span> <span class="n">main_parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Cli.run">
+<a class="viewcode-back" href="../../../api/sxapi.cli.html#sxapi.cli.cli.Cli.run">[docs]</a>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Call sxapi functions based on passed arguments.&quot;&quot;&quot;</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">print_configfile</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./src/sxapi/cli/example-config.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+            <span class="k">return</span>
+
+        <span class="n">config_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_config_from_file</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">configfile</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_config_with_env</span><span class="p">(</span><span class="n">config_dict</span><span class="p">)</span>
+
+        <span class="n">cli_user</span><span class="o">.</span><span class="n">init_user</span><span class="p">(</span><span class="n">config_dict</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">access_token</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">use_keyring</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">status</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">api_status</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">version</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">version_info</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">use_keyring</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">access_token</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Choose either -k (keyring), -t (argument) or no flag (environment)!&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># run set_defaults for subparser</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="s2">&quot;func&quot;</span><span class="p">):</span>
+            <span class="n">args</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="n">args</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="cli_run">
+<a class="viewcode-back" href="../../../api/sxapi.cli.html#sxapi.cli.cli.cli_run">[docs]</a>
+<span class="k">def</span> <span class="nf">cli_run</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Start CLI&quot;&quot;&quot;</span>
+    <span class="n">Cli</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sxapi</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributions &amp; Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/modules.html">Module Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Florian Klien.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
