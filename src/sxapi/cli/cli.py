@@ -7,10 +7,41 @@ from os.path import (
     expanduser,
 )
 
+from requests.exceptions import HTTPError
 from setuptools import setup
 
 from sxapi.cli import cli_user
 from sxapi.cli.subparser.token import create_token_parser
+from sxapi.errors import (
+    SxapiAuthorizationError,
+    SxapiUnprocessableContentError,
+)
+
+
+def handle_cli_return_values(func):
+    def wrapper(*args, **kwargs):
+
+        try:
+            return func(*args, **kwargs)
+        except SxapiAuthorizationError as e:
+            error_msg = e
+            exit_code = 1
+        except SxapiUnprocessableContentError as e:
+            error_msg = e
+            exit_code = 2
+        except HTTPError as e:
+            error_msg = e
+            exit_code = 3
+        except Exception as e:
+            error_msg = e
+            exit_code = 4
+
+        if error_msg:
+            print(f"Error: {error_msg}")
+
+        exit(exit_code)
+
+    return wrapper
 
 
 class Cli:
@@ -18,6 +49,9 @@ class Cli:
 
     def __init__(self):
         self.config_file_paths = ["/etc/sxapi.conf", "~/.config/sxapi.conf"]
+        self.config_file_paths = []
+        self.config_file_paths = []
+        self.config_file_paths = []
 
     @staticmethod
     def update_config_with_env(config_dict):
@@ -71,7 +105,6 @@ class Cli:
                 print(f"Error while reading config file: {e}")
                 return
                 # we should raise custom exception here
-
         return config_dict
 
     @staticmethod
@@ -87,15 +120,8 @@ class Cli:
         pub_resp = cli_user.public_v2_api.get("/service/status")
         int_resp = cli_user.integration_v2_api.get("/service/status")
 
-        exit_code = 0
-
-        if not (pub_resp["result"] == "ok" and int_resp["result"] == "ok"):
-            exit_code = 1
-
         print(f"PublicV2 status: {pub_resp['result']}")
         print(f"IntegrationV2 status: {int_resp['result']}")
-
-        exit(exit_code)
 
     @staticmethod
     def version_info():
@@ -162,11 +188,12 @@ class Cli:
 
         return main_parser.parse_args(args)
 
+    @handle_cli_return_values
     def run(self):
         """Call sxapi functions based on passed arguments."""
         args = self.parse_args(sys.argv[1:])
         if not args:
-            return 0
+            return
 
         if args.print_configfile:
             with open("./src/sxapi/cli/example-config.conf", "r") as f:
@@ -186,7 +213,10 @@ class Cli:
             self.version_info()
 
         if args.use_keyring and args.access_token:
-            print("Choose either -k (keyring), -t (argument) or no flag (environment)!")
+            print(
+                "Choose either -k (keyring), -t (argument) or"
+                " no flag (environment/config)!"
+            )
             return
 
         # run set_defaults for subparser
