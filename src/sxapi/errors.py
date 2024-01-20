@@ -28,16 +28,12 @@ class SxapiUnprocessableContentError(Exception):
 class SxapiConfigurationFileError(Exception):
     """Raised when configuration file is not found."""
 
-    CONFIGURATION_FILE_ERROR_MSG = """
-    Configuration file not found.
-    Please create a configuration file in one of the following paths:
-    /etc/sxapi.conf
-    ~/.config/sxapi.conf
-    """
+    CONFIGURATION_FILE_ERROR_MSG = "Configuration File Error"
 
-    def __init__(self, message, info=CONFIGURATION_FILE_ERROR_MSG):
-        self.message = message
+    def __init__(self, parent, info=CONFIGURATION_FILE_ERROR_MSG):
+        self.parent_name = parent.__class__.__name__
+        self.message = parent.message
         self.info = info
 
     def __str__(self):
-        return self.message + self.info
+        return self.info + " -> " + self.parent_name + " -> " + self.message

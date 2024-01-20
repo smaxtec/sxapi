@@ -8,6 +8,7 @@ from sxapi.cli.cli import Cli
 obj = mock.MagicMock
 
 cli = Cli()
+cli.config_file_paths = []
 
 
 @mock.patch("sxapi.cli.cli.Cli.version_info")

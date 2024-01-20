@@ -14,6 +14,7 @@ from sxapi.cli import cli_user
 from sxapi.cli.subparser.token import create_token_parser
 from sxapi.errors import (
     SxapiAuthorizationError,
+    SxapiConfigurationFileError,
     SxapiUnprocessableContentError,
 )
 
@@ -29,15 +30,18 @@ def handle_cli_return_values(func):
         except SxapiUnprocessableContentError as e:
             error_msg = e
             exit_code = 2
-        except HTTPError as e:
+        except SxapiConfigurationFileError as e:
             error_msg = e
             exit_code = 3
-        except Exception as e:
+        except HTTPError as e:
             error_msg = e
             exit_code = 4
+        except Exception as e:
+            error_msg = e
+            exit_code = 5
 
         if error_msg:
-            print(f"Error: {error_msg}")
+            print(error_msg)
 
         exit(exit_code)
 
@@ -49,9 +53,6 @@ class Cli:
 
     def __init__(self):
         self.config_file_paths = ["/etc/sxapi.conf", "~/.config/sxapi.conf"]
-        self.config_file_paths = []
-        self.config_file_paths = []
-        self.config_file_paths = []
 
     @staticmethod
     def update_config_with_env(config_dict):
@@ -83,10 +84,12 @@ class Cli:
             config_file = abspath(config_file)
             parsable_files.append(config_file)
 
-        try:
-            config = configparser.ConfigParser(interpolation=None)
-            config.read(parsable_files)
+        config = configparser.ConfigParser(interpolation=None)
 
+        if len(config.read(parsable_files)) == 0:
+            return config_dict
+
+        try:
             config_dict["user"] = config.get("SXAPI", "USER")
             config_dict["pwd"] = config.get("SXAPI", "PASSWORD")
             config_dict["orga"] = config.get("SXAPI", "ORGA")
@@ -96,15 +99,9 @@ class Cli:
             config_dict["api_integration_v2_path"] = config.get(
                 "SXAPI", "API_INTEGRATION_V2_PATH"
             )
-        except (
-            KeyError,
-            configparser.NoSectionError,
-            configparser.MissingSectionHeaderError,
-        ) as e:
-            if config_file_path:
-                print(f"Error while reading config file: {e}")
-                return
-                # we should raise custom exception here
+        except configparser.Error as e:
+            raise SxapiConfigurationFileError(e)
+
         return config_dict
 
     @staticmethod
