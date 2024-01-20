@@ -35,10 +35,10 @@ def handle_cli_return_values(func):
             exit_code = 3
         except HTTPError as e:
             error_msg = e
-            exit_code = 4
+            exit_code = 98
         except Exception as e:
             error_msg = e
-            exit_code = 5
+            exit_code = 99
 
         if error_msg:
             print(error_msg)
