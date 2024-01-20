@@ -86,6 +86,7 @@ class Cli:
 
         config = configparser.ConfigParser(interpolation=None)
 
+        # if no configfile was read return empty config_dict
         if len(config.read(parsable_files)) == 0:
             return config_dict
 
