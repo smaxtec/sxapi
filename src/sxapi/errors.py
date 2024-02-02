@@ -26,7 +26,7 @@ class SxapiUnprocessableContentError(Exception):
 
 
 class SxapiConfigurationFileError(Exception):
-    """Raised when configuration file is not found."""
+    """Raised when configuration file is not valid."""
 
     CONFIGURATION_FILE_ERROR_MSG = "Configuration File Error"
 
