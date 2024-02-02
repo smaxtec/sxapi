@@ -5,7 +5,10 @@ import mock
 from sxapi.cli import cli_user
 from sxapi.cli.cli import Cli
 
+obj = mock.MagicMock
+
 cli = Cli()
+cli.config_file_paths = []
 
 
 @mock.patch("sxapi.cli.cli.Cli.version_info")
@@ -23,8 +26,8 @@ def test_func(get_token_mock, keyring_mock, print_mock, version_mock):
         cli.run()
         call_args = print_mock.call_args_list[0]
         assert (
-            call_args.args[0]
-            == "Choose either -k (keyring), -t (argument) or no flag (environment)!"
+            call_args.args[0] == "Choose either -k (keyring), -t (argument)"
+            " or no flag (environment/config)!"
         )
         print_mock.reset_mock()
 

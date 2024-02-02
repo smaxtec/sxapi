@@ -5,10 +5,32 @@ from enum import Enum
 
 import requests
 
+from sxapi.errors import (
+    SxapiAuthorizationError,
+    SxapiUnprocessableContentError,
+)
+
 
 class ApiTypes(Enum):
     PUBLIC = 1
     INTEGRATION = 2
+
+
+def check_response(func):
+    """Decorator to handle response status codes."""
+
+    def wrapper(*args, **kwargs):
+        response = func(*args, **kwargs)
+        if response.status_code in [401, 403]:
+            raise SxapiAuthorizationError(status_code=response.status_code)
+        elif response.status_code == 422:
+            raise SxapiUnprocessableContentError()
+        else:
+            response.raise_for_status()
+
+        return response.json()
+
+    return wrapper
 
 
 class BaseAPI(object):
@@ -69,22 +91,26 @@ class BaseAPI(object):
                 raise requests.HTTPError(response.status_code, response.reason)
             self._session.headers.update({"Authorization": f"Bearer {self.api_token}"})
 
+    @check_response
     def get(self, path, *args, **kwargs):
         url = self.to_url(path)
         r = self.session.get(url, *args, **kwargs)
-        return r.json()
+        return r
 
+    @check_response
     def post(self, path, *args, **kwargs):
         url = self.to_url(path)
         r = self.session.post(url, *args, allow_redirects=False, **kwargs)
-        return r.json()
+        return r
 
+    @check_response
     def put(self, path, *args, **kwargs):
         url = self.to_url(path)
         r = self.session.put(url, *args, allow_redirects=False, **kwargs)
-        return r.json()
+        return r
 
+    @check_response
     def delete(self, path, *args, **kwargs):
         url = self.to_url(path)
         r = self.session.delete(url, *args, **kwargs)
-        return r.json()
+        return r

@@ -80,6 +80,8 @@ class CliUser:
             self.api_access_token = args_token
         elif args_keyring:
             self.api_access_token = self.get_token_keyring()
+            if self.api_access_token is None:
+                print("No token found in keyring. Use values from config file.\n")
         else:
             self.api_access_token = self.get_token_environment()
 

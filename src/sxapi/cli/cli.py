@@ -7,10 +7,45 @@ from os.path import (
     expanduser,
 )
 
+from requests.exceptions import HTTPError
 from setuptools import setup
 
 from sxapi.cli import cli_user
 from sxapi.cli.subparser.token import create_token_parser
+from sxapi.errors import (
+    SxapiAuthorizationError,
+    SxapiConfigurationFileError,
+    SxapiUnprocessableContentError,
+)
+
+
+def handle_cli_return_values(func):
+    def wrapper(*args, **kwargs):
+
+        try:
+            return func(*args, **kwargs)
+        except SxapiAuthorizationError as e:
+            error_msg = e
+            exit_code = 1
+        except SxapiUnprocessableContentError as e:
+            error_msg = e
+            exit_code = 2
+        except SxapiConfigurationFileError as e:
+            error_msg = e
+            exit_code = 3
+        except HTTPError as e:
+            error_msg = e
+            exit_code = 98
+        except Exception as e:
+            error_msg = e
+            exit_code = 99
+
+        if error_msg:
+            print(error_msg)
+
+        exit(exit_code)
+
+    return wrapper
 
 
 class Cli:
@@ -49,10 +84,13 @@ class Cli:
             config_file = abspath(config_file)
             parsable_files.append(config_file)
 
-        try:
-            config = configparser.ConfigParser(interpolation=None)
-            config.read(parsable_files)
+        config = configparser.ConfigParser(interpolation=None)
 
+        # if no configfile was read return empty config_dict
+        if len(config.read(parsable_files)) == 0:
+            return config_dict
+
+        try:
             config_dict["user"] = config.get("SXAPI", "USER")
             config_dict["pwd"] = config.get("SXAPI", "PASSWORD")
             config_dict["orga"] = config.get("SXAPI", "ORGA")
@@ -62,15 +100,8 @@ class Cli:
             config_dict["api_integration_v2_path"] = config.get(
                 "SXAPI", "API_INTEGRATION_V2_PATH"
             )
-        except (
-            KeyError,
-            configparser.NoSectionError,
-            configparser.MissingSectionHeaderError,
-        ) as e:
-            if config_file_path:
-                print(f"Error while reading config file: {e}")
-                return
-                # we should raise custom exception here
+        except configparser.Error as e:
+            raise SxapiConfigurationFileError(e)
 
         return config_dict
 
@@ -87,15 +118,8 @@ class Cli:
         pub_resp = cli_user.public_v2_api.get("/service/status")
         int_resp = cli_user.integration_v2_api.get("/service/status")
 
-        exit_code = 0
-
-        if not (pub_resp["result"] == "ok" and int_resp["result"] == "ok"):
-            exit_code = 1
-
         print(f"PublicV2 status: {pub_resp['result']}")
         print(f"IntegrationV2 status: {int_resp['result']}")
-
-        exit(exit_code)
 
     @staticmethod
     def version_info():
@@ -162,11 +186,12 @@ class Cli:
 
         return main_parser.parse_args(args)
 
+    @handle_cli_return_values
     def run(self):
         """Call sxapi functions based on passed arguments."""
         args = self.parse_args(sys.argv[1:])
         if not args:
-            return 0
+            return
 
         if args.print_configfile:
             with open("./src/sxapi/cli/example-config.conf", "r") as f:
@@ -186,7 +211,10 @@ class Cli:
             self.version_info()
 
         if args.use_keyring and args.access_token:
-            print("Choose either -k (keyring), -t (argument) or no flag (environment)!")
+            print(
+                "Choose either -k (keyring), -t (argument) or"
+                " no flag (environment/config)!"
+            )
             return
 
         # run set_defaults for subparser
