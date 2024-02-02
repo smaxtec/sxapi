@@ -3,26 +3,38 @@ class SxapiAuthorizationError(Exception):
 
     AUTHORIZATION_ERROR_MSG = """
     Requested object could not be accessed.
-    Maybe the organisation_id or the _id of the requested object is wrong."""
+    Maybe the organisation_id or the _id of the requested object is wrong.
+    """
 
-    def __init__(self, message=AUTHORIZATION_ERROR_MSG):
+    def __init__(self, message=AUTHORIZATION_ERROR_MSG, status_code=None):
         self.message = message
+        self.status_code = status_code
 
     def __str__(self):
-        return self.message
+        text = self.message
+        if self.status_code:
+            text = text + "status code: " + str(self.status_code)
+
+        return text
 
 
 class SxapiUnprocessableContentError(Exception):
     """Raised when content is unprocessable 422."""
 
     UNPROCESSABLE_CONTENT_ERROR_MSG = """
-    The request was well-formed but was unable to be followed due to semantic errors."""
+    The request was well-formed but was unable to be followed due to semantic errors.
+    """
 
-    def __init__(self, message=UNPROCESSABLE_CONTENT_ERROR_MSG):
+    def __init__(self, message=UNPROCESSABLE_CONTENT_ERROR_MSG, status_code=None):
         self.message = message
+        self.status_code = status_code
 
     def __str__(self):
-        return self.message
+        text = self.message
+        if self.status_code:
+            text = text + "status code: " + str(self.status_code)
+
+        return text
 
 
 class SxapiConfigurationFileError(Exception):

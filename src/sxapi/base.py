@@ -21,8 +21,8 @@ def check_response(func):
 
     def wrapper(*args, **kwargs):
         response = func(*args, **kwargs)
-        if response.status_code == 401:
-            raise SxapiAuthorizationError()
+        if response.status_code in [401, 403]:
+            raise SxapiAuthorizationError(status_code=response.status_code)
         elif response.status_code == 422:
             raise SxapiUnprocessableContentError()
         else:
