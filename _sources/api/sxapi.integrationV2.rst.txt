@@ -1,0 +1,45 @@
+sxapi.integrationV2 package
+===========================
+
+Submodules
+----------
+
+sxapi.integrationV2.accounts module
+-----------------------------------
+
+.. automodule:: sxapi.integrationV2.accounts
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+sxapi.integrationV2.organisations module
+----------------------------------------
+
+.. automodule:: sxapi.integrationV2.organisations
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+sxapi.integrationV2.tranlations module
+--------------------------------------
+
+.. automodule:: sxapi.integrationV2.tranlations
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+sxapi.integrationV2.users module
+--------------------------------
+
+.. automodule:: sxapi.integrationV2.users
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: sxapi.integrationV2
+   :members:
+   :show-inheritance:
+   :undoc-members:

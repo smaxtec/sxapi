@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sxapi.cli.parser.subparser.animals.create &#8212; sxapi 0.0.post1.dev1+g089415df7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/alabaster.css?v=0ca6144b" />
+    <script src="../../../../../../_static/documentation_options.js?v=3d876a1b"></script>
+    <script src="../../../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sxapi.cli.parser.subparser.animals.create</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sxapi.cli</span><span class="w"> </span><span class="kn">import</span> <span class="n">cli_user</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sxapi.errors</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">SxapiAuthorizationError</span><span class="p">,</span>
+    <span class="n">SxapiFileNotFoundError</span><span class="p">,</span>
+    <span class="n">SxapiInvalidJsonError</span><span class="p">,</span>
+    <span class="n">SxapiMissingOrgaIDError</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">DESCRIPTION</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    Create animals for the given organisation.</span>
+
+<span class="s2">    Basic Example:</span>
+<span class="s2">    {</span>
+<span class="s2">        &quot;mark&quot;: &quot;123456&quot;,</span>
+<span class="s2">        &quot;organisation_id&quot;: &quot;123456&quot;,</span>
+<span class="s2">        &quot;official_id&quot;: &quot;123456&quot;,</span>
+<span class="s2">        &quot;birthday&quot;: &quot;2018-01-01&quot;,</span>
+<span class="s2">        &quot;name&quot;: &quot;Bella&quot;,</span>
+<span class="s2">    }</span>
+
+<span class="s2">    All available fields can be found here: https://api.smaxtec.com/api/v2/animals</span>
+
+<span class="s2">    If the call was successful the whole animal is returned.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="SxApiAnimalsCreateSubparser">
+<a class="viewcode-back" href="../../../../../../api/sxapi.cli.parser.subparser.animals.html#sxapi.cli.parser.subparser.animals.create.SxApiAnimalsCreateSubparser">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SxApiAnimalsCreateSubparser</span><span class="p">:</span>
+<div class="viewcode-block" id="SxApiAnimalsCreateSubparser.register_as_subparser">
+<a class="viewcode-back" href="../../../../../../api/sxapi.cli.parser.subparser.animals.html#sxapi.cli.parser.subparser.animals.create.SxApiAnimalsCreateSubparser.register_as_subparser">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">register_as_subparser</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">parent_subparser</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">parent_subparser</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_subparser</span><span class="p">,</span> <span class="n">subparsers</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="o">=</span> <span class="n">parent_subparser</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
+            <span class="s2">&quot;create&quot;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;create animals&quot;</span><span class="p">,</span>
+            <span class="n">usage</span><span class="o">=</span><span class="s2">&quot;sxapi [base_options] animals create [options] ANIMAL_JSON_FILE&quot;</span><span class="p">,</span>
+            <span class="n">formatter_class</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">RawDescriptionHelpFormatter</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="n">DESCRIPTION</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_arguments</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_default_func</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">subparsers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reg_subparsers</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_subparsers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_subparsers</span><span class="p">(</span>
+                <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Sub Commands&quot;</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Available subcommands:&quot;</span><span class="p">,</span>
+                <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;animals_sub_commands&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_subparser</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;animal_json&quot;</span><span class="p">,</span>
+            <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;?&quot;</span><span class="p">,</span>
+            <span class="nb">type</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">FileType</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">),</span>
+            <span class="n">default</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to json file containing animal data. (default: stdin)&quot;</span><span class="p">,</span>
+            <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;ANIMAL_JSON_FILE&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;--organisation_id&quot;</span><span class="p">,</span>
+            <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;?&quot;</span><span class="p">,</span>
+            <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;ID of the organisation to retrieve animals from&quot;</span><span class="p">,</span>
+            <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;ORGANISATION_ID&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_subparser</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_set_default_func</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">animals_sub_function</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">cli_user</span><span class="o">.</span><span class="n">check_credentials_set</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="n">SxapiAuthorizationError</span><span class="p">()</span>
+
+            <span class="n">organisation_id</span> <span class="o">=</span> <span class="n">cli_user</span><span class="o">.</span><span class="n">organisation_id</span>
+
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">organisation_id</span><span class="p">:</span>
+                <span class="n">organisation_id</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">organisation_id</span>
+
+            <span class="k">if</span> <span class="n">organisation_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">SxapiMissingOrgaIDError</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">animal_json</span><span class="o">.</span><span class="n">isatty</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="n">SxapiFileNotFoundError</span><span class="p">()</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">animal_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">animal_json</span><span class="p">)</span>
+
+                <span class="n">res</span> <span class="o">=</span> <span class="n">cli_user</span><span class="o">.</span><span class="n">public_v2_api</span><span class="o">.</span><span class="n">animals</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                    <span class="n">organisation_id</span><span class="p">,</span> <span class="o">**</span><span class="n">animal_json</span>
+                <span class="p">)</span>
+
+            <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">SxapiInvalidJsonError</span><span class="p">()</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="n">animals_sub_function</span><span class="p">)</span></div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../../index.html">sxapi</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../readme.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../contributing.html">Contributions &amp; Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../api/modules.html">Module Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../../../index.html">Module code</a><ul>
+  <li><a href="../../../../cli.html">sxapi.cli</a><ul>
+  <li><a href="../animals.html">sxapi.cli.parser.subparser.animals</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2021, Florian Klien.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

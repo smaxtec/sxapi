@@ -1,0 +1,20 @@
+sxapi.cli.parser.subparser package
+==================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   sxapi.cli.parser.subparser.aborts
+   sxapi.cli.parser.subparser.animals
+   sxapi.cli.parser.subparser.token
+
+Module contents
+---------------
+
+.. automodule:: sxapi.cli.parser.subparser
+   :members:
+   :show-inheritance:
+   :undoc-members:

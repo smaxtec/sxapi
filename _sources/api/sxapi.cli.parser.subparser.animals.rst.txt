@@ -1,0 +1,37 @@
+sxapi.cli.parser.subparser.animals package
+==========================================
+
+Submodules
+----------
+
+sxapi.cli.parser.subparser.animals.create module
+------------------------------------------------
+
+.. automodule:: sxapi.cli.parser.subparser.animals.create
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+sxapi.cli.parser.subparser.animals.get module
+---------------------------------------------
+
+.. automodule:: sxapi.cli.parser.subparser.animals.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+sxapi.cli.parser.subparser.animals.update module
+------------------------------------------------
+
+.. automodule:: sxapi.cli.parser.subparser.animals.update
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: sxapi.cli.parser.subparser.animals
+   :members:
+   :show-inheritance:
+   :undoc-members:

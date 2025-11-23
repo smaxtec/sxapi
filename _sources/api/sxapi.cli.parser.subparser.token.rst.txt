@@ -1,0 +1,10 @@
+sxapi.cli.parser.subparser.token package
+========================================
+
+Module contents
+---------------
+
+.. automodule:: sxapi.cli.parser.subparser.token
+   :members:
+   :show-inheritance:
+   :undoc-members:

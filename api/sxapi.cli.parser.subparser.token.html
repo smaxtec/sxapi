@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>sxapi.cli.parser.subparser.token package &#8212; sxapi 0.0.post1.dev1+g089415df7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=0ca6144b" />
+    <script src="../_static/documentation_options.js?v=3d876a1b"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="sxapi.integrationV2 package" href="sxapi.integrationV2.html" />
+    <link rel="prev" title="sxapi.cli.parser.subparser.animals package" href="sxapi.cli.parser.subparser.animals.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="sxapi-cli-parser-subparser-token-package">
+<h1>sxapi.cli.parser.subparser.token package<a class="headerlink" href="#sxapi-cli-parser-subparser-token-package" title="Link to this heading">¶</a></h1>
+<section id="module-sxapi.cli.parser.subparser.token">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-sxapi.cli.parser.subparser.token" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="sxapi.cli.parser.subparser.token.SxApiTokenSubparser">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sxapi.cli.parser.subparser.token.</span></span><span class="sig-name descname"><span class="pre">SxApiTokenSubparser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_subparser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subparsers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sxapi/cli/parser/subparser/token.html#SxApiTokenSubparser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sxapi.cli.parser.subparser.token.SxApiTokenSubparser" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.12/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="sxapi.cli.parser.subparser.token.SxApiTokenSubparser.register_as_subparser">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">register_as_subparser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_subparser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sxapi/cli/parser/subparser/token.html#SxApiTokenSubparser.register_as_subparser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sxapi.cli.parser.subparser.token.SxApiTokenSubparser.register_as_subparser" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sxapi.cli.parser.subparser.token.handle_clear_token">
+<span class="sig-prename descclassname"><span class="pre">sxapi.cli.parser.subparser.token.</span></span><span class="sig-name descname"><span class="pre">handle_clear_token</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sxapi/cli/parser/subparser/token.html#handle_clear_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sxapi.cli.parser.subparser.token.handle_clear_token" title="Link to this definition">¶</a></dt>
+<dd><p>Logic behind the token subparser –clear_keyring flag.</p>
+<p>Deletes the token from the keyring.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sxapi.cli.parser.subparser.token.handle_new_token">
+<span class="sig-prename descclassname"><span class="pre">sxapi.cli.parser.subparser.token.</span></span><span class="sig-name descname"><span class="pre">handle_new_token</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sxapi/cli/parser/subparser/token.html#handle_new_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sxapi.cli.parser.subparser.token.handle_new_token" title="Link to this definition">¶</a></dt>
+<dd><p>Logic behind the token subparser –new_token flag.</p>
+<p>Parses the args, creates an PublicAPIV2 instance to get new token and
+print the new token to stdout.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sxapi.cli.parser.subparser.token.handle_print_token">
+<span class="sig-prename descclassname"><span class="pre">sxapi.cli.parser.subparser.token.</span></span><span class="sig-name descname"><span class="pre">handle_print_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sxapi/cli/parser/subparser/token.html#handle_print_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sxapi.cli.parser.subparser.token.handle_print_token" title="Link to this definition">¶</a></dt>
+<dd><p>Logic behind the token subparser –print_token flag.</p>
+<p>Prints the token from the desired source (environment or keyring) to stdout.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sxapi.cli.parser.subparser.token.handle_set_token">
+<span class="sig-prename descclassname"><span class="pre">sxapi.cli.parser.subparser.token.</span></span><span class="sig-name descname"><span class="pre">handle_set_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sxapi/cli/parser/subparser/token.html#handle_set_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sxapi.cli.parser.subparser.token.handle_set_token" title="Link to this definition">¶</a></dt>
+<dd><p>Logic behind the token subparser –set_keyring flag.</p>
+<p>Parses the args and stores the token in the keyring.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">sxapi</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributions &amp; Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Module Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="sxapi.html">sxapi package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">sxapi</a><ul>
+  <li><a href="sxapi.html">sxapi package</a><ul>
+  <li><a href="sxapi.cli.html">sxapi.cli package</a><ul>
+  <li><a href="sxapi.cli.parser.html">sxapi.cli.parser package</a><ul>
+  <li><a href="sxapi.cli.parser.subparser.html">sxapi.cli.parser.subparser package</a><ul>
+      <li>Previous: <a href="sxapi.cli.parser.subparser.animals.html" title="previous chapter">sxapi.cli.parser.subparser.animals package</a></li>
+      <li>Next: <a href="sxapi.integrationV2.html" title="next chapter">sxapi.integrationV2 package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2021, Florian Klien.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/api/sxapi.cli.parser.subparser.token.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
