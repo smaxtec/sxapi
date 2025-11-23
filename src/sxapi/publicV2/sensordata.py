@@ -1,7 +1,4 @@
-from datetime import (
-    datetime,
-    timedelta,
-)
+import datetime
 
 from sxapi.publicV2 import PublicAPIV2
 
@@ -32,19 +29,19 @@ def get_sensor_data_from_animal(api, animal_id, *args, **kwargs):
     from_date_string = kwargs.get("from_date")
     to_date_string = kwargs.get("to_date")
 
-    to_date = datetime.utcnow()
-    from_date = to_date - timedelta(days=2)
+    to_date = datetime.datetime.now(datetime.UTC)
+    from_date = to_date - datetime.timedelta(days=2)
 
     if to_date_string:
         try:
-            to_date = datetime.strptime(*to_date_string, "%Y-%m-%d")
+            to_date = datetime.datetime.strptime(to_date_string, "%Y-%m-%d")
         except ValueError:
             print("to_date has not the right format YYYY-MM-DD!")
             return None
 
     if from_date_string:
         try:
-            from_date = datetime.strptime(*from_date_string, "%Y-%m-%d")
+            from_date = datetime.datetime.strptime(from_date_string, "%Y-%m-%d")
         except ValueError:
             print("from_date has not the right format YYYY-MM-DD!")
             return None

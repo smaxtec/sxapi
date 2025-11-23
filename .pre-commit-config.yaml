@@ -1,29 +1,29 @@
 # find all other possible hooks at https://pre-commit.com/hooks.html
 
-default_stages: [commit]
+default_stages: [pre-commit]
 fail_fast: true
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.4.0
+    rev: v5.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-toml
 
   - repo: https://github.com/psf/black
-    rev: 22.3.0
+    rev: 25.1.0
     hooks:
       - id: black
 
   - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
+    rev: 6.0.0
     hooks:
       - id: isort
         name: isort (python)
 
   - repo: https://github.com/myint/autoflake
-    rev: v1.4
+    rev: v2.3.1
     hooks:
       - id: autoflake
         args: [
@@ -33,7 +33,7 @@ repos:
             "--ignore-init-module-imports"
         ]
   - repo: https://github.com/PyCQA/flake8
-    rev: 3.9.2
+    rev: 7.1.2
     hooks:
       - id: flake8
         additional_dependencies: [flake8-isort]

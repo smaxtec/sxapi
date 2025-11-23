@@ -17,7 +17,7 @@ def test_get_sensor_data(get_mock, print_mock):
     print_mock.reset_mock()
 
     get_sensor_data_from_animal(
-        PublicAPIV2(), "1233455", metrics="act", to_date=["21-12-2"]
+        PublicAPIV2(), "1233455", metrics="act", to_date="21-12-2"
     )
     call_args = print_mock.call_args_list[0]
     assert print_mock.call_count == 1
@@ -28,8 +28,8 @@ def test_get_sensor_data(get_mock, print_mock):
         PublicAPIV2(),
         "1233455",
         metrics="act",
-        to_date=["2001-12-2"],
-        from_date=["0334"],
+        to_date="2001-12-2",
+        from_date="0334",
     )
     call_args = print_mock.call_args_list[0]
     assert print_mock.call_count == 1
@@ -40,8 +40,8 @@ def test_get_sensor_data(get_mock, print_mock):
         PublicAPIV2(),
         "1233455",
         metrics="act",
-        to_date=["2001-12-02"],
-        from_date=["2001-11-02"],
+        to_date="2001-12-02",
+        from_date="2001-11-02",
     )
 
     get_mock.assert_called_once_with(

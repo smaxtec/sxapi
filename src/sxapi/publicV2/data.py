@@ -55,7 +55,7 @@ class Data:
             params[k] = v
 
         url_suffix = self.path_suffix + f"/animals/{animal_id}/metrics"
-        self.api.get(url_suffix, json=params)
+        return self.api.get(url_suffix, json=params)
 
     def get_data_devices(self, device_id, metrics, from_date, to_date, **kwargs):
         """Query sensordata for a device.
